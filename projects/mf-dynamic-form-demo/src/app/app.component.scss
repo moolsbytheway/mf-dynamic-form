@@ -1,0 +1,17 @@
+.container {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+
+  div {
+    width: 50%;
+  }
+
+  pre {
+    width: 50%;
+    background: #eee;
+    margin: 20px;
+    overflow: auto;
+    height: 75vh;
+  }
+}

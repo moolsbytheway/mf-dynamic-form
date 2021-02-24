@@ -1,0 +1,67 @@
+export class FormControlBase<T> {
+  value: T;
+  key: string;
+  class: string;
+  label: string;
+  required: boolean;
+  step: string;
+  order: number;
+  placeholder: string;
+  alphanumeric: boolean;
+  controlType: string;
+  type: string;
+  export: boolean;
+  hidden: boolean;
+  requiredWhen: any[] | { field: string, value: any }[];
+  visibleWhen: { field: string, value: any }[];
+  minLength: number;
+  maxLength: number;
+  options: { value: string, label: string }[];
+
+  constructor(options: {
+    value?: T;
+    key?: string;
+    step?: string;
+    export?: boolean;
+    label?: string;
+    alphanumeric?: boolean;
+    required?: boolean
+    requiredWhen?: any[] | { field: string, value: any }[];
+    visibleWhen?: { field: string, value: any }[];
+    order?: number;
+    controlType?: string;
+    type?: string;
+    options?: { value: string, label: string }[],
+    minLength?: number;
+    hidden?: boolean;
+    maxLength?: number;
+    class?: string;
+    placeholder?: string;
+  } = {}) {
+    this.value = options.value;
+    this.key = options.key || '';
+    this.label = options.label || '';
+    this.required = options.required == undefined ? true : !!options.required
+    this.requiredWhen = options.requiredWhen || [];
+    this.visibleWhen = options.visibleWhen || [];
+    this.order = options.order === undefined ? 1 : options.order;
+    this.controlType = options.controlType || '';
+    this.type = options.type || 'text';
+    this.maxLength = options.maxLength;
+    this.alphanumeric = !!options.alphanumeric;
+    this.hidden = !!options.hidden;
+    this.step = options.step;
+    this.minLength = options.minLength;
+    this.class = options.class;
+    this.options = options.options || [];
+    this.export = options.export == undefined ? true : options.export;
+    this.placeholder = options.placeholder || options.label;
+  }
+}
+
+
+export type MfForm = {
+  debugMode: boolean,
+  stepper: boolean,
+  controls: FormControlBase<any>[]
+}

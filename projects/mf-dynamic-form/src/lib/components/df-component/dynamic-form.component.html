@@ -1,0 +1,40 @@
+<small *ngIf="!formGroup">Chargement...</small>
+<ng-container *ngIf="formGroup">
+  <form [formGroup]="formGroup" class="mf-form">
+    <div class="row" *ngFor="let group of groups; let i = index">
+      <h6 class="col-md-12" [hidden]="!isActiveStep(i)" *ngIf="stepper">{{group.name}}</h6>
+      <ng-container *ngFor="let control of group.controls">
+        <div *ngIf="!control.hidden"
+             [hidden]="!isActiveStep(i)"
+             [ngClass]="control.class">
+          <df-form-control [control]="control" [form]="formGroup"></df-form-control>
+        </div>
+      </ng-container>
+    </div>
+    <div>
+      <div>
+        <button *ngIf="!isFirstStep" (click)="goToPreviousStep()"
+                class="btn btn-secondary">
+          <span class="pointer mr-1">
+            &laquo; Précédent
+          </span>
+        </button>
+        <button *ngIf="!isLastStep" (click)="goToNextStep()"
+                class="btn btn-secondary">
+         <span class="pointer mr-1">
+            Suivant &raquo;
+          </span>
+        </button>
+        <button class="btn btn-primary"
+                *ngIf="isLastStep"
+                type="submit"
+                (click)="submit()"
+                [disabled]="!formGroup.valid">Save
+        </button>
+        <button class="btn btn-link" (click)="back()">Annuler</button>
+        <button *ngIf="debugMode" class="btn btn-danger" (click)="debug()">Print debug data</button>
+      </div>
+    </div>
+  </form>
+
+</ng-container>

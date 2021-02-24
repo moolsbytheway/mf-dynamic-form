@@ -1,0 +1,24 @@
+.invalid-form-field {
+  font-size: 11px;
+  color: #a92c04;
+
+  span {
+    display: block;
+  }
+}
+
+
+.label {
+  font-size: 12px;
+  color: #808080;
+}
+
+input[type=file] {
+  padding: 3px;
+}
+
+
+textarea {
+  height: 70px;
+}
+

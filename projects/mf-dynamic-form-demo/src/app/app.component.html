@@ -1,0 +1,13 @@
+<h3>Formulaire création test COVID19</h3>
+<div class="container">
+  <div>
+    <mf-dynamic-form [form]="form"
+                     (formSubmitted)="onSubmit($event)"
+    ></mf-dynamic-form>
+
+  </div>
+  <pre *ngIf="formData">
+    {{  formData | json}}
+  </pre>
+</div>
+

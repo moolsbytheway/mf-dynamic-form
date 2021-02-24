@@ -1,0 +1,13 @@
+.mf-form {
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 5px;
+  }
+
+  .form-control {
+    padding: 0 10px;
+    font-size: 12px;
+  }
+}
+
