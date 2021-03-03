@@ -7,6 +7,7 @@ import {CountryFormControl} from '../../../mf-dynamic-form/src/lib/df-model/coun
 import {TextareaFormControl} from '../../../mf-dynamic-form/src/lib/df-model/textarea-form-control';
 import {PasswordFormControl} from '../../../mf-dynamic-form/src/lib/df-model/password-form-control';
 import {FileFormControl} from '../../../mf-dynamic-form/src/lib/df-model/file-form-control';
+import {RadioButtonFormControl} from '../../../mf-dynamic-form/src/lib/df-model/radio-button-form-control';
 
 @Injectable()
 export class FormsService {
@@ -64,6 +65,16 @@ export class FormsService {
             minDate: formatDate(new Date(1900, 1, 1), 'yyyy-MM-dd', 'en'),
             maxDate: formatDate(new Date(), 'yyyy-MM-dd', 'en')
           }),
+        new RadioButtonFormControl({
+          step: 'Informations voyageur',
+          key: 'radioButton',
+          label: 'Acceptes tu les termes et conditions ?',
+          value: '',
+          options: [
+            {label: 'Oui', value: 'true'},
+            {label: 'Non', value: 'false'}
+          ]
+        }),
         new DropdownFormControl({
           step: 'Informations voyageur',
           key: 'motif',

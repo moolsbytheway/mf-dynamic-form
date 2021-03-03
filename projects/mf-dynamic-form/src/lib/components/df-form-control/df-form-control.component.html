@@ -65,6 +65,18 @@
       <option *ngFor="let opt of control.options" [value]="opt.value">{{opt.label}}</option>
     </select>
 
+    <div *ngSwitchCase="'radio'">
+      <div *ngFor="let opt of control.options">
+        <input id="{{opt.label}}"
+               [value]="opt.value"
+               type="radio"
+               [name]="control.key"
+               [formControlName]="control.key">
+        <label
+          for="{{opt.label}}">{{opt.label}}</label>
+      </div>
+    </div>
+
   </ng-container>
 
   <div class="invalid-form-field"
