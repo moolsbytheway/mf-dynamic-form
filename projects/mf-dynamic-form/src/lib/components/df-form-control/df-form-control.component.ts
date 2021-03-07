@@ -1,6 +1,6 @@
 import {Component, Input, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {Subscription} from "rxjs";
+import {AbstractControl, FormArray, FormControl, FormGroup, Validators} from '@angular/forms';
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'df-form-control',
@@ -29,6 +29,21 @@ export class DfFormControlComponent implements OnInit, OnDestroy {
     return this.form.controls[this.control.key].errors;
   }
 
+  get formControlIsRequired() {
+    if (this.control.required) {
+      return true;
+    }
+
+    if (!this.form.controls[this.control.key].validator) {
+      return false;
+    }
+    const validator = this.form.controls[this.control.key].validator({} as AbstractControl);
+    if (!validator) {
+      return false;
+    }
+    return validator.required;
+  }
+
   get isRequired() {
     return this.formErrors && this.formErrors.required;
   }
@@ -50,7 +65,7 @@ export class DfFormControlComponent implements OnInit, OnDestroy {
   }
 
   get isConfirmField() {
-    return this.control.key == "passwordConfirmation";
+    return this.control.key == 'passwordConfirmation';
   }
 
   get passwordMismatch() {
@@ -80,17 +95,21 @@ export class DfFormControlComponent implements OnInit, OnDestroy {
 
   private subscribeToRequirementDependecies() {
     if (!this.form) {
-      throw new Error("Couldn't subscribe to form input dependecies value change");
+      throw new Error('Couldn\'t subscribe to form input dependecies value change');
     }
     const deps = this.control.requiredWhen;
     const hasDeps = deps && deps.length > 0;
-    if (!hasDeps) return;
+    if (!hasDeps) {
+      return;
+    }
 
     let found = false;
     for (let i in deps) {
       const dep = deps[i];
-      if (found) break;
-      const isString = typeof dep == "string";
+      if (found) {
+        break;
+      }
+      const isString = typeof dep == 'string';
       const fieldName = isString ? dep : dep['field'];
       const expectedValue = isString ? '' : dep['value'];
       const shouldBeRequiredWhenValueIsNotEmpty = (value: string) => isString && value != '';
@@ -102,7 +121,7 @@ export class DfFormControlComponent implements OnInit, OnDestroy {
           this.form.get(this.control.key).updateValueAndValidity();
           found = true;
         } else {
-          this.form.get(this.control.key).setValidators(null)
+          this.form.get(this.control.key).setValidators(null);
           this.form.get(this.control.key).updateValueAndValidity();
         }
       }));
@@ -113,21 +132,25 @@ export class DfFormControlComponent implements OnInit, OnDestroy {
   private subscribeToVisibilityDependencies() {
     const deps = this.control.visibleWhen;
     const hasDeps = deps && deps.length > 0;
-    if (!hasDeps) return;
+    if (!hasDeps) {
+      return;
+    }
 
     let found = false;
     for (let i in deps) {
       const dep = deps[i];
-      if (found) break;
+      if (found) {
+        break;
+      }
       const fieldName = dep['field'];
       const expectedValue = dep['value'];
       const shouldBeVisibleWhenValueIsEqualToExpectedValue = value => value == expectedValue;
       this.subx.push(this.form.get(fieldName).valueChanges.subscribe(value => {
         if (shouldBeVisibleWhenValueIsEqualToExpectedValue(value)) {
-          this.form.get(this.control.key).enable()
+          this.form.get(this.control.key).enable();
           found = true;
         } else {
-          this.form.get(this.control.key).disable()
+          this.form.get(this.control.key).disable();
         }
       }));
     }
@@ -140,12 +163,52 @@ export class DfFormControlComponent implements OnInit, OnDestroy {
       reader.readAsDataURL(file);
       reader.onload = () => {
         this.form.controls[this.control.key].setValue(reader.result);
-      }
+      };
     }
   }
 
   updateCity(city: string) {
     this.form.controls[this.control.key].setValue(city);
+  }
+
+
+  public itemIsChecked(item) {
+    const formArray: FormArray = this.form.get(this.control.key) as FormArray;
+    let isChecked = false;
+
+    for (let i = 0; i < formArray.controls.length; i++) {
+      const ctrl = formArray.controls[i];
+      if (ctrl.value == item) {
+        isChecked = true;
+        break;
+      }
+    }
+    return isChecked;
+
+  }
+
+  onCheckChange(event) {
+    const formArray: FormArray = this.form.get(this.control.key) as FormArray;
+    /* Selected */
+    if (event.target.checked) {
+      // Add a new control in the arrayForm
+      formArray.push(new FormControl(event.target.value));
+    }
+    /* unselected */
+    else {
+      let i: number = 0;
+
+      formArray.controls.forEach((ctrl: FormControl) => {
+        if (ctrl.value == event.target.value) {
+          formArray.removeAt(i);
+          return;
+        }
+        i++;
+      });
+    }
+    if (!formArray.value || !formArray.value.length) {
+      formArray.setValue(null);
+    }
   }
 }
 

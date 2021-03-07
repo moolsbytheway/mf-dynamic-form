@@ -44,6 +44,28 @@ export class AppComponent {
           label: 'Prénom',
           type: 'text',
         }),
+        new RadioButtonFormControl({
+          step: 'Informations voyageur',
+          key: 'radioButton',
+          label: 'Acceptes tu les termes et conditions ?',
+          value: '',
+          options: [
+            {label: 'Oui', value: 'true'},
+            {label: 'Non', value: 'false'}
+          ]
+        }),
+        new CheckboxFormControl({
+          step: 'Informations voyageur',
+          key: 'checkboxes',
+          required: true,
+          label: 'Selectionnez les choix applicables',
+          value: ['2', '1'],
+          options: [
+            {label: 'Choix1', value: '1'},
+            {label: 'Choix2', value: '2'},
+            {label: 'Choix3', value: '3'}
+          ]
+        }),
         new TextboxFormControl({
           step: 'Informations de l\'utilisateur',
           key: 'lastName',

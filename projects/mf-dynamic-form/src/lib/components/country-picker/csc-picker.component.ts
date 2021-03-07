@@ -9,11 +9,12 @@
  */
 
 import {AfterViewInit, Component, EventEmitter, Input, Output, ViewEncapsulation} from '@angular/core';
-import csc, {ICity, ICountry, IState} from 'country-state-city';
+import {ICity, ICountry, IState} from 'mf-country-state-city';
+import * as csc from 'mf-country-state-city'
 
 
 @Component({
-  selector: 'csc-picker',
+  selector: 'mf-csc-picker',
   styleUrls: ['./csc-picker.component.scss'],
   templateUrl: './csc-picker.component.html',
   encapsulation: ViewEncapsulation.None

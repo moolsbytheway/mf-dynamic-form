@@ -1,5 +1,5 @@
-export class FormControlBase<T> {
-  value: T;
+export class FormControlBase {
+  value: any;
   key: string;
   class: string;
   label: string;
@@ -19,7 +19,7 @@ export class FormControlBase<T> {
   options: { value: string, label: string }[];
 
   constructor(options: {
-    value?: T;
+    value?: any ;
     key?: string;
     step?: string;
     export?: boolean;
@@ -63,5 +63,5 @@ export class FormControlBase<T> {
 export type MfForm = {
   debugMode: boolean,
   stepper: boolean,
-  controls: FormControlBase<any>[]
+  controls: FormControlBase[]
 }

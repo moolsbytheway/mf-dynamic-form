@@ -1,6 +1,6 @@
 import {FormControlBase} from './form-control-base';
 
-export class DateFormControl extends FormControlBase<Date> {
+export class DateFormControl extends FormControlBase {
   controlType = 'date';
   minDate: string;
   maxDate: string;

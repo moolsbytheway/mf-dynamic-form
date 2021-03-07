@@ -15,9 +15,9 @@ export class DynamicFormComponent {
   debugMode: boolean;
   stepper: boolean;
   formGroup: FormGroup;
-  formControls: FormControlBase<any>[] = [];
+  formControls: FormControlBase[] = [];
   activeStep = 0;
-  groups: { name: string, controls: FormControlBase<any>[] }[] = [];
+  groups: { name: string, controls: FormControlBase[] }[] = [];
 
   @Input() set form(f: MfForm) {
     if (!f) {

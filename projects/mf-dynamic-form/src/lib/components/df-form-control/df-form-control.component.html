@@ -1,5 +1,7 @@
 <div [formGroup]="form" class="form-group">
-  <span class="label">{{control.label}}</span>
+  <span class="label"
+        [class.required]="formControlIsRequired"
+  >{{control.label}}</span>
 
   <ng-container [ngSwitch]="control.controlType">
 
@@ -46,7 +48,7 @@
               [id]="control.key"></textarea>
 
     <ng-container *ngSwitchCase="'country'">
-      <csc-picker
+      <mf-csc-picker
         cityLabel="Ville"
         stateLabel="Province"
         countryLabel="Pays"
@@ -54,7 +56,7 @@
         [disabled]="isDisabled"
         [showErrorCondition]="!isValid"
         (OnCitySelected)="updateCity($event)"
-      ></csc-picker>
+      ></mf-csc-picker>
     </ng-container>
 
     <select [id]="control.key"
@@ -74,6 +76,15 @@
                [formControlName]="control.key">
         <label
           for="{{opt.label}}">{{opt.label}}</label>
+      </div>
+    </div>
+
+    <div *ngSwitchCase="'checkbox'">
+      <div *ngFor="let opt of control.options">
+        <label>
+          <input type="checkbox" #it [checked]="itemIsChecked(opt.value)" [value]="opt.value" (change)="onCheckChange($event)">
+          {{opt.label}}
+        </label>
       </div>
     </div>
 

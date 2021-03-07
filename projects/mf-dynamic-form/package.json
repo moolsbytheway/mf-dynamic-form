@@ -1,6 +1,6 @@
 {
   "name": "mf-dynamic-form",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Angular component that creates a form with validation from given spec",
   "repository": {
     "type": "git",
@@ -16,9 +16,8 @@
   "peerDependencies": {
     "@angular/common": "^11.2.1",
     "@angular/core": "^11.2.1",
-    "country-state-city": "^2.0.0"
+    "mf-country-state-city": "^0.0.1"
   },
-  "postinstall": "npm i country-state-city@2.0.0",
   "dependencies": {
     "tslib": "^2.0.0"
   }

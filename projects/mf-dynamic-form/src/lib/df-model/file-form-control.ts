@@ -1,5 +1,5 @@
 import {FormControlBase} from './form-control-base';
 
-export class FileFormControl extends FormControlBase<string> {
+export class FileFormControl extends FormControlBase {
   controlType = 'file';
 }

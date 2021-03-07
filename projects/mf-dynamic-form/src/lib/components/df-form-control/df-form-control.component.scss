@@ -22,3 +22,10 @@ textarea {
   height: 70px;
 }
 
+.required {
+  &:after {
+    content: "*";
+    color: #a92c04;
+    font-size: 10px;
+  }
+}

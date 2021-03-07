@@ -8,6 +8,7 @@ import {TextareaFormControl} from '../../../mf-dynamic-form/src/lib/df-model/tex
 import {PasswordFormControl} from '../../../mf-dynamic-form/src/lib/df-model/password-form-control';
 import {FileFormControl} from '../../../mf-dynamic-form/src/lib/df-model/file-form-control';
 import {RadioButtonFormControl} from '../../../mf-dynamic-form/src/lib/df-model/radio-button-form-control';
+import {CheckboxFormControl} from '../../../mf-dynamic-form/src/lib/df-model/checkbox-form-control';
 
 @Injectable()
 export class FormsService {
@@ -15,7 +16,7 @@ export class FormsService {
 
   static getRegisterForm() {
     return {
-      debugMode: false,
+      debugMode: true,
       stepper: true,
       controls: [
         new TextboxFormControl({
@@ -73,6 +74,18 @@ export class FormsService {
           options: [
             {label: 'Oui', value: 'true'},
             {label: 'Non', value: 'false'}
+          ]
+        }),
+        new CheckboxFormControl({
+          step: 'Informations voyageur',
+          key: 'checkboxes',
+          required: true,
+          label: 'Selectionnez les choix applicables',
+          value: ['2', '1'],
+          options: [
+            {label: 'Choix1', value: '1'},
+            {label: 'Choix2', value: '2'},
+            {label: 'Choix3', value: '3'}
           ]
         }),
         new DropdownFormControl({
