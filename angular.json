@@ -162,6 +162,46 @@
           }
         }
       }
+    },
+    "mf-country-state-city": {
+      "projectType": "library",
+      "root": "projects/mf-country-state-city",
+      "sourceRoot": "projects/mf-country-state-city/src",
+      "prefix": "mf",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "tsConfig": "projects/mf-country-state-city/tsconfig.lib.json",
+            "project": "projects/mf-country-state-city/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/mf-country-state-city/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/mf-country-state-city/src/test.ts",
+            "tsConfig": "projects/mf-country-state-city/tsconfig.spec.json",
+            "karmaConfig": "projects/mf-country-state-city/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/mf-country-state-city/tsconfig.lib.json",
+              "projects/mf-country-state-city/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
     }
   },
   "defaultProject": "mf-dynamic-form"

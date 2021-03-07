@@ -8,6 +8,7 @@
     "postinstall": "ngcc",
     "build-demo": "ng build mf-dynamic-form-demo",
     "build-lib": "ng build mf-dynamic-form --prod",
+    "build-csc": "node --max-old-space-size=8000 node_modules/@angular/cli/bin/ng build mf-country-state-city --prod",
     "publish-lib": "cd dist/mf-dynamic-form && npm publish",
     "build-lib-watch": "ng build mf-dynamic-form --watch",
     "test": "ng test",
@@ -26,8 +27,7 @@
     "@angular/router": "~11.2.1",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
-    "zone.js": "~0.11.3",
-    "country-state-city": "^2.0.0"
+    "zone.js": "~0.11.3"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.1102.1",
