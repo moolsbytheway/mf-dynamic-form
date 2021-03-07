@@ -3,6 +3,9 @@
  */
 
 // Model
+export * from './lib/df-model/form-control-base';
+export * from './lib/df-model/checkbox-form-control';
+export * from './lib/df-model/radio-button-form-control';
 export * from './lib/df-model/country-form-control';
 export * from './lib/df-model/date-form-control';
 export * from './lib/df-model/dropdown-form-control';
