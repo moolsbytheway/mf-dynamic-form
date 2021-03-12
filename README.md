@@ -1,5 +1,14 @@
 ## Dynamic form component
 
+### Contact me at moolsbytheway [at] gmail [dot] com for contribution or assistance
+### Roadmap
+- Add required attribute to checkboxe
+- Add pattern validation
+- add ios like switcher control
+- add the support for custom controls (so anyone can create a control and use it in the form)
+- re-design how the stepper is implemented
+- show an error message if some required inputs are missing if user clicks on save (enable save button by default)
+
 ### Install
 
 ```
