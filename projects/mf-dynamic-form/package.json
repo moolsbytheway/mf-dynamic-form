@@ -1,6 +1,6 @@
 {
   "name": "mf-dynamic-form",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "description": "Angular component that creates a form with validation from given spec",
   "repository": {
     "type": "git",
@@ -12,12 +12,12 @@
   "bugs": {
     "url": "https://github.com/moolsbytheway/mf-dynamic-form/issues"
   },
-  "postinstall": "npm i mf-country-state-city@0.0.2",
+  "postinstall": "npm i mf-country-state-city@0.0.3",
   "homepage": "https://github.com/moolsbytheway/mf-dynamic-form",
   "peerDependencies": {
     "@angular/common": "^11.2.1",
     "@angular/core": "^11.2.1",
-    "mf-country-state-city": "^0.0.2"
+    "mf-country-state-city": "^0.0.3"
   },
   "dependencies": {
     "tslib": "^2.0.0"

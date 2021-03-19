@@ -1,6 +1,6 @@
 {
   "name": "mf-country-state-city",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Library for fetching Country, its States and Cities",
   "repository": {
     "type": "git",
