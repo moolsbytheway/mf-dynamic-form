@@ -9,6 +9,13 @@
 - re-design how the stepper is implemented
 - show an error message if some required inputs are missing if user clicks on save (enable save button by default)
 
+### Demo
+
+https://moolsbytheway.github.io/mf-dynamic-form
+;
+### Stackblitz
+https://stackblitz.com/edit/angular-ivy-2s2tth
+
 ### Install
 
 ```
