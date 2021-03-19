@@ -13,3 +13,11 @@
 
 ### v0.2.1
 - Fix build
+
+### v0.2.2
+- Manually add city
+
+### v0.2.3
+- Fix dependency
+
+
