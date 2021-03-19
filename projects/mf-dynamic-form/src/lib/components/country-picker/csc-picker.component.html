@@ -1,35 +1,57 @@
 <div>
-  <div class="form-group">
-    <span class="label">{{countryLabel}}</span>
-    <select class="form-control "
-            [disabled]="disabled"
-            [ngModelOptions]="{standalone: true}"
-            (ngModelChange)="changeCountry($event)" [(ngModel)]="currentCountry">
-      <option *ngFor="let country of countries" [ngValue]="country">
-        {{country.name}}
-      </option>
-    </select></div>
+  <div>
+    <label>
+      <input type="checkbox"
+             [checked]="isCityNotInList" [value]="isCityNotInList"
+             (change)="toggleShowCityInput($event)">
+      <small>{{cityIsMissingLabel}}</small>
+    </label>
+  </div>
+  <div [hidden]="!isCityNotInList">
+    <div class="form-group">
+      <span class="label">{{countryLabel + ' - ' + stateLabel + ' - ' + cityLabel}}</span>
+      <input type="text" class="form-control"
+             [disabled]="disabled"
+             [ngModelOptions]="{standalone: true}"
+             [(ngModel)]="manuallySelectedCity"
+             (ngModelChange)="manuallySetCity($event)"
+      />
+    </div>
+  </div>
 
-  <div class="form-group">
-    <span class="label">{{stateLabel}}</span>
-    <select class="form-control"
-            [disabled]="disabled"
-            [ngModelOptions]="{standalone: true}"
-            (ngModelChange)="changeState($event)" [(ngModel)]="currentState">
-      <option *ngFor="let state of states" [ngValue]="state">
-        {{state.name}}
-      </option>
-    </select></div>
+  <div [hidden]="isCityNotInList">
+    <div class="form-group">
+      <span class="label">{{countryLabel}}</span>
+      <select class="form-control "
+              [disabled]="disabled"
+              [ngModelOptions]="{standalone: true}"
+              (ngModelChange)="changeCountry($event)" [(ngModel)]="currentCountry">
+        <option *ngFor="let country of countries" [ngValue]="country">
+          {{country.name}}
+        </option>
+      </select></div>
 
-  <div class="form-group">
-    <span class="label">{{cityLabel}}</span>
-    <select class="form-control"
-            [disabled]="disabled"
-            [ngModelOptions]="{standalone: true}"
-            (ngModelChange)="changeCity($event)" [(ngModel)]="currentCity">
-      <option *ngFor="let city of cities" [ngValue]="city">
-        {{city.name}}
-      </option>
-    </select>
+    <div class="form-group">
+      <span class="label">{{stateLabel}}</span>
+      <select class="form-control"
+              [disabled]="disabled"
+              [ngModelOptions]="{standalone: true}"
+              (ngModelChange)="changeState($event)" [(ngModel)]="currentState">
+        <option *ngFor="let state of states" [ngValue]="state">
+          {{state.name}}
+        </option>
+      </select></div>
+
+    <div class="form-group">
+      <span class="label">{{cityLabel}}</span>
+      <select class="form-control"
+              [disabled]="disabled"
+              [ngModelOptions]="{standalone: true}"
+              (ngModelChange)="changeCity($event)" [(ngModel)]="currentCity">
+        <option *ngFor="let city of cities" [ngValue]="city">
+          {{city.name}}
+        </option>
+      </select>
+    </div>
   </div>
 </div>

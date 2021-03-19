@@ -15,5 +15,6 @@ export * from './lib/df-model/textarea-form-control';
 export * from './lib/df-model/textbox-form-control';
 
 // Main component and module
+export * from './lib/components/country-picker/csc-picker.component';
 export * from './lib/components/df-component/dynamic-form.component';
 export * from './lib/dynamic-form.module';

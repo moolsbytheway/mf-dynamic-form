@@ -22,14 +22,15 @@ import * as csc from 'mf-country-state-city'
 export class CountryStateCityPicker implements AfterViewInit {
 
   @Input() disabled: boolean = false;
+  @Input() cityIsMissingLabel: string = 'I cant see desired city';
   @Input() countryLabel: string = 'Country';
   @Input() stateLabel: string = 'State';
   @Input() cityLabel: string = 'City';
   @Input() defaultValue: string = '';
-  @Input() cityMandatoryMessage: string = 'City is mandatory';
-  @Input() showErrorCondition = false;
 
-  @Output() OnCitySelected: EventEmitter<string> = new EventEmitter();
+  @Output() onCitySelected: EventEmitter<string> = new EventEmitter();
+
+  manuallySelectedCity: string;
 
   countries = csc.getAllCountries();
   cities: ICity[] | undefined;
@@ -38,11 +39,14 @@ export class CountryStateCityPicker implements AfterViewInit {
   currentCountry: ICountry | undefined;
   currentCity: ICity | undefined;
   currentState: IState | undefined;
+  isCityNotInList = false;
 
   changeCountry(value: ICountry) {
     this.currentCountry = value;
     this.currentCity = undefined;
     this.currentState = undefined;
+
+    if(!value) return;
     this.states = csc.getStatesOfCountry(value.isoCode);
     if (!this.states || this.states.length == 0) {
       this.states = [{
@@ -73,7 +77,7 @@ export class CountryStateCityPicker implements AfterViewInit {
     if (!this.currentCountry || !this.currentState) return;
     this.currentCity = value;
     const str = this.currentCountry.name + ' - ' + this.currentState.name + ' - ' + this.currentCity.name;
-    this.OnCitySelected.emit(str);
+    this.onCitySelected.emit(str);
   }
 
   getCountryByName(country: string) {
@@ -101,4 +105,14 @@ export class CountryStateCityPicker implements AfterViewInit {
     }
   }
 
+  toggleShowCityInput(event) {
+    this.isCityNotInList = !!event.target.checked
+    this.manuallySelectedCity = null;
+    this.changeCountry(null);
+    this.onCitySelected.emit(null);
+  }
+
+  manuallySetCity(event) {
+    this.onCitySelected.emit(event)
+  }
 }

@@ -1,6 +1,6 @@
 {
   "name": "mf-dynamic-form",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Angular component that creates a form with validation from given spec",
   "repository": {
     "type": "git",
@@ -8,7 +8,7 @@
   },
   "keywords": ["form", "dynamic", "angular"],
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/moolsbytheway/mf-dynamic-form/issues"
   },

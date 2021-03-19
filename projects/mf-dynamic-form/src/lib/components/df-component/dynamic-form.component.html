@@ -2,7 +2,9 @@
 <ng-container *ngIf="formGroup">
   <form [formGroup]="formGroup" class="mf-form">
     <div class="row" *ngFor="let group of groups; let i = index">
-      <h6 class="col-md-12" [hidden]="!isActiveStep(i)" *ngIf="stepper">{{group.name}}</h6>
+      <h6 class="col-md-12"
+          [hidden]="!isActiveStep(i)"
+          *ngIf="stepper">{{group.name}}</h6>
       <ng-container *ngFor="let control of group.controls">
         <div *ngIf="!control.hidden"
              [hidden]="!isActiveStep(i)"
