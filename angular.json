@@ -57,6 +57,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "baseHref" : "https://moolsbytheway.github.io/mf-dynamic-form/",
             "outputPath": "dist/mf-dynamic-form-demo",
             "index": "projects/mf-dynamic-form-demo/src/index.html",
             "main": "projects/mf-dynamic-form-demo/src/main.ts",
@@ -90,8 +91,8 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "2mb",
-                  "maximumError": "5mb"
+                  "maximumWarning": "15mb",
+                  "maximumError": "100mb"
                 },
                 {
                   "type": "anyComponentStyle",
