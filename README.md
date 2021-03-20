@@ -2,7 +2,7 @@
 
 #### Contact me at moolsbytheway [at] gmail [dot] com for contribution or assistance
 ### Roadmap
-- Add required attribute to checkboxe
+- Add required attribute to checkboxes
 - Add pattern validation
 - add ios like switcher control
 - add the support for custom controls (so anyone can create a control and use it in the form)
@@ -12,8 +12,8 @@
 ### Demo
 
 https://moolsbytheway.github.io/mf-dynamic-form
-;
-### Stackblitz
+
+### Stackblitz-
 https://stackblitz.com/edit/angular-ivy-2s2tth
 
 ### Install
