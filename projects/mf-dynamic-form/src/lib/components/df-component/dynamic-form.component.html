@@ -18,13 +18,13 @@
         <button *ngIf="!isFirstStep" (click)="goToPreviousStep()"
                 class="btn btn-secondary">
           <span class="pointer mr-1">
-            &laquo; Précédent
+            &laquo; {{i18n.previous}}
           </span>
         </button>
         <button *ngIf="!isLastStep" (click)="goToNextStep()"
                 class="btn btn-secondary">
          <span class="pointer mr-1">
-            Suivant &raquo;
+          {{i18n.next}} &raquo;
           </span>
         </button>
         <button class="btn btn-primary"
