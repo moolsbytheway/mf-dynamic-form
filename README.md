@@ -19,6 +19,8 @@ https://stackblitz.com/edit/angular-ivy-2s2tth
 
 ### Install
 
+NPM package: https://www.npmjs.com/package/mf-dynamic-form
+
 ```
 npm install mf-dynamic-form
 ```
