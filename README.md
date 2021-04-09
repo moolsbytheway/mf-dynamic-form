@@ -53,7 +53,7 @@ npm install mf-dynamic-form
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  i18n= {next:'Suivant', cancel: 'Annuler', previous: 'Précedent'}
+  i18n= {next:'Suivant', cancel: 'Annuler', previous: 'Précedent', save: 'Enregistrer'}
   form: MfForm  = {
     debugMode: true,
     stepper: true,

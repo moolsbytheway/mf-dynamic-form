@@ -82,7 +82,14 @@ export class FormsService {
         new CountryFormControl({
           step: 'Informations de l\'utilisateur',
           key: 'birthPlace',
-          label: 'Lieu de naissance',
+          label: 'Lieu de naissance'
+        }, {
+          i18n: {
+            cityIsMissing: 'I cant\'t see the desired city',
+            city: "City",
+            state: "State",
+            country: "Country"
+          }
         }),
         new TextareaFormControl({
           step: 'Informations voyageur',

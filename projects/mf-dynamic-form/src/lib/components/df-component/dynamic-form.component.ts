@@ -18,9 +18,9 @@ export class DynamicFormComponent {
   formControls: FormControlBase[] = [];
   activeStep = 0;
   groups: { name: string, controls: FormControlBase[] }[] = [];
-  
+
   @Input()
-  i18n = {next: "Suivant", cancel: "Annuler", previous: "Précedent"};
+  i18n = {next: "Suivant", cancel: "Annuler", previous: "Précedent", save: "Save"};
 
   @Input() set form(f: MfForm) {
     if (!f) {

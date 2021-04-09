@@ -31,9 +31,9 @@
                 *ngIf="isLastStep"
                 type="submit"
                 (click)="submit()"
-                [disabled]="!formGroup.valid">Save
+                [disabled]="!formGroup.valid">{{i18n.save}}
         </button>
-        <button class="btn btn-link" (click)="back()">Annuler</button>
+        <button class="btn btn-link" (click)="back()">{{i18n.cancel}}</button>
         <button *ngIf="debugMode" class="btn btn-danger" (click)="debug()">Print debug data</button>
       </div>
     </div>

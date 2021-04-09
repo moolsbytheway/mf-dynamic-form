@@ -49,10 +49,10 @@
 
     <ng-container *ngSwitchCase="'country'">
       <mf-csc-picker
-        cityLabel="Ville"
-        cityIsMissingLabel="control.cityIsMissingLabel"
-        stateLabel="Province"
-        countryLabel="Pays"
+        [cityLabel]="control.i18n.city"
+        [cityIsMissingLabel]="control.i18n.cityIsMissing"
+        [stateLabel]="control.i18n.state"
+        [countryLabel]="control.i18n.country"
         [disabled]="isDisabled"
         (onCitySelected)="updateCity($event)"
       ></mf-csc-picker>
