@@ -32,7 +32,8 @@ npm install mf-dynamic-form
 <h3>Formulaire création test COVID19</h3>
 <div class="container">
   <div>
-    <mf-dynamic-form [form]="form"
+    <mf-dynamic-form [form]="form" 
+                     [i18n]="i18n"
                      (formSubmitted)="onSubmit($event)"
     ></mf-dynamic-form>
 
@@ -52,7 +53,7 @@ npm install mf-dynamic-form
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-
+  i18n= {next:'Suivant', cancel: 'Annuler', previous: 'Précedent'}
   form: MfForm  = {
     debugMode: true,
     stepper: true,
