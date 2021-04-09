@@ -13,7 +13,8 @@
 
 https://moolsbytheway.github.io/mf-dynamic-form
 
-### Stackblitz-
+### Stackblitz
+[Not working right now]
 https://stackblitz.com/edit/angular-ivy-2s2tth
 
 ### Install
