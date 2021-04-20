@@ -19,8 +19,10 @@ export class DynamicFormComponent {
   activeStep = 0;
   groups: { name: string, controls: FormControlBase[] }[] = [];
 
+
   @Input()
-  i18n = {next: "Suivant", cancel: "Annuler", previous: "Précedent", save: "Save"};
+  i18n = {next: 'Next', cancel: 'Cancel', previous: 'Previous', save: 'Save', errors: {isRequired: "est obligatoire ", minLength: "La longueur minimal est de", maxLength: "La longueur maximal est de", emailInvalid: "invalid",alphanumeric:"doit être Alphanumeric",passwordMismatch:"Les mots de passe ne sont pas identiques"}};
+
 
   @Input() set form(f: MfForm) {
     if (!f) {
@@ -43,6 +45,7 @@ export class DynamicFormComponent {
   }
 
   submit() {
+    if(!this.formGroup.valid) return;
     const form = {};
     this.formControls.forEach(it => {
       if (it.export) {

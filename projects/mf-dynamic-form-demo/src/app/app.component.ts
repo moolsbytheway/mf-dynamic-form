@@ -10,6 +10,8 @@ import {MfForm} from "../../../mf-dynamic-form/src/lib/df-model/form-control-bas
 export class AppComponent implements OnInit {
 
   form: MfForm | undefined;
+  i18n = {next: 'Next', cancel: 'Cancel', previous: 'Previous', save: 'Save',errors: {isRequired: "est obligatoire ", minLength: "La longueur minimal est de", maxLength: "La longueur maximal est de", emailInvalid: "invalid",alphanumeric:"doit être Alphanumeric",passwordMismatch:"Les mots de passe ne sont pas identiques"}};
+
 
   formData: any;
 

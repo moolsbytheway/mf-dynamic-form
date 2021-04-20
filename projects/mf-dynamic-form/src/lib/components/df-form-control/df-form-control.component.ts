@@ -1,6 +1,7 @@
 import {Component, Input, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
 import {AbstractControl, FormArray, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Subscription} from 'rxjs';
+import {I18n} from "../../df-model/i18n";
 
 @Component({
   selector: 'df-form-control',
@@ -11,6 +12,7 @@ import {Subscription} from 'rxjs';
 export class DfFormControlComponent implements OnInit, OnDestroy {
   @Input() control: any;
   @Input() form: FormGroup;
+  @Input() i18n: I18n;
   private subx: Subscription[] = [];
 
   get isValid() {
@@ -83,6 +85,7 @@ export class DfFormControlComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.subscribeToRequirementDependecies();
     this.subscribeToVisibilityDependencies();
+    this.subscribeToDisabilityDependencies();
   }
 
   private unsubscribe() {
@@ -129,6 +132,33 @@ export class DfFormControlComponent implements OnInit, OnDestroy {
 
   }
 
+  private subscribeToDisabilityDependencies() {
+    const deps = this.control.disableWhen;
+    const hasDeps = deps && deps.length > 0;
+    if (!hasDeps) {
+      return;
+    }
+
+    let found = false;
+    for (let i in deps) {
+      const dep = deps[i];
+      if (found) {
+        break;
+      }
+      const fieldName = dep['field'];
+      const expectedValue = dep['value'];
+      const shouldBeDisableWhenValueIsEqualToExpectedValue = value => value == expectedValue;
+      this.subx.push(this.form.get(fieldName).valueChanges.subscribe(value => {
+        if (shouldBeDisableWhenValueIsEqualToExpectedValue(value)) {
+          this.form.get(this.control.key).enable();
+          found = true;
+        } else {
+          this.form.get(this.control.key).disable();
+        }
+      }));
+    }
+  }
+
   private subscribeToVisibilityDependencies() {
     const deps = this.control.visibleWhen;
     const hasDeps = deps && deps.length > 0;
@@ -144,15 +174,13 @@ export class DfFormControlComponent implements OnInit, OnDestroy {
       }
       const fieldName = dep['field'];
       const expectedValue = dep['value'];
-      const shouldBeVisibleWhenValueIsEqualToExpectedValue = value => value == expectedValue;
-      this.subx.push(this.form.get(fieldName).valueChanges.subscribe(value => {
-        if (shouldBeVisibleWhenValueIsEqualToExpectedValue(value)) {
-          this.form.get(this.control.key).enable();
-          found = true;
-        } else {
-          this.form.get(this.control.key).disable();
-        }
-      }));
+      if(this.form.controls[fieldName].value == expectedValue)
+      {
+        this.control.hidden = true;
+        found =true;
+      }else{
+        this.control.hidden = false ;
+      }
     }
   }
 

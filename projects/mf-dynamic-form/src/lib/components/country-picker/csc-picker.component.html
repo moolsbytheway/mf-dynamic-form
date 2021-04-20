@@ -7,19 +7,9 @@
       <small>{{cityIsMissingLabel}}</small>
     </label>
   </div>
-  <div [hidden]="!isCityNotInList">
-    <div class="form-group">
-      <span class="label">{{countryLabel + ' - ' + stateLabel + ' - ' + cityLabel}}</span>
-      <input type="text" class="form-control"
-             [disabled]="disabled"
-             [ngModelOptions]="{standalone: true}"
-             [(ngModel)]="manuallySelectedCity"
-             (ngModelChange)="manuallySetCity($event)"
-      />
-    </div>
-  </div>
 
-  <div [hidden]="isCityNotInList">
+
+
     <div class="form-group">
       <span class="label">{{countryLabel}}</span>
       <select class="form-control "
@@ -42,6 +32,7 @@
         </option>
       </select></div>
 
+  <div [hidden]="isCityNotInList">
     <div class="form-group">
       <span class="label">{{cityLabel}}</span>
       <select class="form-control"
@@ -53,5 +44,19 @@
         </option>
       </select>
     </div>
+  </div>
+
+    <div [hidden]="!isCityNotInList">
+      <div class="form-group">
+        <span class="label">{{cityLabel}}</span>
+        <input type="text" class="form-control"
+               [disabled]="disabled"
+               [ngModelOptions]="{standalone: true}"
+               [(ngModel)]="manuallySelectedCity"
+               (ngModelChange)="manuallySetCity($event)"
+        />
+      </div>
+
+
   </div>
 </div>

@@ -93,23 +93,26 @@
        *ngIf="isTouched">
     <ng-container *ngIf="!isValid">
     <span *ngIf="isRequired">
-      Le champ {{control.label}} est obligatoire
+      {{control.label}} {{i18n.errors.isRequired}}
+
     </span>
       <span *ngIf="errorMinLength">
-      La longueur minimal est de {{control.minLength}}
+      {{i18n.errors.minLength}} {{control.minLength}}
+        {{control.error}}
     </span>
       <span *ngIf="errorMaxLength">
-      La longueur maximal est de {{control.maxLength}}
+      {{i18n.errors.maxLength}} {{control.maxLength}}
     </span>
       <span *ngIf="emailInvalid">
-      {{control.label}} invalid
+      {{control.label}}  {{i18n.errors.emailInvalid}}
     </span>
       <span *ngIf="patternInvalid">
-      Le champ {{control.label}} doit être Alphanumeric
+      {{control.label}} {{i18n.errors.alphanumeric}}
     </span>
     </ng-container>
     <span *ngIf="passwordMismatch && isConfirmField">
-      Les mots de passe ne sont pas identiques
+      {{i18n.errors.passwordMismatch}}
+
     </span>
   </div>
 </div>

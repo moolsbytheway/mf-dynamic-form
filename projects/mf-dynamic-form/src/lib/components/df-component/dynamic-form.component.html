@@ -9,7 +9,7 @@
         <div *ngIf="!control.hidden"
              [hidden]="!isActiveStep(i)"
              [ngClass]="control.class">
-          <df-form-control [control]="control" [form]="formGroup"></df-form-control>
+          <df-form-control [control]="control" [form]="formGroup" [i18n]="i18n"></df-form-control>
         </div>
       </ng-container>
     </div>
@@ -31,7 +31,7 @@
                 *ngIf="isLastStep"
                 type="submit"
                 (click)="submit()"
-                [disabled]="!formGroup.valid">{{i18n.save}}
+               >{{i18n.save}}
         </button>
         <button class="btn btn-link" (click)="back()">{{i18n.cancel}}</button>
         <button *ngIf="debugMode" class="btn btn-danger" (click)="debug()">Print debug data</button>
