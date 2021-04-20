@@ -174,13 +174,17 @@ export class DfFormControlComponent implements OnInit, OnDestroy {
       }
       const fieldName = dep['field'];
       const expectedValue = dep['value'];
-      if(this.form.controls[fieldName].value == expectedValue)
-      {
-        this.control.hidden = true;
-        found =true;
-      }else{
-        this.control.hidden = false ;
-      }
+      const shouldBeVisibleWhenValueIsEqualToExpectedValue = value => value == expectedValue;
+      this.subx.push(this.form.get(fieldName).valueChanges.subscribe(value => {
+        if (shouldBeVisibleWhenValueIsEqualToExpectedValue(value)) {
+          this.control.visible = true;
+          this.form.get(this.control.key).setValue(null);
+          found = true;
+        } else {
+          this.control.visible = false ;
+        }
+      }));
+
     }
   }
 

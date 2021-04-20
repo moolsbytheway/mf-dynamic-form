@@ -11,6 +11,7 @@ export class FormControlBase {
   controlType: string;
   type: string;
   export: boolean;
+  visible: boolean;
   hidden: boolean;
   requiredWhen: any[] | { field: string, value: any }[];
   visibleWhen: { field: string, value: any }[];
@@ -24,6 +25,7 @@ export class FormControlBase {
     key?: string;
     step?: string;
     export?: boolean;
+    visible?: boolean;
     label?: string;
     alphanumeric?: boolean;
     required?: boolean
@@ -58,6 +60,7 @@ export class FormControlBase {
     this.class = options.class;
     this.options = options.options || [];
     this.export = options.export == undefined ? true : options.export;
+    this.visible = options.visible == undefined ? false : options.visible;
     this.placeholder = options.placeholder || options.label;
   }
 }
