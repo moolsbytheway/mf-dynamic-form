@@ -14,6 +14,7 @@ export class FormControlBase {
   hidden: boolean;
   requiredWhen: any[] | { field: string, value: any }[];
   visibleWhen: { field: string, value: any }[];
+  disableWhen: { field: string, value: any }[];
   minLength: number;
   maxLength: number;
   options: { value: string, label: string }[];
@@ -28,6 +29,7 @@ export class FormControlBase {
     required?: boolean
     requiredWhen?: any[] | { field: string, value: any }[];
     visibleWhen?: { field: string, value: any }[];
+    disableWhen?: { field: string, value: any }[];
     order?: number;
     controlType?: string;
     type?: string;
@@ -44,6 +46,7 @@ export class FormControlBase {
     this.required = options.required == undefined ? true : !!options.required
     this.requiredWhen = options.requiredWhen || [];
     this.visibleWhen = options.visibleWhen || [];
+    this.disableWhen = options.disableWhen || [];
     this.order = options.order === undefined ? 1 : options.order;
     this.controlType = options.controlType || '';
     this.type = options.type || 'text';

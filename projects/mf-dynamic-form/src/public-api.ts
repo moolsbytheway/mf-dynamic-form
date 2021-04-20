@@ -13,6 +13,7 @@ export * from './lib/df-model/file-form-control';
 export * from './lib/df-model/password-form-control';
 export * from './lib/df-model/textarea-form-control';
 export * from './lib/df-model/textbox-form-control';
+export * from './lib/df-model/i18n';
 
 // Main component and module
 export * from './lib/components/country-picker/csc-picker.component';

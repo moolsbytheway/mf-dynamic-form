@@ -55,7 +55,7 @@ export class FormControlService {
           : new FormControl(control.value || '');
       }
 
-      if (control.visibleWhen && control.visibleWhen.length > 0) {
+      if (control.disableWhen && control.disableWhen.length > 0) {
         group[control.key].disable();
       }
 

@@ -10,7 +10,7 @@
 
 import {AfterViewInit, Component, EventEmitter, Input, Output, ViewEncapsulation} from '@angular/core';
 import {ICity, ICountry, IState} from 'mf-country-state-city';
-import * as csc from 'mf-country-state-city'
+import * as csc from 'mf-country-state-city';
 
 
 @Component({
@@ -113,6 +113,7 @@ export class CountryStateCityPicker implements AfterViewInit {
   }
 
   manuallySetCity(event) {
-    this.onCitySelected.emit(event)
+    const str = this.currentCountry.name + ' - ' + this.currentState.name + ' - ' + event;
+    this.onCitySelected.emit(str);
   }
 }

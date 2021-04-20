@@ -2,7 +2,7 @@
 <div class="container">
   <div>
     <mf-dynamic-form [form]="form"
-                     [i18n]="{next: 'Next', cancel: 'Cancel', previous: 'Previous', save: 'Save'}"
+                     [i18n]="i18n"
                      (formSubmitted)="onSubmit($event)"
     ></mf-dynamic-form>
 

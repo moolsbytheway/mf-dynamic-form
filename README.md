@@ -53,7 +53,8 @@ npm install mf-dynamic-form
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  i18n= {next:'Suivant', cancel: 'Annuler', previous: 'Précedent', save: 'Enregistrer'}
+  i18n= {next:'Suivant', cancel: 'Annuler', previous: 'Précedent', save: 'Enregistrer',errors: {isRequired: "est obligatoire ", minLength: "La longueur minimal est de", maxLength: "La longueur maximal est de", emailInvalid: "invalid",alphanumeric:"doit être Alphanumeric",passwordMismatch:"Les mots de passe ne sont pas identiques"}};
+
   form: MfForm  = {
     debugMode: true,
     stepper: true,
@@ -63,6 +64,13 @@ export class AppComponent {
         key: 'firstName',
         label: 'Prénom',
         type: 'text',
+      }),
+      new TextboxFormControl({
+        step: 'Informations de l\'utilisateur',
+        key: 'lastName',
+        label: 'Nom',
+        type: 'text',
+        disableWhen: [{ field: 'firstName', value: '' }]
       }),
       new TextboxFormControl({
         step: 'Informations de l\'utilisateur',
