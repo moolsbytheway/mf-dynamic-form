@@ -67,6 +67,13 @@ export class AppComponent {
       }),
       new TextboxFormControl({
         step: 'Informations de l\'utilisateur',
+        key: 'lastName',
+        label: 'Nom',
+        type: 'text',
+        disableWhen: [{ field: 'firstName', value: '' }]
+      }),
+      new TextboxFormControl({
+        step: 'Informations de l\'utilisateur',
         key: 'phone',
         label: 'Téléphone',
         required: false,

@@ -27,4 +27,7 @@
 ### v0.3.0
 - Internationalisation
 
+### v0.3.1
+- Fixes Internationalisation
+
 
