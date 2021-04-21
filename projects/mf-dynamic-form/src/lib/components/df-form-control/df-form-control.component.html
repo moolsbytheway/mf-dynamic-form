@@ -1,6 +1,7 @@
 <div [formGroup]="form" class="form-group">
   <span class="label"
         [class.required]="formControlIsRequired"
+        [class.hidden]="control.visible"
   >{{control.label}}</span>
 
   <ng-container [ngSwitch]="control.controlType">
@@ -9,6 +10,7 @@
            [disabled]="isDisabled"
            class="form-control"
            [name]="control.key"
+           [class.hidden]="control.visible"
            [placeholder]="control.placeholder"
            [formControlName]="control.key"
            [id]="control.key" [type]="control.type">
