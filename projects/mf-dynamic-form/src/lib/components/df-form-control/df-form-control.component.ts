@@ -178,10 +178,10 @@ export class DfFormControlComponent implements OnInit, OnDestroy {
       this.subx.push(this.form.get(fieldName).valueChanges.subscribe(value => {
         if (shouldBeVisibleWhenValueIsEqualToExpectedValue(value)) {
           this.control.visible = true;
-          this.form.get(this.control.key).setValue(null);
           found = true;
         } else {
           this.control.visible = false ;
+          this.form.get(this.control.key).setValue(null);
         }
       }));
 
