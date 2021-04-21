@@ -30,4 +30,7 @@
 ### v0.3.1
 - Fixes Internationalisation
 
+### v0.3.2
+- Fields visibility
+
 
