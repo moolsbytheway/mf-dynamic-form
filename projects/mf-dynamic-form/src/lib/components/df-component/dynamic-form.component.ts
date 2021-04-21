@@ -45,7 +45,11 @@ export class DynamicFormComponent {
   }
 
   submit() {
-    if(!this.formGroup.valid) return;
+    if(!this.formGroup.valid)
+    {
+      this.formGroup.markAllAsTouched();
+      return;
+    }
     const form = {};
     this.formControls.forEach(it => {
       if (it.export) {

@@ -60,7 +60,7 @@ export class FormControlBase {
     this.class = options.class;
     this.options = options.options || [];
     this.export = options.export == undefined ? true : options.export;
-    this.visible = options.visible == undefined ? false : options.visible;
+    this.visible = options.visible == undefined ? true : options.visible;
     this.placeholder = options.placeholder || options.label;
   }
 }

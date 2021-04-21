@@ -1,7 +1,7 @@
 <div [formGroup]="form" class="form-group">
   <span class="label"
         [class.required]="formControlIsRequired"
-        [class.hidden]="control.visible"
+        [class.hidden]="!control.visible"
   >{{control.label}}</span>
 
   <ng-container [ngSwitch]="control.controlType">
@@ -10,7 +10,7 @@
            [disabled]="isDisabled"
            class="form-control"
            [name]="control.key"
-           [class.hidden]="control.visible"
+           [class.hidden]="!control.visible"
            [placeholder]="control.placeholder"
            [formControlName]="control.key"
            [id]="control.key" [type]="control.type">
@@ -19,6 +19,7 @@
            [disabled]="isDisabled"
            class="form-control"
            [name]="control.key"
+           [class.hidden]="!control.visible"
            [placeholder]="control.placeholder"
            [formControlName]="control.key"
            [id]="control.key" [type]="control.type">
@@ -27,6 +28,7 @@
            [disabled]="isDisabled"
            class="form-control"
            [name]="control.key"
+           [class.hidden]="!control.visible"
            [min]="control.minDate"
            [max]="control.maxDate"
            [placeholder]="control.placeholder"
@@ -37,6 +39,7 @@
            [disabled]="isDisabled"
            class="form-control"
            [name]="control.key"
+           [class.hidden]="!control.visible"
            type="file"
            [id]="control.key"
            (change)="onFileSelect($event)">
@@ -45,6 +48,7 @@
               [disabled]="isDisabled"
               class="form-control"
               [name]="control.key"
+              [class.hidden]="!control.visible"
               [placeholder]="control.placeholder"
               [formControlName]="control.key"
               [id]="control.key"></textarea>
@@ -52,6 +56,7 @@
     <ng-container *ngSwitchCase="'country'">
       <mf-csc-picker
         [cityLabel]="control.i18n.city"
+        [class.hidden]="!control.visible"
         [cityIsMissingLabel]="control.i18n.cityIsMissing"
         [stateLabel]="control.i18n.state"
         [countryLabel]="control.i18n.country"
@@ -63,6 +68,7 @@
     <select [id]="control.key"
             [disabled]="isDisabled"
             class="form-control"
+            [class.hidden]="!control.visible"
             [name]="control.key"
             *ngSwitchCase="'dropdown'" [formControlName]="control.key">
       <option *ngFor="let opt of control.options" [value]="opt.value">{{opt.label}}</option>
@@ -74,6 +80,7 @@
                [value]="opt.value"
                type="radio"
                [name]="control.key"
+               [class.hidden]="!control.visible"
                [formControlName]="control.key">
         <label
           for="{{opt.label}}">{{opt.label}}</label>
@@ -83,7 +90,7 @@
     <div *ngSwitchCase="'checkbox'">
       <div *ngFor="let opt of control.options">
         <label>
-          <input type="checkbox" #it [checked]="itemIsChecked(opt.value)" [value]="opt.value" (change)="onCheckChange($event)">
+          <input type="checkbox" [class.hidden]="!control.visible" #it [checked]="itemIsChecked(opt.value)" [value]="opt.value" (change)="onCheckChange($event)">
           {{opt.label}}
         </label>
       </div>
