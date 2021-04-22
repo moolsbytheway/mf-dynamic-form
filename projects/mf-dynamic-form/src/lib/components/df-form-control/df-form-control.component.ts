@@ -2,6 +2,7 @@ import {Component, Input, OnDestroy, OnInit, ViewEncapsulation} from '@angular/c
 import {AbstractControl, FormArray, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Subscription} from 'rxjs';
 import {I18n} from "../../df-model/i18n";
+import {FormControlService} from "../../df-service/form-control.service";
 
 @Component({
   selector: 'df-form-control',
@@ -118,13 +119,15 @@ export class DfFormControlComponent implements OnInit, OnDestroy {
       const shouldBeRequiredWhenValueIsNotEmpty = (value: string) => isString && value != '';
       const shouldBeRequiredWhenValueIsEqualToExpectedValue = (value: string) => !isString && value == expectedValue;
       this.subx.push(this.form.get(fieldName).valueChanges.subscribe(value => {
+        const validators = FormControlService.getValidators(this.control);
         if (shouldBeRequiredWhenValueIsNotEmpty(value) ||
           shouldBeRequiredWhenValueIsEqualToExpectedValue(value)) {
-          this.form.get(this.control.key).setValidators(Validators.required);
+          validators.push(Validators.required)
+          this.form.get(this.control.key).setValidators(validators);
           this.form.get(this.control.key).updateValueAndValidity();
           found = true;
         } else {
-          this.form.get(this.control.key).setValidators(null);
+          this.form.get(this.control.key).setValidators(validators);
           this.form.get(this.control.key).updateValueAndValidity();
         }
       }));
