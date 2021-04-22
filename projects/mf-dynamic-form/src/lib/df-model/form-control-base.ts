@@ -18,6 +18,7 @@ export class FormControlBase {
   disableWhen: { field: string, value: any }[];
   minLength: number;
   maxLength: number;
+  positiveNumberOnly: boolean;
   options: { value: string, label: string }[];
 
   constructor(options: {
@@ -39,6 +40,7 @@ export class FormControlBase {
     minLength?: number;
     hidden?: boolean;
     maxLength?: number;
+    positiveNumberOnly?: boolean;
     class?: string;
     placeholder?: string;
   } = {}) {
@@ -57,6 +59,7 @@ export class FormControlBase {
     this.hidden = !!options.hidden;
     this.step = options.step;
     this.minLength = options.minLength;
+    this.positiveNumberOnly = options.positiveNumberOnly;
     this.class = options.class;
     this.options = options.options || [];
     this.export = options.export == undefined ? true : options.export;

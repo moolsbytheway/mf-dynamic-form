@@ -108,7 +108,6 @@ export class CountryStateCityPicker implements AfterViewInit {
   toggleShowCityInput(event) {
     this.isCityNotInList = !!event.target.checked
     this.manuallySelectedCity = null;
-    this.changeCountry(null);
     this.onCitySelected.emit(null);
   }
 

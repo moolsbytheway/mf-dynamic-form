@@ -48,6 +48,7 @@ export class DynamicFormComponent {
     if(!this.formGroup.valid)
     {
       this.formGroup.markAllAsTouched();
+      this.formSubmitted.emit();
       return;
     }
     const form = {};

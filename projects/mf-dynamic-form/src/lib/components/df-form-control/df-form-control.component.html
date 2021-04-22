@@ -13,6 +13,8 @@
            [class.hidden]="!control.visible"
            [placeholder]="control.placeholder"
            [formControlName]="control.key"
+           [min]="control.positiveNumberOnly ? 0 : null"
+           oninput="(min == 0 && validity.badInput) && (  value='');"
            [id]="control.key" [type]="control.type">
 
     <input *ngSwitchCase="'password'"

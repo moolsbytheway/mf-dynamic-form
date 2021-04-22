@@ -5,7 +5,7 @@ import {FormControlBase} from '../df-model/form-control-base';
 
 @Injectable()
 export class FormControlService {
-  private static getValidators(control: FormControlBase) {
+  public static getValidators(control: FormControlBase) {
 
     const validators = [];
     if (control.required) {
