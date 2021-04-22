@@ -33,4 +33,10 @@
 ### v0.3.2
 - Fields visibility
 
+### v0.3.3
+- Bug Fixes
+
+### v0.3.4
+- Bug Fixes
+
 
