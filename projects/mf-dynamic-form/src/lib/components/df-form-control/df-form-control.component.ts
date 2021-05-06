@@ -150,7 +150,7 @@ export class DfFormControlComponent implements OnInit, OnDestroy {
 				i++;
 			});
 		}
-		if (!formArray.value || !formArray.value.length) {
+		if (formArray.controls.length > 0 && (!formArray.value || !formArray.value.length)) {
 			formArray.setValue(null);
 		}
 	}

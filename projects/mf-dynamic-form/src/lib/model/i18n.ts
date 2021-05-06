@@ -1,6 +1,5 @@
 export class I18n {
 	next: string;
-	cancel: string;
 	previous: string;
 	save: string;
 	errors: {
@@ -27,7 +26,6 @@ export class I18n {
 		};
 	} = {}) {
 		this.next = options.next;
-		this.cancel = options.cancel;
 		this.previous = options.previous;
 		this.save = options.save;
 		this.errors = options.errors;

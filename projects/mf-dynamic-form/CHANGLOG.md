@@ -58,3 +58,6 @@
 - Fix visibleWhen and disableWhen
 - add classes to inputs
 - add control buttons classes support
+
+### v1.0.2
+- Fix bug checkboxes
