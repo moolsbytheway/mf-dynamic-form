@@ -216,6 +216,8 @@ export class DfFormControlComponent implements OnInit, OnDestroy {
 			}
 			const fieldName = dep['field'];
 			const expectedValue = dep['value'];
+
+
 			const shouldBeDisableWhenValueIsEqualToExpectedValue = value => value == expectedValue;
 			this.subx.push(this.form.get(fieldName).valueChanges.subscribe(value => {
 				if (shouldBeDisableWhenValueIsEqualToExpectedValue(value)) {
@@ -244,16 +246,33 @@ export class DfFormControlComponent implements OnInit, OnDestroy {
 			const fieldName = dep['field'];
 			const expectedValue = dep['value'];
 			const shouldBeVisibleWhenValueIsEqualToExpectedValue = value => value == expectedValue;
+
+
+      if (shouldBeVisibleWhenValueIsEqualToExpectedValue(this.form.get(fieldName).value)) {
+        this.control.visible = true;
+        found = true;
+      } else {
+        this.control.visible = false;
+        if(this.control.controlType == "checkbox") {
+          this.onCheckChange({target: {value: null}})
+        } else {
+          this.form.get(this.control.key).setValue(null);
+        }
+      }
+
 			this.subx.push(this.form.get(fieldName).valueChanges.subscribe(value => {
 				if (shouldBeVisibleWhenValueIsEqualToExpectedValue(value)) {
 					this.control.visible = true;
 					found = true;
 				} else {
 					this.control.visible = false;
-					this.form.get(this.control.key).setValue(null);
+					if(this.control.controlType == "checkbox") {
+					  this.onCheckChange({target: {value: null}})
+          } else {
+            this.form.controls[this.control.key].setValue(null);
+          }
 				}
 			}));
-
 		}
 	}
 

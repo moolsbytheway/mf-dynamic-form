@@ -30,13 +30,16 @@
 		</ng-container>
 		<div *ngIf="!suppressControls">
 			<div>
-				<button (click)="goToPreviousStep()" *ngIf="!isFirstStep"
+				<button (click)="goToPreviousStep()"
+                [ngClass]="previousButtonClass"
+                *ngIf="!isFirstStep"
 						class="btn btn-secondary">
           <span class="pointer mr-1">
             &laquo; {{i18n.previous}}
           </span>
 				</button>
 				<button (click)="goToNextStep()" *ngIf="!isLastStep"
+                [ngClass]="nextButtonClass"
 						class="btn btn-secondary">
          <span class="pointer mr-1">
           {{i18n.next}} &raquo;
@@ -44,11 +47,11 @@
 				</button>
 				<button (click)="submit()"
 						*ngIf="isLastStep"
+                [ngClass]="saveButtonClass"
 						class="btn btn-primary"
 						type="submit"
 				>{{i18n.save}}
 				</button>
-				<button (click)="back()" class="btn btn-link">{{i18n.cancel}}</button>
 				<button (click)="debug()" *ngIf="debugMode" class="btn btn-danger">Print debug data</button>
 			</div>
 		</div>

@@ -54,4 +54,7 @@
 - Dropped Country picker component and dependecies
 - Added dynamic form control support
 
-
+### v1.0.1
+- Fix visibleWhen and disableWhen
+- add classes to inputs
+- add control buttons classes support

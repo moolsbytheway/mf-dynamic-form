@@ -1,11 +1,7 @@
-import {DynamicFormControl, MfForm, TextboxFormControl} from 'mf-dynamic-form';
+import {CheckboxFormControl, DynamicFormControl, MfForm, RadioButtonFormControl, TextboxFormControl} from 'mf-dynamic-form';
 import {ExempleCustomFormControlComponent} from './custom-form-controls/exemple-custom-form-control.component';
 
 export const PURCHASE_ORDER_FORM_DEFINITION: MfForm = {
-  // @ts-ignore
-  customControls: {
-    unitsFormControl: ExempleCustomFormControlComponent
-  },
   steps: [
     {
       label: 'Informations de la commande',
@@ -15,6 +11,7 @@ export const PURCHASE_ORDER_FORM_DEFINITION: MfForm = {
           controls: [
             new TextboxFormControl({
               key: 'firstName',
+              disableWhen: [{field: 'radioButton', value: 'true'}],
               label: 'Prénom',
               type: 'text',
             }),
@@ -22,51 +19,29 @@ export const PURCHASE_ORDER_FORM_DEFINITION: MfForm = {
               key: 'lastName',
               label: 'Nom',
               type: 'text'
-            })
-          ]
-        },
-      ]
-    }, {
-      label: 'Informations transport & logistiques',
-      sections: [
-        {
-          label: 'Informations transport & logistiques',
-          controls: [
-            new TextboxFormControl({
-              key: 'info',
-              label: 'Commande No',
-              type: 'text',
             }),
-          ]
-        },
-      ]
-    }, {
-      label: 'Références',
-      sections: [
-        {
-          label: 'Références',
-          controls: [
-            new TextboxFormControl({
-              key: 'sap',
-              label: 'SAP No',
-              type: 'text',
+            new RadioButtonFormControl({
+              key: 'radioButton',
+              class: 'radio-inline',
+              label: 'Acceptes tu les termes et conditions ?',
+              value: '',
+              options: [
+                {label: 'Oui', value: 'true'},
+                {label: 'Non', value: 'false'}
+              ]
             }),
-          ]
-        },
-      ]
-    }, {
-      label: 'Articles',
-      sections: [
-        {
-          label: 'Articles',
-          controls: [
-            new DynamicFormControl({
-              key: 'units',
-              component: 'unitsFormControl',
-              inputs: {
-                a: 1,
-                b: 2
-              }
+            new CheckboxFormControl({
+              key: 'checkboxes',
+              required: true,
+              visibleWhen: [{field: 'radioButton', value: 'true'}],
+              class: 'col-xl-12',
+              label: 'Selectionnez les choix applicables',
+              value: ['2', '1'],
+              options: [
+                {label: 'Choix1', value: '1'},
+                {label: 'Choix2', value: '2'},
+                {label: 'Choix3', value: '3'}
+              ]
             }),
           ]
         },
