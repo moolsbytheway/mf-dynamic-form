@@ -1,13 +1,21 @@
 .mf-form {
-  .form-group {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 5px;
-  }
+	.form-group {
+		display: flex;
+		flex-direction: column;
+		margin-bottom: 5px;
+	}
 
-  .form-control {
-    padding: 0 10px;
-    font-size: 12px;
-  }
+	.form-control {
+		padding: 0 10px;
+		font-size: 12px;
+	}
 }
 
+.content {
+	.section {
+		padding: 0 14px;
+		.title {
+			padding-top: 10px;
+		}
+	}
+}

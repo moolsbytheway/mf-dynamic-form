@@ -13,10 +13,6 @@
     "noFallthroughCasesInSwitch": true,
     "sourceMap": true,
     "paths": {
-      "mf-country-state-city": [
-        "dist/mf-country-state-city/mf-country-state-city",
-        "dist/mf-country-state-city"
-      ],
       "mf-dynamic-form": [
         "dist/mf-dynamic-form/mf-dynamic-form",
         "dist/mf-dynamic-form"

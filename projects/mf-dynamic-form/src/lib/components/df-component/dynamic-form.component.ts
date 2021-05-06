@@ -1,109 +1,120 @@
 import {Component, EventEmitter, Input, Output, ViewEncapsulation} from '@angular/core';
 import {FormGroup} from '@angular/forms';
 
-import {FormControlBase, MfForm} from '../../df-model/form-control-base';
-import {FormControlService} from '../../df-service/form-control.service';
+import {FormControlBase, MfForm, MfFormStep} from '../../model/form-control-base';
+import {FormControlService} from '../../service/form-control.service';
 
 @Component({
-  selector: 'mf-dynamic-form',
-  templateUrl: './dynamic-form.component.html',
-  styleUrls: ['./dynamic-form.component.scss'],
-  providers: [FormControlService],
-  encapsulation: ViewEncapsulation.None
+	selector: 'mf-dynamic-form',
+	templateUrl: './dynamic-form.component.html',
+	styleUrls: ['./dynamic-form.component.scss'],
+	providers: [FormControlService],
+	encapsulation: ViewEncapsulation.None
 })
 export class DynamicFormComponent {
-  debugMode: boolean;
-  stepper: boolean;
-  formGroup: FormGroup;
-  formControls: FormControlBase[] = [];
-  activeStep = 0;
-  groups: { name: string, controls: FormControlBase[] }[] = [];
+	debugMode: boolean;
+	stepper: boolean;
+	hasSections: boolean;
+	formGroup: FormGroup;
+	formControls: FormControlBase[] = [];
+	activeStep = 0;
+	steps: MfFormStep[] = []
 
+	@Input() suppressStepLabel;
+	@Input() suppressControls;
+	@Input()
+	i18n = {
+		next: 'Next',
+		cancel: 'Cancel',
+		previous: 'Previous',
+		save: 'Save',
+		errors: {
+			isRequired: "est obligatoire ",
+			minLength: "La longueur minimal est de",
+			maxLength: "La longueur maximal est de",
+			emailInvalid: "invalid",
+			alphanumeric: "doit être Alphanumeric",
+			passwordMismatch: "Les mots de passe ne sont pas identiques"
+		}
+	};
+	@Output() formSubmitted = new EventEmitter();
 
-  @Input()
-  i18n = {next: 'Next', cancel: 'Cancel', previous: 'Previous', save: 'Save', errors: {isRequired: "est obligatoire ", minLength: "La longueur minimal est de", maxLength: "La longueur maximal est de", emailInvalid: "invalid",alphanumeric:"doit être Alphanumeric",passwordMismatch:"Les mots de passe ne sont pas identiques"}};
+	constructor(private qcs: FormControlService) {
+	}
 
+	@Input() set form(f: MfForm) {
+		if (!f) {
+			return;
+		}
+		this.init(f);
+	}
 
-  @Input() set form(f: MfForm) {
-    if (!f) {
-      return;
-    }
-    this.init(f);
-  }
+	get isFirstStep() {
+		return this.activeStep === 0;
+	}
 
-  get isFirstStep() {
-    return this.activeStep === 0;
-  }
+	get isLastStep() {
+		return this.activeStep === this.steps.length - 1;
+	}
 
-  get isLastStep() {
-    return this.activeStep === this.groups.length - 1;
-  }
+	submit() {
+		if (!this.formGroup.valid) {
+			this.formGroup.markAllAsTouched();
+			this.formSubmitted.emit();
+			return;
+		}
+		const form = {};
+		this.formControls.forEach(it => {
+			if (it.export) {
+				form[it.key] = this.formGroup.controls[it.key].value;
+			}
+		});
+		this.formSubmitted.emit(form);
+	}
 
-  @Output() formSubmitted = new EventEmitter();
+	goToPreviousStep() {
+		this.activeStep--;
+	}
 
-  constructor(private qcs: FormControlService) {
-  }
+	goToNextStep() {
+		this.activeStep++;
+	}
 
-  submit() {
-    if(!this.formGroup.valid)
-    {
-      this.formGroup.markAllAsTouched();
-      this.formSubmitted.emit();
-      return;
-    }
-    const form = {};
-    this.formControls.forEach(it => {
-      if (it.export) {
-        form[it.key] = this.formGroup.controls[it.key].value;
-      }
-    });
-    this.formSubmitted.emit(form);
-  }
+	isActiveStep(index: number) {
+		return index === this.activeStep;
+	}
 
-  private initGroups() {
-    const groups = [];
-    if (!this.stepper) {
-      this.formControls.forEach(it => it.step = '');
-    }
-    this.formControls.forEach(control => {
-      if (groups.find(it => it.name === control.step)) {
-        groups.forEach(it => {
-          if (it.name === control.step) {
-            it.controls = [...it.controls, control];
-          }
-        });
-      } else {
-        groups.push({name: control.step, controls: [control]});
-      }
-    });
-    this.groups = groups;
-  }
+	back() {
+		window.history.back();
+	}
 
-  goToPreviousStep() {
-    this.activeStep--;
-  }
+	debug() {
+		console.log(this.formGroup.controls);
+	}
 
-  goToNextStep() {
-    this.activeStep++;
-  }
+	private init(f: MfForm) {
+		this.initCustomFormControls(f);
+		this.stepper = f.steps.filter(it => !!it.label).length > 0;
+		this.hasSections = f.steps.map(it => it.sections.filter(s => !!s.label).length).reduce((a, b) => a + b) > 0;
+		this.debugMode = f.debugMode;
+		this.steps = f.steps;
+		this.formControls = flattenDeep(f.steps.map(step => step.sections.map(it => it.controls)));
+		this.formGroup = this.qcs.toFormGroup(this.formControls);
+	}
 
-  isActiveStep(index: number) {
-    return index === this.activeStep;
-  }
-
-  back() {
-    window.history.back();
-  }
-
-  debug() {
-    console.log(this.formGroup.controls);
-  }
-
-  private init(f: MfForm) {
-    this.stepper = f.stepper;
-    this.debugMode = f.debugMode;
-    this.formControls = f.controls.sort((a, b) => a.order - b.order);
-    this.initGroups();
-    this.formGroup = this.qcs.toFormGroup(this.formControls);
-  }
+	private initCustomFormControls(f: MfForm) {
+		f.steps.forEach(step => {
+			step.sections.forEach(section => {
+				section.controls.forEach(control => {
+					if (control.controlType == "dynamic") {
+						control.component = f.customControls[control.component];
+					}
+				})
+			})
+		})
+	}
 }
+
+const flattenDeep = (arr) => Array.isArray(arr)
+  ? arr.reduce( (a, b) => a.concat(flattenDeep(b)) , [])
+  : [arr]
