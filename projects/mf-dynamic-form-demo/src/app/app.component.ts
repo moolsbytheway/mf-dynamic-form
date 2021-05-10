@@ -13,6 +13,7 @@ export class AppComponent  {
   formData: any;
 
   onSubmit(formData: any) {
+    console.log(formData)
     this.formData = formData;
   }
 }

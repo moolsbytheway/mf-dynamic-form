@@ -61,3 +61,6 @@
 
 ### v1.0.2
 - Fix bug checkboxes
+
+### v1.0.3
+- Fix requiredWhen for radioButtons

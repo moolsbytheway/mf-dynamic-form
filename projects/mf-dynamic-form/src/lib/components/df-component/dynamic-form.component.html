@@ -28,8 +28,8 @@
 		</div>
 
 		</ng-container>
-		<div *ngIf="!suppressControls">
-			<div>
+		<ng-container *ngIf="!suppressControls">
+			<div [ngClass]="controlsClass">
 				<button (click)="goToPreviousStep()"
                 [ngClass]="previousButtonClass"
                 *ngIf="!isFirstStep"
@@ -54,7 +54,7 @@
 				</button>
 				<button (click)="debug()" *ngIf="debugMode" class="btn btn-danger">Print debug data</button>
 			</div>
-		</div>
+		</ng-container>
 	</form>
 
 </ng-container>

@@ -1,7 +1,7 @@
-import {CheckboxFormControl, DynamicFormControl, MfForm, RadioButtonFormControl, TextboxFormControl} from 'mf-dynamic-form';
-import {ExempleCustomFormControlComponent} from './custom-form-controls/exemple-custom-form-control.component';
+import {CheckboxFormControl, MfForm, RadioButtonFormControl, TextboxFormControl} from 'mf-dynamic-form';
 
 export const PURCHASE_ORDER_FORM_DEFINITION: MfForm = {
+  debugMode: true,
   steps: [
     {
       label: 'Informations de la commande',
