@@ -67,3 +67,6 @@
 
 ### v1.1.0
 - Add readOnly
+
+### v1.1.1
+- Fix readOnly

@@ -106,6 +106,13 @@ export class DynamicFormComponent {
     f.steps.forEach(step => {
       step.sections.forEach(section => {
         section.controls.forEach(control => {
+          if (f.readOnly) {
+            if (control.notReadOnly) {
+              control.readOnly = false;
+            } else if (control.value) {
+              control.readOnly = true;
+            }
+          }
           if (control.controlType == 'dynamic') {
             control.component = f.customControls[control.component];
           }
