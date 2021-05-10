@@ -4,6 +4,7 @@ export class FormControlBase {
 	key: string;
 	class: string;
 	label: string;
+	readOnly: boolean;
 	required: boolean;
 	order: number;
 	placeholder: string;
@@ -30,7 +31,8 @@ export class FormControlBase {
 		visible?: boolean;
 		label?: string;
 		alphanumeric?: boolean;
-		required?: boolean
+		required?: boolean;
+    readOnly?: boolean;
 		requiredWhen?: any[] | { field: string, value: any }[];
 		visibleWhen?: { field: string, value: any }[];
 		disableWhen?: { field: string, value: any }[];
@@ -58,6 +60,7 @@ export class FormControlBase {
 		this.controlType = options.controlType || '';
 		this.type = options.type || 'text';
 		this.maxLength = options.maxLength;
+		this.readOnly = !!options.readOnly;
 		this.alphanumeric = !!options.alphanumeric;
 		this.hidden = !!options.hidden;
 		this.minLength = options.minLength;

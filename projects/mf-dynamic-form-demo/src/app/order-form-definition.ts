@@ -13,12 +13,15 @@ export const PURCHASE_ORDER_FORM_DEFINITION: MfForm = {
               key: 'firstName',
               disableWhen: [{field: 'radioButton', value: 'true'}],
               label: 'Prénom',
+              value: "Moulaye",
               type: 'text',
             }),
             new TextboxFormControl({
               key: 'lastName',
               label: 'Nom',
-              type: 'text'
+              type: 'text',
+              readOnly: true,
+              value: "Moulaye",
             }),
             new RadioButtonFormControl({
               key: 'radioButton',

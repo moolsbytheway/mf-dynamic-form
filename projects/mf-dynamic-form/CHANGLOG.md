@@ -64,3 +64,6 @@
 
 ### v1.0.3
 - Fix requiredWhen for radioButtons
+
+### v1.1.0
+- Add readOnly

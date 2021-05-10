@@ -1,125 +1,140 @@
 <ng-container *ngIf="control.controlType == 'dynamic'; else normalControl">
-	<ndc-dynamic
-		[ndcDynamicComponent]="control.component"
-		[ndcDynamicInputs]="control.inputs"
-		[ndcDynamicOutputs]="customControlOutputs"
-	></ndc-dynamic>
+  <ndc-dynamic
+    [ndcDynamicComponent]="control.component"
+    [ndcDynamicInputs]="control.inputs"
+    [ndcDynamicOutputs]="customControlOutputs"
+  ></ndc-dynamic>
 </ng-container>
 <ng-template #normalControl>
 
-	<div [formGroup]="form" class="d-flex align-items-baseline generic-inputs__style">
-		<label [class.hidden]="!control.visible"
-			   [class.required]="formControlIsRequired"
-			   class="areaLibelle col-md-4 col-sm-12 col-xs-12"
-		>{{control.label}}:</label>
+  <div [formGroup]="form" class="d-flex align-items-baseline generic-inputs__style">
+    <label [class.hidden]="!control.visible"
+           [class.required]="formControlIsRequired"
+           class="areaLibelle col-md-4 col-sm-12 col-xs-12"
+    >{{control.label}}:</label>
 
-		<div [ngSwitch]="control.controlType"
-         [class.hidden]="!control.visible"
-         [ngClass]="control.class">
+    <div [class.hidden]="!control.visible"
+         [ngClass]="control.class"
+         *ngIf="control.readOnly; else notReadOnly">
+      <input [disabled]="isDisabled"
+             [attr.readonly]="control.readOnly"
+             [formControlName]="control.key"
+             [id]="control.key"
+             [min]="control.positiveNumberOnly ? 0 : null"
+             [name]="control.key"
+             [placeholder]="control.placeholder"
+             [type]="control.type"
+             class="form-control" oninput="(min === 0 && validity.badInput) && (  value='');">
+    </div>
+    <ng-template #notReadOnly>
+      <div [ngSwitch]="control.controlType"
+           [class.hidden]="!control.visible"
+           [ngClass]="control.class">
 
-			<input *ngSwitchCase="'textbox'"
-				   [disabled]="isDisabled"
-				   [formControlName]="control.key"
-				   [id]="control.key"
-				   [min]="control.positiveNumberOnly ? 0 : null"
-				   [name]="control.key"
-				   [placeholder]="control.placeholder"
-				   [type]="control.type"
-				   class="form-control" oninput="(min === 0 && validity.badInput) && (  value='');">
+        <input *ngSwitchCase="'textbox'"
+               [disabled]="isDisabled"
+               [formControlName]="control.key"
+               [id]="control.key"
+               [min]="control.positiveNumberOnly ? 0 : null"
+               [name]="control.key"
+               [placeholder]="control.placeholder"
+               [type]="control.type"
+               class="form-control" oninput="(min === 0 && validity.badInput) && (  value='');">
 
-			<input *ngSwitchCase="'password'"
-				   [disabled]="isDisabled"
-				   [formControlName]="control.key"
-				   [id]="control.key"
-				   [name]="control.key"
-				   [placeholder]="control.placeholder"
-				   [type]="control.type" class="form-control">
+        <input *ngSwitchCase="'password'"
+               [disabled]="isDisabled"
+               [formControlName]="control.key"
+               [id]="control.key"
+               [name]="control.key"
+               [placeholder]="control.placeholder"
+               [type]="control.type" class="form-control">
 
-			<input *ngSwitchCase="'date'"
-				   [disabled]="isDisabled"
-				   [formControlName]="control.key"
-				   [id]="control.key"
-				   [max]="control.maxDate"
-				   [min]="control.minDate"
-				   [name]="control.key"
-				   [placeholder]="control.placeholder"
-				   [type]="control.type" class="form-control">
+        <input *ngSwitchCase="'date'"
+               [disabled]="isDisabled"
+               [formControlName]="control.key"
+               [id]="control.key"
+               [max]="control.maxDate"
+               [min]="control.minDate"
+               [name]="control.key"
+               [placeholder]="control.placeholder"
+               [type]="control.type" class="form-control">
 
-			<input (change)="onFileSelect($event)"
-				   *ngSwitchCase="'file'"
-				   [disabled]="isDisabled"
-				   [id]="control.key"
-				   [name]="control.key"
-				   class="form-control"
-				   type="file">
+        <input (change)="onFileSelect($event)"
+               *ngSwitchCase="'file'"
+               [disabled]="isDisabled"
+               [id]="control.key"
+               [name]="control.key"
+               class="form-control"
+               type="file">
 
-			<textarea *ngSwitchCase="'textarea'"
-					  [disabled]="isDisabled"
-					  [formControlName]="control.key"
-					  [id]="control.key"
-					  [name]="control.key"
-					  [placeholder]="control.placeholder"
-					  class="form-control"></textarea>
+        <textarea *ngSwitchCase="'textarea'"
+                  [disabled]="isDisabled"
+                  [formControlName]="control.key"
+                  [id]="control.key"
+                  [name]="control.key"
+                  [placeholder]="control.placeholder"
+                  class="form-control"></textarea>
 
-			<select *ngSwitchCase="'dropdown'"
-					[disabled]="isDisabled"
-					[formControlName]="control.key"
-					[id]="control.key"
-					[name]="control.key" class="form-control">
-				<option *ngFor="let opt of control.options" [value]="opt.value">{{opt.label}}</option>
-			</select>
+        <select *ngSwitchCase="'dropdown'"
+                [disabled]="isDisabled"
+                [formControlName]="control.key"
+                [id]="control.key"
+                [name]="control.key" class="form-control">
+          <option *ngFor="let opt of control.options" [value]="opt.value">{{opt.label}}</option>
+        </select>
 
-			<ng-container *ngSwitchCase="'radio'">
-				<div *ngFor="let opt of control.options">
-					<input
-						   [formControlName]="control.key"
-						   [name]="control.key"
-						   [value]="opt.value"
-						   id="{{opt.label}}"
-						   type="radio">
-					<label
-						for="{{opt.label}}">{{opt.label}}</label>
-				</div>
-			</ng-container>
+        <ng-container *ngSwitchCase="'radio'">
+          <div *ngFor="let opt of control.options">
+            <input
+              [formControlName]="control.key"
+              [name]="control.key"
+              [value]="opt.value"
+              id="{{opt.label}}"
+              type="radio">
+            <label
+              for="{{opt.label}}">{{opt.label}}</label>
+          </div>
+        </ng-container>
 
-			<div *ngSwitchCase="'checkbox'" [class.hidden]="!control.visible">
-				<div *ngFor="let opt of control.options">
-					<label>
-						<input #it (change)="onCheckChange($event)" [checked]="itemIsChecked(opt.value)"
-							   [value]="opt.value" type="checkbox">
-						{{opt.label}}
-					</label>
-				</div>
-			</div>
+        <div *ngSwitchCase="'checkbox'" [class.hidden]="!control.visible">
+          <div *ngFor="let opt of control.options">
+            <label>
+              <input #it (change)="onCheckChange($event)" [checked]="itemIsChecked(opt.value)"
+                     [value]="opt.value" type="checkbox">
+              {{opt.label}}
+            </label>
+          </div>
+        </div>
 
-			<div *ngIf="isTouched"
-				 class="col-md-12 invalid-form-field">
-				<ng-container *ngIf="!isValid">
+        <div *ngIf="isTouched"
+             class="col-md-12 invalid-form-field">
+          <ng-container *ngIf="!isValid">
     <span *ngIf="isRequired">
       {{control.label}} {{i18n.errors.isRequired}}
 
     </span>
-					<span *ngIf="errorMinLength">
+            <span *ngIf="errorMinLength">
       {{i18n.errors.minLength}} {{control.minLength}}
-						{{control.error}}
+              {{control.error}}
     </span>
-					<span *ngIf="errorMaxLength">
+            <span *ngIf="errorMaxLength">
       {{i18n.errors.maxLength}} {{control.maxLength}}
     </span>
-					<span *ngIf="emailInvalid">
+            <span *ngIf="emailInvalid">
       {{control.label}}  {{i18n.errors.emailInvalid}}
     </span>
-					<span *ngIf="patternInvalid">
+            <span *ngIf="patternInvalid">
       {{control.label}} {{i18n.errors.alphanumeric}}
     </span>
-				</ng-container>
-				<span *ngIf="passwordMismatch && isConfirmField">
+          </ng-container>
+          <span *ngIf="passwordMismatch && isConfirmField">
       {{i18n.errors.passwordMismatch}}
 
     </span>
-			</div>
+        </div>
 
-		</div>
-	</div>
+      </div>
+    </ng-template>
+  </div>
 
 </ng-template>
