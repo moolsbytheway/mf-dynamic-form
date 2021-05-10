@@ -1,6 +1,7 @@
 import {CheckboxFormControl, MfForm, RadioButtonFormControl, TextboxFormControl} from 'mf-dynamic-form';
 
 export const PURCHASE_ORDER_FORM_DEFINITION: MfForm = {
+  readOnly: true,
   debugMode: true,
   steps: [
     {
@@ -11,7 +12,6 @@ export const PURCHASE_ORDER_FORM_DEFINITION: MfForm = {
           controls: [
             new TextboxFormControl({
               key: 'firstName',
-              disableWhen: [{field: 'radioButton', value: 'true'}],
               label: 'Prénom',
               value: "Moulaye",
               type: 'text',
@@ -19,9 +19,7 @@ export const PURCHASE_ORDER_FORM_DEFINITION: MfForm = {
             new TextboxFormControl({
               key: 'lastName',
               label: 'Nom',
-              type: 'text',
-              readOnly: true,
-              value: "Moulaye",
+              type: 'text'
             }),
             new RadioButtonFormControl({
               key: 'radioButton',

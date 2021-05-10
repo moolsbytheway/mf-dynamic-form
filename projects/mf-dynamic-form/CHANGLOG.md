@@ -70,3 +70,6 @@
 
 ### v1.1.1
 - Fix readOnly
+
+### v1.1.2
+- Fix readOnly
