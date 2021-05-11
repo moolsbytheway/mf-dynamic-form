@@ -29,10 +29,6 @@ export class DfFormControlComponent implements OnInit, OnDestroy {
     return this.form.controls[this.control.key].valid;
   }
 
-  get isDisabled() {
-    return this.form.controls[this.control.key].disabled;
-  }
-
   get isTouched() {
     return this.form.controls[this.control.key].touched;
   }
@@ -238,14 +234,19 @@ export class DfFormControlComponent implements OnInit, OnDestroy {
       const fieldName = dep['field'];
       const expectedValue = dep['value'];
 
-
       const shouldBeDisableWhenValueIsEqualToExpectedValue = value => value == expectedValue;
+      if (shouldBeDisableWhenValueIsEqualToExpectedValue(this.form.get(fieldName).value)) {
+        this.form.get(this.control.key).disable();
+        found = true;
+      } else {
+        this.form.get(this.control.key).enable();
+      }
       this.subx.push(this.form.get(fieldName).valueChanges.subscribe(value => {
         if (shouldBeDisableWhenValueIsEqualToExpectedValue(value)) {
-          this.form.get(this.control.key).enable();
+          this.form.get(this.control.key).disable();
           found = true;
         } else {
-          this.form.get(this.control.key).disable();
+          this.form.get(this.control.key).enable();
         }
       }));
     }

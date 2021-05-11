@@ -99,6 +99,7 @@ export class DynamicFormComponent {
     this.debugMode = f.debugMode;
     this.steps = f.steps;
     this.formControls = flattenDeep(f.steps.map(step => step.sections.map(it => it.controls)));
+    this.checkFormControlsDuplication();
     this.formGroup = this.qcs.toFormGroup(this.formControls);
   }
 
@@ -114,6 +115,18 @@ export class DynamicFormComponent {
           }
         });
       });
+    });
+  }
+
+  private checkFormControlsDuplication() {
+    if (this.debugMode) {
+      console.warn('MfDynamicForm debug mode enabled');
+    }
+    this.formControls.forEach(control => {
+      const items = this.formControls.filter(it => control.key == it.key);
+      if (items && items.length > 1) {
+        throw new Error('FormFieldDuplicationError: field ' + control.key + ' is duplicated');
+      }
     });
   }
 }

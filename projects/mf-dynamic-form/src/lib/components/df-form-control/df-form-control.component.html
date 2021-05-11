@@ -18,7 +18,7 @@
       <div [class.hidden]="!control.visible"
            [ngClass]="control.class"
            *ngIf="control.readOnly; else notReadOnly">
-        <input [disabled]="isDisabled"
+        <input
                [attr.readonly]="control.readOnly"
                [formControlName]="control.key"
                [id]="control.key"
@@ -34,7 +34,7 @@
              [ngClass]="control.class">
 
           <input *ngSwitchCase="'textbox'"
-                 [disabled]="isDisabled"
+
                  [formControlName]="control.key"
                  [id]="control.key"
                  [min]="control.positiveNumberOnly ? 0 : null"
@@ -44,7 +44,7 @@
                  class="form-control" oninput="(min === 0 && validity.badInput) && (  value='');">
 
           <input *ngSwitchCase="'password'"
-                 [disabled]="isDisabled"
+
                  [formControlName]="control.key"
                  [id]="control.key"
                  [name]="control.key"
@@ -52,7 +52,7 @@
                  [type]="control.type" class="form-control">
 
           <input *ngSwitchCase="'date'"
-                 [disabled]="isDisabled"
+
                  [formControlName]="control.key"
                  [id]="control.key"
                  [max]="control.maxDate"
@@ -63,14 +63,14 @@
 
           <input (change)="onFileSelect($event)"
                  *ngSwitchCase="'file'"
-                 [disabled]="isDisabled"
+
                  [id]="control.key"
                  [name]="control.key"
                  class="form-control"
                  type="file">
 
           <textarea *ngSwitchCase="'textarea'"
-                    [disabled]="isDisabled"
+
                     [formControlName]="control.key"
                     [id]="control.key"
                     [name]="control.key"
@@ -78,7 +78,7 @@
                     class="form-control"></textarea>
 
           <select *ngSwitchCase="'dropdown'"
-                  [disabled]="isDisabled"
+
                   [formControlName]="control.key"
                   [id]="control.key"
                   [name]="control.key" class="form-control">

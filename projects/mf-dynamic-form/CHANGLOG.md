@@ -73,3 +73,6 @@
 
 ### v1.1.2
 - Fix readOnly
+
+### v1.1.3
+- Fix disableWhen
