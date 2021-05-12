@@ -76,3 +76,6 @@
 
 ### v1.1.3
 - Fix disableWhen
+
+### v1.1.4
+- Css tweak

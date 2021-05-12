@@ -31,6 +31,7 @@
       <ng-template #notReadOnly>
         <div [ngSwitch]="control.controlType"
              [class.hidden]="!control.visible"
+             class="mf-input-container"
              [ngClass]="control.class">
 
           <input *ngSwitchCase="'textbox'"
