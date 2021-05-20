@@ -57,13 +57,12 @@ export class AppComponent {
     previous: 'Précedent',
     save: 'Enregistrer',
     errors: {
-      isRequired: "est obligatoire ",
-      minLength: "La longueur minimal est de",
-      maxLength: "La longueur maximal est de",
-      emailInvalid: "invalid",
-      alphanumeric: "doit être Alphanumeric",
-      passwordMismatch: "Les mots de passe ne sont pas identiques"
-    }
+      isRequired: 'Ce champs est obligatoire ',
+      minLength: 'La longueur minimal est de',
+      maxLength: 'La longueur maximal est de',
+      emailInvalid: 'Email invalid',
+      alphanumeric: 'Ce champs doit être Alphanumeric',
+      passwordMismatch: 'Les mots de passe ne sont pas identiques'}
   };
 
   form: MfForm = {
@@ -81,12 +80,12 @@ export class AppComponent {
               new TextboxFormControl({
                 key: 'firstName',
                 label: 'Prénom',
-                type: 'text',
+                type: TextBoxType.TEXT,
               }),
               new TextboxFormControl({
                 key: 'lastName',
                 label: 'Nom',
-                type: 'text'
+                type: TextBoxType.TEXT
               })
             ]
           },
@@ -100,7 +99,7 @@ export class AppComponent {
               new TextboxFormControl({
                 key: 'info',
                 label: 'Commande No',
-                type: 'text',
+                type: TextBoxType.NUMBER,
               }),
             ]
           },
@@ -114,7 +113,7 @@ export class AppComponent {
               new TextboxFormControl({
                 key: 'sap',
                 label: 'SAP No',
-                type: 'text',
+                type: TextBoxType.NUMBER,
               }),
             ]
           },

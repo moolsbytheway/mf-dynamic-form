@@ -1,10 +1,13 @@
-<ng-container *ngIf="control.controlType == 'dynamic'; else normalControl">
+<div *ngIf="control.controlType == 'dynamic'; else normalControl"
+     [class.hidden]="!control.visible"
+     [class.required]="formControlIsRequired"
+>
   <ndc-dynamic
     [ndcDynamicComponent]="control.component"
     [ndcDynamicInputs]="control.inputs"
     [ndcDynamicOutputs]="customControlOutputs"
   ></ndc-dynamic>
-</ng-container>
+</div>
 <ng-template #normalControl>
 
   <ng-container *ngIf="!control.readOnly || (control.readOnly && control.value)">
@@ -113,7 +116,7 @@
                class="col-md-12 invalid-form-field">
             <ng-container *ngIf="!isValid">
     <span *ngIf="isRequired">
-      {{control.label}} {{i18n.errors.isRequired}}
+      {{i18n.errors.isRequired}}
 
     </span>
               <span *ngIf="errorMinLength">
@@ -124,10 +127,10 @@
       {{i18n.errors.maxLength}} {{control.maxLength}}
     </span>
               <span *ngIf="emailInvalid">
-      {{control.label}}  {{i18n.errors.emailInvalid}}
+       {{i18n.errors.emailInvalid}}
     </span>
               <span *ngIf="patternInvalid">
-      {{control.label}} {{i18n.errors.alphanumeric}}
+      {{i18n.errors.alphanumeric}}
     </span>
             </ng-container>
             <span *ngIf="passwordMismatch && isConfirmField">

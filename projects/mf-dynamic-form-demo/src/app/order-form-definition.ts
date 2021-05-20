@@ -1,8 +1,13 @@
 import {CheckboxFormControl, MfForm, RadioButtonFormControl, TextboxFormControl} from 'mf-dynamic-form';
+import {DynamicFormControl} from 'mf-dynamic-form';
+import {ExempleCustomFormControlComponent} from './custom-form-controls/exemple-custom-form-control.component';
+import {TextBoxType} from 'mf-dynamic-form';
 
 export const PURCHASE_ORDER_FORM_DEFINITION: MfForm = {
-  readOnly: true,
   debugMode: true,
+  customControls: {
+    unitsFormControl: ExempleCustomFormControlComponent
+  },
   steps: [
     {
       label: 'Informations de la commande',
@@ -10,16 +15,27 @@ export const PURCHASE_ORDER_FORM_DEFINITION: MfForm = {
         {
           label: 'Informations de la commande',
           controls: [
+            new DynamicFormControl({
+              key: 'units',
+              required: false,
+              requiredWhen: [{field: 'radioButton', value: 'true'}],
+              visibleWhen: [{field: 'radioButton', value: 'true'}],
+              component: 'unitsFormControl',
+              inputs: {
+                a: 1,
+                b: 2
+              }
+            }),
             new TextboxFormControl({
               key: 'firstName',
               label: 'Prénom',
               value: "Moulaye",
-              type: 'text',
+              type: TextBoxType.TEXT,
             }),
             new TextboxFormControl({
               key: 'lastName',
               label: 'Nom',
-              type: 'text'
+              type: TextBoxType.PHONE
             }),
             new RadioButtonFormControl({
               key: 'radioButton',
@@ -34,7 +50,6 @@ export const PURCHASE_ORDER_FORM_DEFINITION: MfForm = {
             new CheckboxFormControl({
               key: 'checkboxes',
               required: true,
-              visibleWhen: [{field: 'radioButton', value: 'true'}],
               class: 'col-xl-12',
               label: 'Selectionnez les choix applicables',
               value: ['2', '1'],

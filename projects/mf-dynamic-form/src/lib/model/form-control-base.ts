@@ -1,3 +1,4 @@
+import {TextBoxType} from './textbox-type';
 
 export class FormControlBase {
 	value: any;
@@ -11,7 +12,7 @@ export class FormControlBase {
 	placeholder: string;
 	alphanumeric: boolean;
 	controlType: string;
-	type: string;
+	type: TextBoxType;
 	export: boolean;
 	visible: boolean;
 	hidden: boolean;
@@ -40,7 +41,7 @@ export class FormControlBase {
 		disableWhen?: { field: string, value: any }[];
 		order?: number;
 		controlType?: string;
-		type?: string;
+		type?: TextBoxType;
 		options?: { value: string, label: string }[],
 		minLength?: number;
 		hidden?: boolean;
@@ -60,7 +61,7 @@ export class FormControlBase {
 		this.disableWhen = options.disableWhen || [];
 		this.order = options.order === undefined ? 1 : options.order;
 		this.controlType = options.controlType || '';
-		this.type = options.type || 'text';
+		this.type = options.type || TextBoxType.TEXT;
 		this.maxLength = options.maxLength;
 		this.readOnly = !!options.readOnly;
 		this.notReadOnly = !!options.notReadOnly;

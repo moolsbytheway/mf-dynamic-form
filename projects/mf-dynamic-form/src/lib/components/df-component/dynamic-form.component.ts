@@ -33,11 +33,11 @@ export class DynamicFormComponent {
     previous: 'Previous',
     save: 'Save',
     errors: {
-      isRequired: 'est obligatoire ',
+      isRequired: 'Ce champs est obligatoire ',
       minLength: 'La longueur minimal est de',
       maxLength: 'La longueur maximal est de',
-      emailInvalid: 'invalid',
-      alphanumeric: 'doit être Alphanumeric',
+      emailInvalid: 'Email invalid',
+      alphanumeric: 'Ce champs doit être Alphanumeric',
       passwordMismatch: 'Les mots de passe ne sont pas identiques'
     }
   };
