@@ -81,5 +81,8 @@
 - Css tweak
 
 ### v1.2.0
-- add types for Text field 
+- add types for Text field
 - fix visibleWhen, requiredWhen for DynamicFormControls
+
+### v1.2.1
+- bug fixes

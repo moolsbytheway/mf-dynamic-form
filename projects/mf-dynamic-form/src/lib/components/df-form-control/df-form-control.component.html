@@ -1,6 +1,5 @@
 <div *ngIf="control.controlType == 'dynamic'; else normalControl"
      [class.hidden]="!control.visible"
-     [class.required]="formControlIsRequired"
 >
   <ndc-dynamic
     [ndcDynamicComponent]="control.component"
@@ -63,7 +62,7 @@
                  [min]="control.minDate"
                  [name]="control.key"
                  [placeholder]="control.placeholder"
-                 [type]="control.type" class="form-control">
+                 type="datetime-local" class="form-control">
 
           <input (change)="onFileSelect($event)"
                  *ngSwitchCase="'file'"
