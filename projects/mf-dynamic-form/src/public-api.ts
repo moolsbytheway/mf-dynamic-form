@@ -12,6 +12,7 @@ export * from './lib/model/dropdown-form-control';
 export * from './lib/model/file-form-control';
 export * from './lib/model/password-form-control';
 export * from './lib/model/textarea-form-control';
+export * from './lib/model/textbox-type';
 export * from './lib/model/textbox-form-control';
 export * from './lib/model/i18n';
 
