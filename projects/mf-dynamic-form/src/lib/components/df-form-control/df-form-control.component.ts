@@ -179,7 +179,7 @@ export class DfFormControlComponent implements OnInit, OnDestroy {
       const isString = typeof dep == 'string';
       const fieldName = isString ? dep : dep['field'];
       const expectedValue = isString ? '' : dep['value'];
-      const shouldBeRequiredWhenValueIsNotEmpty = (value: string) => isString && value != '';
+      const shouldBeRequiredWhenValueIsNotEmpty = (value: string) => isString && value;
       const shouldBeRequiredWhenValueIsEqualToExpectedValue =
         (value: string) => {
           return !isString && value == expectedValue;
@@ -266,12 +266,18 @@ export class DfFormControlComponent implements OnInit, OnDestroy {
       if (found) {
         break;
       }
-      const fieldName = dep['field'];
-      const expectedValue = dep['value'];
-      const shouldBeVisibleWhenValueIsEqualToExpectedValue = value => value == expectedValue;
+
+      const isString = typeof dep == 'string';
+      const fieldName = isString ? dep : dep['field'];
+      const expectedValue = isString ? '' : dep['value'];
+
+      const shouldBeVisibleWhenValueIsNotEmpty = (value: string) => isString && value;
+
+      const shouldBeVisibleWhenValueIsEqualToExpectedValue = value => !isString && value == expectedValue;
 
 
-      if (shouldBeVisibleWhenValueIsEqualToExpectedValue(this.form.get(fieldName).value)) {
+      if (shouldBeVisibleWhenValueIsNotEmpty(this.form.get(fieldName).value) ||
+        shouldBeVisibleWhenValueIsEqualToExpectedValue(this.form.get(fieldName).value)) {
         this.control.visible = true;
         found = true;
       } else {
@@ -284,7 +290,8 @@ export class DfFormControlComponent implements OnInit, OnDestroy {
       }
 
       this.subx.push(this.form.get(fieldName).valueChanges.subscribe(value => {
-        if (shouldBeVisibleWhenValueIsEqualToExpectedValue(value)) {
+        if (shouldBeVisibleWhenValueIsNotEmpty(value) ||
+          shouldBeVisibleWhenValueIsEqualToExpectedValue(value)) {
           this.control.visible = true;
           found = true;
         } else {

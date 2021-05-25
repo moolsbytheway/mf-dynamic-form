@@ -62,6 +62,8 @@ export const PURCHASE_ORDER_FORM_DEFINITION: MfForm = {
             new DropdownFormControl({
                key: 'typeFluxWithTriggerField',
               label: 'Type de flux with Trigger field',
+              visibleWhen: ['modeTransport'],
+              requiredWhen: ['modeTransport'],
               options$: {
                  triggerField: 'modeTransport',
                 callback: fetchTypeFlux$
@@ -70,6 +72,7 @@ export const PURCHASE_ORDER_FORM_DEFINITION: MfForm = {
             new DropdownFormControl({
                key: 'typeFluxWithoutTriggerField',
               label: 'Type de flux without Trigger field',
+              visibleWhen: ['typeFluxWithTriggerField'],
               options$: {
                 callback: (value) => {
                    return new Promise((resolve) => {

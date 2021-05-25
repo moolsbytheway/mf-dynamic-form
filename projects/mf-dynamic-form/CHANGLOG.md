@@ -92,3 +92,6 @@
 
 ### v1.4.0
 - in DynamicFormControl with have now access to field formValue (the whole FormGroup)
+
+### v1.4.1
+- Fix visibleWhen

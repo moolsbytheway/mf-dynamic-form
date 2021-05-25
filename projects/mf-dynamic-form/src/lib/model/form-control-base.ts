@@ -17,7 +17,7 @@ export class FormControlBase {
 	visible: boolean;
 	hidden: boolean;
 	requiredWhen: any[] | { field: string, value: any }[];
-	visibleWhen: { field: string, value: any }[];
+	visibleWhen: any[] | { field: string, value: any }[];
 	disableWhen: { field: string, value: any }[];
 	minLength: number;
 	maxLength: number;
@@ -38,7 +38,7 @@ export class FormControlBase {
     readOnly?: boolean;
     notReadOnly?: boolean;
 		requiredWhen?: any[] | { field: string, value: any }[];
-		visibleWhen?: { field: string, value: any }[];
+		visibleWhen?: any[] | { field: string, value: any }[];
 		disableWhen?: { field: string, value: any }[];
 		order?: number;
 		controlType?: string;
