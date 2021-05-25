@@ -89,3 +89,6 @@
 
 ### v1.3.0
 - added options$ to resolve DropdownFormControl from a Promie
+
+### v1.4.0
+- in DynamicFormControl with have now access to field formValue (the whole FormGroup)

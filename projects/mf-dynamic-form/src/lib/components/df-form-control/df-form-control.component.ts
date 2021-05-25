@@ -351,5 +351,9 @@ export class DfFormControlComponent implements OnInit, OnDestroy {
   logPromiseFetch(value) {
     console.info(`Requesting data for field ${this.control.key} with value ${value}`)
   }
+
+  get generateDynamicComponentInputs() {
+    return {...this.control.inputs, formValue: this.form}
+  }
 }
 
