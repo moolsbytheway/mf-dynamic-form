@@ -3,6 +3,7 @@ import {AbstractControl, FormArray, FormControl, FormGroup, Validators} from '@a
 import {Subscription} from 'rxjs';
 import {I18n} from '../../model/i18n';
 import {FormControlService} from '../../service/form-control.service';
+import {DropdownOption} from '../../model/form-control-base';
 
 @Component({
   selector: 'df-form-control',
@@ -22,7 +23,6 @@ export class DfFormControlComponent implements OnInit, OnDestroy {
     this.form.controls[this.control.key].setValue(value);
     this.form.controls[this.control.key].markAsTouched();
     this.form.controls[this.control.key].updateValueAndValidity();
-    console.log(this.form.controls[this.control.key]);
   }
 
   get isValid() {
@@ -93,6 +93,7 @@ export class DfFormControlComponent implements OnInit, OnDestroy {
     this.subscribeToRequirementDependecies();
     this.subscribeToVisibilityDependencies();
     this.subscribeToDisabilityDependencies();
+    this.subscribeToOptionsPromises();
   }
 
   onFileSelect(event) {
@@ -298,10 +299,57 @@ export class DfFormControlComponent implements OnInit, OnDestroy {
     }
   }
 
+  private subscribeToOptionsPromises() {
+    const options$ = this.control.options$;
+    if(!options$ || this.control.controlType != "dropdown" ||
+      typeof options$.callback != "function") return;
+
+    const fieldName = options$['triggerField'];
+
+    if(!fieldName) {
+      this.logPromiseFetch(null)
+      options$.callback(null).then((value: DropdownOption[]) => {
+        this.control.options = value
+        this.form.controls[this.control.key].setValue(null);
+        this.form.controls[this.control.key].updateValueAndValidity();
+      })
+
+      return;
+    }
+
+    const value = this.form.get(fieldName).value;
+
+    const promise: Promise<DropdownOption[]> = options$.callback(value);
+
+    this.logPromiseFetch(value)
+    promise.then((value: DropdownOption[]) => {
+      this.control.options = value
+      this.form.controls[this.control.key].setValue(null);
+      this.form.controls[this.control.key].updateValueAndValidity();
+    })
+
+      this.subx.push(this.form.get(fieldName).valueChanges.subscribe(value => {
+
+        const promise: Promise<DropdownOption[]> = options$.callback(value);
+
+        this.logPromiseFetch(value)
+        promise.then((value: DropdownOption[]) => {
+          this.control.options = value
+          this.form.controls[this.control.key].setValue(null);
+          this.form.controls[this.control.key].updateValueAndValidity();
+        })
+
+      }));
+  }
+
   private initCustomFormControlOutputs() {
     this.customControlOutputs = {
       output: value => this.updateCustomFormControl(value),
     };
+  }
+
+  logPromiseFetch(value) {
+    console.info(`Requesting data for field ${this.control.key} with value ${value}`)
   }
 }
 

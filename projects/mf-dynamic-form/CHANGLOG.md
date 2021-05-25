@@ -86,3 +86,6 @@
 
 ### v1.2.1
 - bug fixes
+
+### v1.3.0
+- added options$ to resolve DropdownFormControl from a Promie

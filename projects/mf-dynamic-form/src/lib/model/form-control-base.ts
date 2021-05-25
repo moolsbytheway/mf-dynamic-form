@@ -22,7 +22,8 @@ export class FormControlBase {
 	minLength: number;
 	maxLength: number;
 	positiveNumberOnly: boolean;
-	options: { value: string, label: string }[];
+	options: DropdownOption[];
+  options$: PromiseOptionsParams;
 	inputs: any;
 	component: string;
 
@@ -42,8 +43,9 @@ export class FormControlBase {
 		order?: number;
 		controlType?: string;
 		type?: TextBoxType;
-		options?: { value: string, label: string }[],
-		minLength?: number;
+		options?: DropdownOption[],
+    options$?: PromiseOptionsParams,
+    minLength?: number;
 		hidden?: boolean;
 		maxLength?: number;
 		positiveNumberOnly?: boolean;
@@ -70,6 +72,7 @@ export class FormControlBase {
 		this.minLength = options.minLength;
 		this.positiveNumberOnly = options.positiveNumberOnly;
 		this.class = options.class;
+		this.options$ = options.options$;
 		this.options = options.options || [];
 		this.export = options.export == undefined ? true : options.export;
 		this.visible = options.visible == undefined ? true : options.visible;
@@ -89,4 +92,5 @@ export type MfForm = {
 
 export type MfFormStep = { label?: string, sections: MfFormSection[] };
 export type MfFormSection = { label?: string, controls: FormControlBase[] }
-
+export type DropdownOption = { value: any, label: string };
+export type PromiseOptionsParams = {callback: (any) => Promise<DropdownOption[]>, triggerField?: string};

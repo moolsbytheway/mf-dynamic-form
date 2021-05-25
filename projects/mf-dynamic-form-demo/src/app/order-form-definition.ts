@@ -2,6 +2,20 @@ import {CheckboxFormControl, MfForm, RadioButtonFormControl, TextboxFormControl}
 import {DynamicFormControl} from 'mf-dynamic-form';
 import {ExempleCustomFormControlComponent} from './custom-form-controls/exemple-custom-form-control.component';
 import {TextBoxType} from 'mf-dynamic-form';
+import {DropdownFormControl} from 'mf-dynamic-form';
+import {DropdownOption} from 'mf-dynamic-form';
+
+export const fetchTypeFlux$ = (value): Promise<DropdownOption[]> =>  {
+  return new Promise((resolve) => {
+    resolve(value == 1 ? [
+      {label: 'Backend value 1 for Val 1', value: 11},
+      {label: 'Backend value 2 for Val 1', value: 12},
+    ] : [
+      {label: 'Backend value 1 for Val 2', value: 21},
+      {label: 'Backend value 2 for Val 2', value: 22},
+    ])
+  })
+}
 
 export const PURCHASE_ORDER_FORM_DEFINITION: MfForm = {
   debugMode: true,
@@ -36,6 +50,36 @@ export const PURCHASE_ORDER_FORM_DEFINITION: MfForm = {
               key: 'lastName',
               label: 'Nom',
               type: TextBoxType.PHONE
+            }),
+            new DropdownFormControl({
+               key: 'modeTransport',
+              label: 'Mode de transport',
+              options: [
+                {label: 'Val1', value: 1},
+                {label: 'Val2', value: 2},
+              ]
+            }),
+            new DropdownFormControl({
+               key: 'typeFluxWithTriggerField',
+              label: 'Type de flux with Trigger field',
+              options$: {
+                 triggerField: 'modeTransport',
+                callback: fetchTypeFlux$
+              }
+            }),
+            new DropdownFormControl({
+               key: 'typeFluxWithoutTriggerField',
+              label: 'Type de flux without Trigger field',
+              options$: {
+                callback: (value) => {
+                   return new Promise((resolve) => {
+                     resolve([
+                       {label: 'NO trigger Backend value 1', value: 11},
+                       {label: 'NO trigger Backend value 2', value: 22},
+                     ])
+                   })
+                }
+              }
             }),
             new RadioButtonFormControl({
               key: 'radioButton',

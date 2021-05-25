@@ -86,7 +86,37 @@ export class AppComponent {
                 key: 'lastName',
                 label: 'Nom',
                 type: TextBoxType.TEXT
-              })
+              }),
+              new DropdownFormControl({
+                key: 'modeTransport',
+                label: 'Mode de transport',
+                options: [
+                  {label: 'Val1', value: 1},
+                  {label: 'Val2', value: 2},
+                ]
+              }),
+              new DropdownFormControl({
+                key: 'typeFluxWithTriggerField',
+                label: 'Type de flux with Trigger field',
+                options$: {
+                  triggerField: 'modeTransport',
+                  callback: fetchTypeFlux$
+                }
+              }),
+              new DropdownFormControl({
+                key: 'typeFluxWithoutTriggerField',
+                label: 'Type de flux without Trigger field',
+                options$: {
+                  callback: (value) => {
+                    return new Promise((resolve) => {
+                      resolve([
+                        {label: 'NO trigger Backend value 1', value: 11},
+                        {label: 'NO trigger Backend value 2', value: 22},
+                      ])
+                    })
+                  }
+                }
+              }),
             ]
           },
         ]
