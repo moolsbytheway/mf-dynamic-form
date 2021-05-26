@@ -13,6 +13,7 @@ export class FormControlBase {
 	alphanumeric: boolean;
 	controlType: string;
 	type: TextBoxType;
+  exportOnly: boolean;
 	export: boolean;
 	visible: boolean;
 	hidden: boolean;
@@ -35,6 +36,7 @@ export class FormControlBase {
 		label?: string;
 		alphanumeric?: boolean;
 		required?: boolean;
+    exportOnly?: boolean;
     readOnly?: boolean;
     notReadOnly?: boolean;
 		requiredWhen?: any[] | { field: string, value: any }[];
@@ -57,6 +59,7 @@ export class FormControlBase {
 		this.value = options.value;
 		this.key = options.key || '';
 		this.label = options.label || '';
+		this.exportOnly = !!options.exportOnly;
 		this.required = options.required == undefined ? true : !!options.required
 		this.requiredWhen = options.requiredWhen || [];
 		this.visibleWhen = options.visibleWhen || [];

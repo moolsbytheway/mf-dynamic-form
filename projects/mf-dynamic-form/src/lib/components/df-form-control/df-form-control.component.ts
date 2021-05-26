@@ -338,7 +338,7 @@ export class DfFormControlComponent implements OnInit, OnDestroy {
       this.subx.push(this.form.get(fieldName).valueChanges.subscribe(value => {
 
         const promise: Promise<DropdownOption[]> = options$.callback(value);
-x
+
         this.logPromiseFetch(value)
         promise.then((value: DropdownOption[]) => {
           this.control.options = value

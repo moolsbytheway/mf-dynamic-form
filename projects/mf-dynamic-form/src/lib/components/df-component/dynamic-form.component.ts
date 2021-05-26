@@ -69,7 +69,8 @@ export class DynamicFormComponent {
     }
     const form = {};
     this.formControls.forEach(it => {
-      if (it.export && it.visible && !this.formGroup.controls[it.key].disabled) {
+      if (it.exportOnly || (
+        it.export && it.visible && !this.formGroup.controls[it.key].disabled)) {
         form[it.key] = this.formGroup.controls[it.key].value;
       }
     });
