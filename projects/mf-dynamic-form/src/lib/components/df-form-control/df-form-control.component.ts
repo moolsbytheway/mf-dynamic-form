@@ -317,7 +317,7 @@ export class DfFormControlComponent implements OnInit, OnDestroy {
       this.logPromiseFetch(null)
       options$.callback(null).then((value: DropdownOption[]) => {
         this.control.options = value
-        this.form.controls[this.control.key].setValue(null);
+        this.form.controls[this.control.key].setValue(value.length ? value[0].value : null);
         this.form.controls[this.control.key].updateValueAndValidity();
       })
 
@@ -331,18 +331,18 @@ export class DfFormControlComponent implements OnInit, OnDestroy {
     this.logPromiseFetch(value)
     promise.then((value: DropdownOption[]) => {
       this.control.options = value
-      this.form.controls[this.control.key].setValue(null);
+      this.form.controls[this.control.key].setValue(value.length ? value[0].value : null);
       this.form.controls[this.control.key].updateValueAndValidity();
     })
 
       this.subx.push(this.form.get(fieldName).valueChanges.subscribe(value => {
 
         const promise: Promise<DropdownOption[]> = options$.callback(value);
-
+x
         this.logPromiseFetch(value)
         promise.then((value: DropdownOption[]) => {
           this.control.options = value
-          this.form.controls[this.control.key].setValue(null);
+          this.form.controls[this.control.key].setValue(value.length ? value[0].value : null);
           this.form.controls[this.control.key].updateValueAndValidity();
         })
 
