@@ -101,7 +101,7 @@ export class DynamicFormComponent {
     this.steps = f.steps;
     this.formControls = flattenDeep(f.steps.map(step => step.sections.map(it => it.controls)));
     this.checkFormControlsDuplication();
-    this.formGroup = this.qcs.toFormGroup(this.formControls);
+    this.formGroup = this.qcs.toFormGroup(this.formControls, f.readOnly);
   }
 
   private initCustomFormControls(f: MfForm) {

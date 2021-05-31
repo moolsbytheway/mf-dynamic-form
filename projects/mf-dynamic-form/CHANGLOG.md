@@ -99,3 +99,6 @@
 ### v1.4.2
 - Fix dropdowns default
 - add option "exportOnly" to add a hidden field
+
+### v1.4.3
+- Fix read only

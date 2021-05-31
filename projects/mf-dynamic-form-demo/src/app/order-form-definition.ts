@@ -19,6 +19,7 @@ export const fetchTypeFlux$ = (value): Promise<DropdownOption[]> =>  {
 
 export const PURCHASE_ORDER_FORM_DEFINITION: MfForm = {
   debugMode: true,
+  readOnly: true,
   customControls: {
     unitsFormControl: ExempleCustomFormControlComponent
   },
@@ -49,11 +50,12 @@ export const PURCHASE_ORDER_FORM_DEFINITION: MfForm = {
             new TextboxFormControl({
               key: 'lastName',
               label: 'Nom',
-              type: TextBoxType.PHONE
+              value: "Ahmed",
             }),
             new DropdownFormControl({
                key: 'modeTransport',
               label: 'Mode de transport',
+              value: "1",
               options: [
                 {label: 'Val1', value: 1},
                 {label: 'Val2', value: 2},
@@ -64,6 +66,7 @@ export const PURCHASE_ORDER_FORM_DEFINITION: MfForm = {
               label: 'Type de flux with Trigger field',
               visibleWhen: ['modeTransport'],
               requiredWhen: ['modeTransport'],
+              value: "11",
               options$: {
                  triggerField: 'modeTransport',
                 callback: fetchTypeFlux$
@@ -73,6 +76,7 @@ export const PURCHASE_ORDER_FORM_DEFINITION: MfForm = {
                key: 'typeFluxWithoutTriggerField',
               label: 'Type de flux without Trigger field',
               visibleWhen: ['typeFluxWithTriggerField'],
+              value: "21",
               options$: {
                 callback: (value) => {
                    return new Promise((resolve) => {
@@ -88,7 +92,7 @@ export const PURCHASE_ORDER_FORM_DEFINITION: MfForm = {
               key: 'radioButton',
               class: 'radio-inline',
               label: 'Acceptes tu les termes et conditions ?',
-              value: '',
+              value: 'true',
               options: [
                 {label: 'Oui', value: 'true'},
                 {label: 'Non', value: 'false'}

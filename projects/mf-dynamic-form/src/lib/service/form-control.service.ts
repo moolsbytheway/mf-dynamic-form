@@ -34,7 +34,7 @@ export class FormControlService {
 		return password === confirmPassword ? null : {passwordMismatch: true};
 	}
 
-	toFormGroup(controls: FormControlBase[]) {
+  toFormGroup(controls: FormControlBase[], readOnly: boolean) {
 		const group = {};
 
 		controls.forEach(control => {
@@ -54,6 +54,10 @@ export class FormControlService {
 						Validators.compose(validators))
 					: new FormControl(control.value || '');
 			}
+
+			if((!!readOnly && !control.notReadOnly) || !!control.readOnly) {
+			  group[control.key].disable();
+      }
 
 			if (control.disableWhen && control.disableWhen.length > 0) {
 				group[control.key].disable();

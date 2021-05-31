@@ -17,27 +17,12 @@
              class="areaLibelle col-md-4 col-sm-12 col-xs-12"
       >{{control.label}}:</label>
 
-      <div [class.hidden]="!control.visible"
-           [ngClass]="control.class"
-           *ngIf="control.readOnly; else notReadOnly">
-        <input
-               [attr.readonly]="control.readOnly"
-               [formControlName]="control.key"
-               [id]="control.key"
-               [min]="control.positiveNumberOnly ? 0 : null"
-               [name]="control.key"
-               [placeholder]="control.placeholder"
-               [type]="control.type"
-               class="form-control" oninput="(min === 0 && validity.badInput) && (  value='');">
-      </div>
-      <ng-template #notReadOnly>
         <div [ngSwitch]="control.controlType"
              [class.hidden]="!control.visible"
              class="mf-input-container"
              [ngClass]="control.class">
 
           <input *ngSwitchCase="'textbox'"
-
                  [formControlName]="control.key"
                  [id]="control.key"
                  [min]="control.positiveNumberOnly ? 0 : null"
@@ -55,7 +40,6 @@
                  [type]="control.type" class="form-control">
 
           <input *ngSwitchCase="'date'"
-
                  [formControlName]="control.key"
                  [id]="control.key"
                  [max]="control.maxDate"
@@ -66,14 +50,12 @@
 
           <input (change)="onFileSelect($event)"
                  *ngSwitchCase="'file'"
-
                  [id]="control.key"
                  [name]="control.key"
                  class="form-control"
                  type="file">
 
           <textarea *ngSwitchCase="'textarea'"
-
                     [formControlName]="control.key"
                     [id]="control.key"
                     [name]="control.key"
@@ -81,7 +63,6 @@
                     class="form-control"></textarea>
 
           <select *ngSwitchCase="'dropdown'"
-
                   [formControlName]="control.key"
                   [id]="control.key"
                   [name]="control.key" class="form-control">
@@ -104,7 +85,10 @@
           <div *ngSwitchCase="'checkbox'" [class.hidden]="!control.visible">
             <div *ngFor="let opt of control.options">
               <label>
-                <input #it (change)="onCheckChange($event)" [checked]="itemIsChecked(opt.value)"
+                <input
+                  [disabled]="!!control.readOnly"
+                  (change)="onCheckChange($event)"
+                  [checked]="itemIsChecked(opt.value)"
                        [value]="opt.value" type="checkbox">
                 {{opt.label}}
               </label>
@@ -139,7 +123,6 @@
           </div>
 
         </div>
-      </ng-template>
     </div>
   </ng-container>
 
