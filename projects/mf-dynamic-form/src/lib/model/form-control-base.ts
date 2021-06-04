@@ -5,6 +5,7 @@ export class FormControlBase {
 	key: string;
 	class: string;
 	label: string;
+  disabled: boolean;
 	readOnly: boolean;
 	notReadOnly: boolean;
 	required: boolean;
@@ -32,6 +33,7 @@ export class FormControlBase {
 		value?: any;
 		key?: string;
 		export?: boolean;
+    disabled?: boolean;
 		visible?: boolean;
 		label?: string;
 		alphanumeric?: boolean;
@@ -71,6 +73,7 @@ export class FormControlBase {
 		this.readOnly = !!options.readOnly;
 		this.notReadOnly = !!options.notReadOnly;
 		this.alphanumeric = !!options.alphanumeric;
+		this.disabled = !!options.disabled;
 		this.hidden = !!options.hidden;
 		this.minLength = options.minLength;
 		this.positiveNumberOnly = options.positiveNumberOnly;

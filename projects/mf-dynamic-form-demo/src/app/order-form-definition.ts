@@ -1,11 +1,16 @@
-import {CheckboxFormControl, MfForm, RadioButtonFormControl, TextboxFormControl} from 'mf-dynamic-form';
-import {DynamicFormControl} from 'mf-dynamic-form';
+import {
+  CheckboxFormControl,
+  DropdownFormControl,
+  DropdownOption,
+  DynamicFormControl,
+  MfForm,
+  RadioButtonFormControl,
+  TextboxFormControl,
+  TextBoxType
+} from 'mf-dynamic-form';
 import {ExempleCustomFormControlComponent} from './custom-form-controls/exemple-custom-form-control.component';
-import {TextBoxType} from 'mf-dynamic-form';
-import {DropdownFormControl} from 'mf-dynamic-form';
-import {DropdownOption} from 'mf-dynamic-form';
 
-export const fetchTypeFlux$ = (value): Promise<DropdownOption[]> =>  {
+export const fetchTypeFlux$ = (value): Promise<DropdownOption[]> => {
   return new Promise((resolve) => {
     resolve(value == 1 ? [
       {label: 'Backend value 1 for Val 1', value: 11},
@@ -13,13 +18,12 @@ export const fetchTypeFlux$ = (value): Promise<DropdownOption[]> =>  {
     ] : [
       {label: 'Backend value 1 for Val 2', value: 21},
       {label: 'Backend value 2 for Val 2', value: 22},
-    ])
-  })
-}
+    ]);
+  });
+};
 
 export const PURCHASE_ORDER_FORM_DEFINITION: MfForm = {
   debugMode: true,
-  readOnly: true,
   customControls: {
     unitsFormControl: ExempleCustomFormControlComponent
   },
@@ -44,47 +48,47 @@ export const PURCHASE_ORDER_FORM_DEFINITION: MfForm = {
             new TextboxFormControl({
               key: 'firstName',
               label: 'Prénom',
-              value: "Moulaye",
+              value: 'Moulaye',
               type: TextBoxType.TEXT,
             }),
             new TextboxFormControl({
               key: 'lastName',
               label: 'Nom',
-              value: "Ahmed",
+              value: 'Ahmed',
             }),
             new DropdownFormControl({
-               key: 'modeTransport',
+              key: 'modeTransport',
               label: 'Mode de transport',
-              value: "1",
+              value: '1',
               options: [
                 {label: 'Val1', value: 1},
                 {label: 'Val2', value: 2},
               ]
             }),
             new DropdownFormControl({
-               key: 'typeFluxWithTriggerField',
+              key: 'typeFluxWithTriggerField',
               label: 'Type de flux with Trigger field',
               visibleWhen: ['modeTransport'],
               requiredWhen: ['modeTransport'],
-              value: "11",
+              value: '11',
               options$: {
-                 triggerField: 'modeTransport',
+                triggerField: 'modeTransport',
                 callback: fetchTypeFlux$
               }
             }),
             new DropdownFormControl({
-               key: 'typeFluxWithoutTriggerField',
+              key: 'typeFluxWithoutTriggerField',
               label: 'Type de flux without Trigger field',
               visibleWhen: ['typeFluxWithTriggerField'],
-              value: "21",
+              value: '21',
               options$: {
                 callback: (value) => {
-                   return new Promise((resolve) => {
-                     resolve([
-                       {label: 'NO trigger Backend value 1', value: 11},
-                       {label: 'NO trigger Backend value 2', value: 22},
-                     ])
-                   })
+                  return new Promise((resolve) => {
+                    resolve([
+                      {label: 'NO trigger Backend value 1', value: 11},
+                      {label: 'NO trigger Backend value 2', value: 22},
+                    ]);
+                  });
                 }
               }
             }),
@@ -113,6 +117,32 @@ export const PURCHASE_ORDER_FORM_DEFINITION: MfForm = {
           ]
         },
       ]
-    }
-  ]
+    },
+    {
+      label: 'step 2',
+      sections: [
+        {
+          label: 'step 2',
+          controls: [
+            new TextboxFormControl({
+              key: 'firstName2',
+              label: 'Prénom',
+              value: '',
+              type: TextBoxType.TEXT,
+            }),
+            new TextboxFormControl({
+              key: 'lastName3',
+              label: 'Nom',
+              value: '',
+            }),
+            new TextboxFormControl({
+              key: 'fsfd',
+              required: false,
+              label: 'Nofdfm',
+              value: '',
+            })
+          ]
+        }
+      ]
+    }]
 };

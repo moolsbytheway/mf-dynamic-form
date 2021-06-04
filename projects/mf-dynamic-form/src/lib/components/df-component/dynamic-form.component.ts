@@ -42,6 +42,7 @@ export class DynamicFormComponent {
     }
   };
   @Output() formSubmitted = new EventEmitter();
+  @Output() onChange = new EventEmitter();
 
   constructor(private qcs: FormControlService) {
   }
@@ -64,8 +65,6 @@ export class DynamicFormComponent {
   submit() {
     if (!this.formGroup.valid) {
       this.formGroup.markAllAsTouched();
-      this.formSubmitted.emit();
-      return;
     }
     const form = {};
     this.formControls.forEach(it => {
@@ -85,12 +84,26 @@ export class DynamicFormComponent {
     this.activeStep++;
   }
 
+  isFormValid() {
+    return this.formGroup.valid;
+  }
+
   isActiveStep(index: number) {
     return index === this.activeStep;
   }
 
   debug() {
     console.log(this.formGroup.controls);
+  }
+
+  isStepValidated(index: number) {
+    const formFields = flattenDeep(this.steps[index].sections.map(it => it.controls)).map(it => it.key);
+    for (let field of formFields) {
+      if (this.formGroup.controls[field].invalid) {
+        return false;
+      }
+    }
+    return true;
   }
 
   private init(f: MfForm) {
@@ -102,6 +115,9 @@ export class DynamicFormComponent {
     this.formControls = flattenDeep(f.steps.map(step => step.sections.map(it => it.controls)));
     this.checkFormControlsDuplication();
     this.formGroup = this.qcs.toFormGroup(this.formControls, f.readOnly);
+    this.formGroup.valueChanges.subscribe(value => {
+      this.onChange.emit(value);
+    })
   }
 
   private initCustomFormControls(f: MfForm) {

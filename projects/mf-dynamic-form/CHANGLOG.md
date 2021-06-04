@@ -102,3 +102,16 @@
 
 ### v1.4.3
 - Fix read only
+
+### v1.4.4
+- Add option "disabled"
+- Fix default css
+
+### v1.5.0
+- check if a step is validated
+
+### v1.6.0
+- add on change listener for the form component
+
+### v1.7.0
+- form value is always submitted even if form is not valid
