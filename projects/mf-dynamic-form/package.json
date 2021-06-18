@@ -1,6 +1,6 @@
 {
   "name": "mf-dynamic-form",
-  "version": "1.7.0",
+  "version": "1.7.1",
   "description": "Angular component that creates a form with validation from given spec",
   "repository": {
     "type": "git",

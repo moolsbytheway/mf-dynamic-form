@@ -63,7 +63,7 @@ export class DynamicFormComponent {
   }
 
   submit() {
-    if (!this.formGroup.valid) {
+    if (!this.isFormValid()) {
       this.formGroup.markAllAsTouched();
     }
     const form = {};
@@ -85,7 +85,7 @@ export class DynamicFormComponent {
   }
 
   isFormValid() {
-    return this.formGroup.valid;
+    return !!this.formGroup && this.formGroup.valid;
   }
 
   isActiveStep(index: number) {

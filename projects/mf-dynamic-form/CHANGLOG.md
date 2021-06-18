@@ -115,3 +115,6 @@
 
 ### v1.7.0
 - form value is always submitted even if form is not valid
+
+### v1.7.1
+- Fix form call
