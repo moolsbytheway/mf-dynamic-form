@@ -124,3 +124,6 @@
 
 ### v1.8.1
 - Fix onChanged value missing
+
+### v1.8.2
+- Throw an exception if the user provide a dynamicFormComponent without putting it in customControls
