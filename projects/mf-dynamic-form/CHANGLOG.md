@@ -121,3 +121,6 @@
 
 ### v1.8.0
 - Add onChanged to dynamicFormControl
+
+### v1.8.1
+- Fix onChanged value missing

@@ -10,7 +10,7 @@ export class DateFormControl extends FormControlBase {
 		maxDate?: string
 	}) {
 		super(options);
-		this.minDate = customOptions.minDate;
-		this.maxDate = customOptions.maxDate;
+		this.minDate = customOptions?.minDate;
+		this.maxDate = customOptions?.maxDate;
 	}
 }

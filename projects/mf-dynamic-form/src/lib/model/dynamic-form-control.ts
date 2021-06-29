@@ -8,6 +8,6 @@ export class DynamicFormControl extends FormControlBase {
     onChanged?: Function,
   }) {
     super(options);
-    this.onChanged = customOptions.onChanged;
+    this.onChanged = customOptions?.onChanged;
   }
 }
