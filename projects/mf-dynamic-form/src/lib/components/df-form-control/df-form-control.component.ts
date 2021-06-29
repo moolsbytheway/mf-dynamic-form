@@ -23,6 +23,7 @@ export class DfFormControlComponent implements OnInit, OnDestroy {
     this.form.controls[this.control.key].setValue(value);
     this.form.controls[this.control.key].markAsTouched();
     this.form.controls[this.control.key].updateValueAndValidity();
+    if(this.control.onChanged) this.control.onChanged(value)
   }
 
   get isValid() {

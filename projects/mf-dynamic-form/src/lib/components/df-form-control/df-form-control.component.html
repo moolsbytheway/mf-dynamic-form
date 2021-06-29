@@ -42,8 +42,8 @@
           <input *ngSwitchCase="'date'"
                  [formControlName]="control.key"
                  [id]="control.key"
-                 [max]="control.maxDate"
-                 [min]="control.minDate"
+                 [max]="control.maxDate ? control.maxDate : undefined"
+                 [min]="control.minDate ? control.minDate : undefined"
                  [name]="control.key"
                  [placeholder]="control.placeholder"
                  type="datetime-local" class="form-control">

@@ -118,3 +118,6 @@
 
 ### v1.7.1
 - Fix form call
+
+### v1.8.0
+- Add onChanged to dynamicFormControl
