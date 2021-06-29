@@ -131,7 +131,7 @@ export class DynamicFormComponent {
             if(!f.customControls) {
               throw new Error('MissingCustomControlException: provided custom controls list is empty');
             }
-            if(f.customControls.indexOf(control.component) == -1) {
+            if(!f.customControls[control.component]) {
               throw new Error('MissingCustomControlException: control component ' + control.component + ' is missing from provided customControls list');
             }
             control.component = f.customControls[control.component];
