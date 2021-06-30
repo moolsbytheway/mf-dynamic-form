@@ -19,11 +19,11 @@ export class DfFormControlComponent implements OnInit, OnDestroy {
 
   customControlOutputs: any;
 
-  private updateCustomFormControl(value) {
+  private updateCustomFormControl(value, options?: {emitEvent: boolean}) {
     this.form.controls[this.control.key].setValue(value);
     this.form.controls[this.control.key].markAsTouched();
     this.form.controls[this.control.key].updateValueAndValidity();
-    if(this.control.onChanged) this.control.onChanged(value)
+    if(options?.emitEvent && this.control.onChanged) this.control.onChanged(value)
   }
 
   get isValid() {
@@ -352,7 +352,8 @@ export class DfFormControlComponent implements OnInit, OnDestroy {
 
   private initCustomFormControlOutputs() {
     this.customControlOutputs = {
-      output: value => this.updateCustomFormControl(value),
+      output: (obj: {value: any, options?}) =>
+        this.updateCustomFormControl(obj.value, obj.options),
     };
   }
 

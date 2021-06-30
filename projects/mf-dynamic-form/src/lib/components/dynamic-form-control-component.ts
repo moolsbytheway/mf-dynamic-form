@@ -8,7 +8,7 @@ export abstract class DynamicFormControlComponent {
 	@Input()
   formValue: FormGroup
 
-	protected updateFormControlValue(value) {
-		this.output.emit(value)
+	protected updateFormControlValue(value, options?) {
+		this.output.emit({value, options})
 	}
 }

@@ -130,3 +130,9 @@
 
 ### v1.8.3
 - Throw an exception if the user provide a dynamicFormComponent without putting it in customControls
+
+### v1.9.0
+- Emitting event after dynamicFormControl update is now optional
+
+### v1.9.1
+- Fix
