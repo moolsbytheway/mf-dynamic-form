@@ -80,7 +80,19 @@ export class AppComponent {
               new TextboxFormControl({
                 key: 'firstName',
                 label: 'Prénom',
+                value: 'Moulaye',
+                onChanged: (value, patchValue) => {
+                  console.log("new firstName: " + value)
+                  patchValue("calculatedValue", Math.random())
+                },
                 type: TextBoxType.TEXT,
+              }),
+              new TextboxFormControl({
+                key: 'calculatedValue',
+                label: 'calculatedValue',
+                onChanged: (value) => {
+                  console.log("new calculatedValue: " + value)
+                },
               }),
               new TextboxFormControl({
                 key: 'lastName',

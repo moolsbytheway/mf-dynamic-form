@@ -84,6 +84,16 @@ export class DynamicFormComponent {
     this.activeStep++;
   }
 
+  patchValue(field: string, value) {
+    if(!field || !this.formGroup.controls[field]) {
+      throw new Error('ValuePatchException: field ' + field + ' not found');
+    }
+
+    this.formGroup.controls[field].setValue(value);
+    this.formGroup.controls[field].markAsTouched();
+    this.formGroup.controls[field].updateValueAndValidity();
+  }
+
   isFormValid() {
     return !!this.formGroup && this.formGroup.valid;
   }

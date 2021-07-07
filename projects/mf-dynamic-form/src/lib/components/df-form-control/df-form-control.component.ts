@@ -81,10 +81,6 @@ export class DfFormControlComponent implements OnInit, OnDestroy {
     return this.form.errors && this.form.errors.passwordMismatch;
   }
 
-  get controlIsPassword() {
-    return this.control.controlType == 'password';
-  }
-
   ngOnDestroy(): void {
     this.unsubscribe();
   }
@@ -95,6 +91,7 @@ export class DfFormControlComponent implements OnInit, OnDestroy {
     this.subscribeToVisibilityDependencies();
     this.subscribeToDisabilityDependencies();
     this.subscribeToOptionsPromises();
+    this.subscribeToFormChanges();
   }
 
   onFileSelect(event) {
@@ -363,6 +360,23 @@ export class DfFormControlComponent implements OnInit, OnDestroy {
 
   get generateDynamicComponentInputs() {
     return {...this.control.inputs, formValue: this.form}
+  }
+
+  private subscribeToFormChanges() {
+    if(!this.control.onChanged) return;
+    this.subx.push(this.form.get(this.control.key).valueChanges.subscribe(value => {
+      this.control.onChanged(value, this.patchValue.bind(this));
+    }));
+  }
+
+  private patchValue(field: string, value) {
+    if(!field || !this.form.controls[field]) {
+      throw new Error('ValuePatchException: field ' + field + ' not found');
+    }
+
+    this.form.controls[field].setValue(value);
+    this.form.controls[field].markAsTouched();
+    this.form.controls[field].updateValueAndValidity();
   }
 }
 

@@ -28,6 +28,7 @@ export class FormControlBase {
   options$: PromiseOptionsParams;
 	inputs: any;
 	component: string;
+  onChanged: Function;
 
 	constructor(options: {
 		value?: any;
@@ -57,6 +58,7 @@ export class FormControlBase {
 		placeholder?: string;
 		inputs?: any;
 		component?: string;
+    onChanged?: Function;
 	} = {}) {
 		this.value = options.value;
 		this.key = options.key || '';
@@ -85,6 +87,7 @@ export class FormControlBase {
 		this.placeholder = options.placeholder || options.label;
 		this.inputs = options.inputs;
 		this.component = options.component
+		this.onChanged = options.onChanged
 	}
 }
 
