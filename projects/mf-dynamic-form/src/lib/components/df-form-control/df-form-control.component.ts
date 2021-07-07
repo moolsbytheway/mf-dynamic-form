@@ -363,7 +363,7 @@ export class DfFormControlComponent implements OnInit, OnDestroy {
   }
 
   private subscribeToFormChanges() {
-    if(!this.control.onChanged) return;
+    if(!this.control.onChanged || this.control.controlType == "dynamic") return;
     this.subx.push(this.form.get(this.control.key).valueChanges.subscribe(value => {
       this.control.onChanged(value, this.patchValue.bind(this));
     }));

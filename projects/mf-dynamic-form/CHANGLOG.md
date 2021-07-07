@@ -141,3 +141,6 @@
 - onChange on the form itself is deprecated now
 - We can now listen to changes on a specific field with an option to patch another field value from the same method onChanged(value, patchValueMethod) 
 - Added a method patchValue to be able to modify form value directly from the MfDynamicForm component @ViewChild
+
+### v1.10.1
+- Fix
