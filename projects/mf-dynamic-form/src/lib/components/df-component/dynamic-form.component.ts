@@ -20,6 +20,7 @@ export class DynamicFormComponent {
   activeStep = 0;
   steps: MfFormStep[] = [];
 
+  @Input() showEmptyReadOnlyFields: boolean;
   @Input() controlsClass: string;
   @Input() previousButtonClass: string;
   @Input() saveButtonClass: string;

@@ -13,6 +13,7 @@ import {DropdownOption} from '../../model/form-control-base';
 })
 export class DfFormControlComponent implements OnInit, OnDestroy {
   @Input() control: any;
+  @Input() showEmptyReadOnlyFields: boolean;
   @Input() form: FormGroup;
   @Input() i18n: I18n;
   private subx: Subscription[] = [];

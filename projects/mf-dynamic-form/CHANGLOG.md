@@ -144,3 +144,6 @@
 
 ### v1.10.1
 - Fix
+
+### v1.11.0
+- add option to show empty readonly field
