@@ -147,3 +147,6 @@
 
 ### v1.11.0
 - add option to show empty readonly field
+
+### v1.11.1
+- try to fix dynamic component output not working sometimes

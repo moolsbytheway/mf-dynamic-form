@@ -350,7 +350,7 @@ export class DfFormControlComponent implements OnInit, OnDestroy {
 
   private initCustomFormControlOutputs() {
     this.customControlOutputs = {
-      output: (obj: {value: any, options?}) =>
+      output: (obj: {value: any, options?: {emitEvent: boolean}}) =>
         this.updateCustomFormControl(obj.value, obj.options),
     };
   }

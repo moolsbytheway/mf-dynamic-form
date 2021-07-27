@@ -1,11 +1,13 @@
 <div *ngIf="control.controlType == 'dynamic'; else normalControl"
      [class.hidden]="!control.visible"
 >
+  <ng-container *ngIf="customControlOutputs">
   <ndc-dynamic
     [ndcDynamicComponent]="control.component"
     [ndcDynamicInputs]="generateDynamicComponentInputs"
     [ndcDynamicOutputs]="customControlOutputs"
   ></ndc-dynamic>
+  </ng-container>
 </div>
 <ng-template #normalControl>
 
