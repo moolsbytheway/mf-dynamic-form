@@ -32,6 +32,7 @@
                  [name]="control.key"
                  [placeholder]="control.placeholder"
                  [type]="control.type"
+                 [disabled]="!!isDisabled"
                  class="form-control" oninput="(min === 0 && validity.badInput) && (  value='');">
 
           <input *ngSwitchCase="'password'"
@@ -39,6 +40,7 @@
                  [formControlName]="control.key"
                  [id]="control.key"
                  [name]="control.key"
+                 [disabled]="!!isDisabled"
                  [placeholder]="control.placeholder"
                  [type]="control.type" class="form-control">
 
@@ -48,6 +50,7 @@
                  [max]="control.maxDate ? control.maxDate : undefined"
                  [min]="control.minDate ? control.minDate : undefined"
                  [name]="control.key"
+                 [disabled]="!!isDisabled"
                  [placeholder]="control.placeholder"
                  type="datetime-local" class="form-control">
 
@@ -55,6 +58,7 @@
                  *ngSwitchCase="'file'"
                  [id]="control.key"
                  [name]="control.key"
+                 [disabled]="!!isDisabled"
                  class="form-control"
                  type="file">
 
@@ -62,6 +66,7 @@
                     [formControlName]="control.key"
                     [id]="control.key"
                     [name]="control.key"
+                    [disabled]="!!isDisabled"
                     [placeholder]="control.placeholder"
                     class="form-control"></textarea>
 

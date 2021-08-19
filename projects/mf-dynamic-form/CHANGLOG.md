@@ -165,3 +165,6 @@
 - [BREAKING CHANGE] reverted 1.12.0
 - [BREAKING CHANGE] public method debug is renamed printDebugDataToConsole
 
+
+### v1.14.0
+- Fix date fields not disabled
