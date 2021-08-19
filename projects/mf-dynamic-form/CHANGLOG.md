@@ -150,3 +150,18 @@
 
 ### v1.11.1
 - try to fix dynamic component output not working sometimes
+
+### v1.12.0
+- readOnly is now an @Input of the form
+- [BREAKING CHANGE] public method debug is renamed printDebugDataToConsole
+
+### v1.12.1
+- Fix undefined
+
+### v1.12.2
+- Fix 
+
+### v1.13.0
+- [BREAKING CHANGE] reverted 1.12.0
+- [BREAKING CHANGE] public method debug is renamed printDebugDataToConsole
+

@@ -27,6 +27,9 @@ export class DfFormControlComponent implements OnInit, OnDestroy {
     if(options?.emitEvent && this.control.onChanged) this.control.onChanged(value)
   }
 
+  get isDisabled() {
+    return this.form.controls[this.control.key].disabled;
+  }
   get isValid() {
     return this.form.controls[this.control.key].valid;
   }

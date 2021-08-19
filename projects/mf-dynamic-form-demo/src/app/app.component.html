@@ -1,7 +1,9 @@
 <h3>Form</h3>
 <div class="container">
   <div>
+
     <mf-dynamic-form [form]="form"
+                     (formReady)="formReady($event)"
                      (formSubmitted)="onSubmit($event)"
     ></mf-dynamic-form>
     <button (click)="isStep2Validated()">is step 2 valid ?</button>

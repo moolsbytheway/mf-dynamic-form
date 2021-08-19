@@ -23,4 +23,8 @@ export class AppComponent  {
   isStep2Validated() {
     alert(this.dynamicForm.isStepValidated(1))
   }
+
+  formReady($event: any) {
+    console.log("form ready")
+  }
 }

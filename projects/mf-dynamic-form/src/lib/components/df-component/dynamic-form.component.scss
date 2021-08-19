@@ -19,3 +19,10 @@
 		}
 	}
 }
+
+.visibility-0 {
+  visibility: hidden !important;
+  &:after {
+    content: "visibility-0";
+  }
+}

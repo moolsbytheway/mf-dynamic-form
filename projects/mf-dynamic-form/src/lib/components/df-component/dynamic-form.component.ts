@@ -1,8 +1,18 @@
-import {Component, EventEmitter, Input, Output, ViewEncapsulation} from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  Output,
+  SimpleChanges,
+  ViewEncapsulation
+} from '@angular/core';
 import {FormGroup} from '@angular/forms';
 
 import {FormControlBase, MfForm, MfFormStep} from '../../model/form-control-base';
 import {FormControlService} from '../../service/form-control.service';
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'mf-dynamic-form',
@@ -11,7 +21,7 @@ import {FormControlService} from '../../service/form-control.service';
   providers: [FormControlService],
   encapsulation: ViewEncapsulation.None
 })
-export class DynamicFormComponent {
+export class DynamicFormComponent implements OnChanges{
   debugMode: boolean;
   stepper: boolean;
   hasSections: boolean;
@@ -19,6 +29,8 @@ export class DynamicFormComponent {
   formControls: FormControlBase[] = [];
   activeStep = 0;
   steps: MfFormStep[] = [];
+
+  @Input() form: MfForm;
 
   @Input() showEmptyReadOnlyFields: boolean;
   @Input() controlsClass: string;
@@ -44,16 +56,23 @@ export class DynamicFormComponent {
   };
   @Output() formSubmitted = new EventEmitter();
   @Output() onChange = new EventEmitter();
+  @Output() formReady = new EventEmitter();
+
+  private _isFormReady: boolean;
+  private formGroupSubx: Subscription;
+
+  get isFormReady() {
+    return this._isFormReady;
+  }
+
+  set isFormReady(b) {
+    this._isFormReady = b;
+    if(b) this.formReady.emit(true)
+  }
 
   constructor(private qcs: FormControlService) {
   }
 
-  @Input() set form(f: MfForm) {
-    if (!f) {
-      return;
-    }
-    this.init(f);
-  }
 
   get isFirstStep() {
     return this.activeStep === 0;
@@ -74,6 +93,7 @@ export class DynamicFormComponent {
         form[it.key] = this.formGroup.controls[it.key].value;
       }
     });
+    if(this.debugMode) this.printDebugDataToConsole();
     this.formSubmitted.emit(form);
   }
 
@@ -85,8 +105,13 @@ export class DynamicFormComponent {
     this.activeStep++;
   }
 
-  patchValue(field: string, value) {
-    if(!field || !this.formGroup.controls[field]) {
+  /**
+   * External API
+   * @param field to be updated
+   * @param value field new value
+   */
+  public patchValue(field: string, value) {
+    if (!field || !this.formGroup.controls[field]) {
       throw new Error('ValuePatchException: field ' + field + ' not found');
     }
 
@@ -103,11 +128,11 @@ export class DynamicFormComponent {
     return index === this.activeStep;
   }
 
-  debug() {
-    console.log(this.formGroup.controls);
-  }
-
-  isStepValidated(index: number) {
+  /**
+   * External API
+   * @param index Step index starting from 0
+   */
+  public isStepValidated(index: number) {
     const formFields = flattenDeep(this.steps[index].sections.map(it => it.controls)).map(it => it.key);
     for (let field of formFields) {
       if (this.formGroup.controls[field].invalid) {
@@ -120,15 +145,25 @@ export class DynamicFormComponent {
   private init(f: MfForm) {
     this.initCustomFormControls(f);
     this.stepper = f.steps.filter(it => !!it.label).length > 0;
-    this.hasSections = f.steps.map(it => it.sections.filter(s => !!s.label).length).reduce((a, b) => a + b) > 0;
+    this.hasSections = f.steps.map(it => it.sections.filter(s => !!s.label).length)
+      .reduce((a, b) => a + b) > 0;
     this.debugMode = f.debugMode;
-    this.steps = f.steps;
-    this.formControls = flattenDeep(f.steps.map(step => step.sections.map(it => it.controls)));
+    this.formControls = flattenDeep(f.steps.map(step => step.sections
+      .map(it => it.controls)));
     this.checkFormControlsDuplication();
+    this.initializeFormGroup(f);
+  }
+
+  private initializeFormGroup(f: MfForm) {
+    this.isFormReady = false;
+
     this.formGroup = this.qcs.toFormGroup(this.formControls, f.readOnly);
-    this.formGroup.valueChanges.subscribe(value => {
+    if(this.formGroupSubx) this.formGroupSubx.unsubscribe();
+    this.formGroupSubx = this.formGroup.valueChanges.subscribe(value => {
       this.onChange.emit(value);
-    })
+    });
+    this.steps = f.steps.map(it => ({...it}));
+    this.isFormReady = true;
   }
 
   private initCustomFormControls(f: MfForm) {
@@ -163,6 +198,21 @@ export class DynamicFormComponent {
       }
     });
   }
+
+  /**
+   * External API
+   */
+  public printDebugDataToConsole() {
+    console.log(this.formGroup.controls);
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if(changes["form"] && changes["form"].currentValue) {
+      this.init(this.form)
+    }
+  }
+
+
 }
 
 const flattenDeep = (arr) => Array.isArray(arr)

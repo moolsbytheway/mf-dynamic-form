@@ -89,7 +89,7 @@
             <div *ngFor="let opt of control.options">
               <label>
                 <input
-                  [disabled]="!!control.readOnly"
+                  [disabled]="!!isDisabled"
                   (change)="onCheckChange($event)"
                   [checked]="itemIsChecked(opt.value)"
                        [value]="opt.value" type="checkbox">

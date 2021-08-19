@@ -1,5 +1,5 @@
-<small *ngIf="!formGroup">Chargement...</small>
-<ng-container *ngIf="formGroup">
+<small *ngIf="!isFormReady">Chargement...</small>
+<div *ngIf="formGroup" [class.visibility-0]="!isFormReady">
 	<form [formGroup]="formGroup" class="mf-form">
 
 		<ng-container *ngFor="let step of steps; let i = index">
@@ -53,9 +53,9 @@
 						type="submit"
 				>{{i18n.save}}
 				</button>
-				<button (click)="debug()" *ngIf="debugMode" class="btn btn-danger">Print debug data</button>
+				<button (click)="printDebugDataToConsole()" *ngIf="debugMode" class="btn btn-danger">Print debug data</button>
 			</div>
 		</ng-container>
 	</form>
 
-</ng-container>
+</div>
