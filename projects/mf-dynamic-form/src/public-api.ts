@@ -20,3 +20,6 @@ export * from './lib/model/i18n';
 export * from './lib/components/dynamic-form-control-component';
 export * from './lib/components/df-component/dynamic-form.component';
 export * from './lib/mf-dynamic-form.module';
+
+// service
+export * from './lib/service/form-api.service';

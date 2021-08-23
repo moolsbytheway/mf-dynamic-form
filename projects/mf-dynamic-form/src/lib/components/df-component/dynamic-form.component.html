@@ -7,7 +7,6 @@
 			<h6 *ngIf="stepper && !suppressStepLabel"
 				[hidden]="!isActiveStep(i)"
 				class="col-md-12">{{step.label}}</h6>
-
 			<div class="form-root">
 				<div class="content">
 					<div class="section" *ngFor="let section of step.sections">

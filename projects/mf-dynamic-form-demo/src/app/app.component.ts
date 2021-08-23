@@ -2,6 +2,7 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {PURCHASE_ORDER_FORM_DEFINITION} from './order-form-definition';
 import {MfForm} from 'mf-dynamic-form';
 import {DynamicFormComponent} from 'mf-dynamic-form';
+import {FormApi} from 'mf-dynamic-form/src/lib/service/form-api.service';
 
 @Component({
   selector: 'app-root',
@@ -13,6 +14,7 @@ export class AppComponent  {
   dynamicForm: DynamicFormComponent;
 
   form: MfForm = PURCHASE_ORDER_FORM_DEFINITION;
+  api: FormApi;
   formData: any;
 
   onSubmit(formData: any) {
@@ -24,7 +26,18 @@ export class AppComponent  {
     alert(this.dynamicForm.isStepValidated(1))
   }
 
-  formReady($event: any) {
+  printDebugData() {
+    this.api.printDebugDataToConsole();
+  }
+  enableEdit() {
+    this.api.enableEditMode();
+  }
+  disableEdit() {
+    this.api.disableEditMode();
+  }
+
+  formReady(api: FormApi) {
     console.log("form ready")
+    this.api = api;
   }
 }

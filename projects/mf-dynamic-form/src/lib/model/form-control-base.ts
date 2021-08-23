@@ -28,6 +28,8 @@ export class FormControlBase {
   options$: PromiseOptionsParams;
 	inputs: any;
 	component: string;
+	// The angular component provided by name in component field
+  componentElement?: string;
   onChanged: Function;
 
 	constructor(options: {

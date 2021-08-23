@@ -3,7 +3,7 @@
 >
   <ng-container *ngIf="customControlOutputs">
   <ndc-dynamic
-    [ndcDynamicComponent]="control.component"
+    [ndcDynamicComponent]="control.componentElement"
     [ndcDynamicInputs]="generateDynamicComponentInputs"
     [ndcDynamicOutputs]="customControlOutputs"
   ></ndc-dynamic>

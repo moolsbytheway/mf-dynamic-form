@@ -7,6 +7,9 @@
                      (formSubmitted)="onSubmit($event)"
     ></mf-dynamic-form>
     <button (click)="isStep2Validated()">is step 2 valid ?</button>
+    <button (click)="enableEdit()">Enable edit</button>
+    <button (click)="printDebugData()">printDebugData</button>
+    <button (click)="disableEdit()">Disable edit</button>
 
   </div>
   <pre *ngIf="formData">
