@@ -170,8 +170,6 @@ export class DynamicFormComponent implements OnChanges, OnDestroy {
       step.sections.forEach(section => {
         section.controls.forEach(control => {
 
-          control.readOnly = f.readOnly ? !control.notReadOnly : false;
-
           if (control.controlType == 'dynamic') {
             if (!f.customControls) {
               throw new Error('MissingCustomControlException: provided custom controls list is empty');

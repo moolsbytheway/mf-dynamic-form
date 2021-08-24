@@ -173,3 +173,6 @@
 ### v1.15.0
 - Add FormApi service that will be emitted with formReady EventEmitter
 
+
+### v1.15.1
+- Fix readOnly mode

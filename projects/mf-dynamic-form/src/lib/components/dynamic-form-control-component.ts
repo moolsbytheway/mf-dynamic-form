@@ -7,6 +7,8 @@ export abstract class DynamicFormControlComponent {
 	output: EventEmitter<any> = new EventEmitter();
 	@Input()
   formValue: FormGroup
+  @Input()
+  formReadyOnly: boolean
 
 	protected updateFormControlValue(value, options?) {
 		this.output.emit({value, options})

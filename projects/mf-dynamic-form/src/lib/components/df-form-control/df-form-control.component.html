@@ -11,8 +11,8 @@
 </div>
 <ng-template #normalControl>
 
-  <ng-container *ngIf="!control.readOnly ||
-  (control.readOnly && (showEmptyReadOnlyFields || control.value))">
+  <ng-container *ngIf="!readyOnly ||
+  (readyOnly && (showEmptyReadOnlyFields || control.value))">
     <div [formGroup]="form" class="d-flex align-items-baseline generic-inputs__style">
 
       <label [class.hidden]="!control.visible"

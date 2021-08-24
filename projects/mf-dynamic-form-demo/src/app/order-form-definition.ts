@@ -47,8 +47,11 @@ export const PURCHASE_ORDER_FORM_DEFINITION: MfForm = {
             }),
             new TextboxFormControl({
               key: 'firstName',
-              label: 'Prénom',
+              label: 'read only one',
               value: 'Moulaye',
+
+              readOnly: true,
+              export: false,
               onChanged: (value, patchValue) => {
                 console.log("new firstName: " + value)
                 patchValue("calculatedValue", Math.random())
@@ -57,7 +60,9 @@ export const PURCHASE_ORDER_FORM_DEFINITION: MfForm = {
             }),
             new TextboxFormControl({
               key: 'calculatedValue',
-              label: 'calculatedValue',
+              label: 'read only two',
+              readOnly: true,
+              export: false,
               onChanged: (value) => {
                 console.log("new calculatedValue: " + value)
               },
