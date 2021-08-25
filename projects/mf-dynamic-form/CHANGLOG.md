@@ -176,3 +176,9 @@
 
 ### v1.15.1
 - Fix readOnly mode
+
+### v1.15.2
+- Fix typo formReadyOnly -> formReadOnly
+
+### v1.15.3
+- Fix typo readyOnly -> readOnly

@@ -17,10 +17,10 @@
 							<div *ngIf="!control.hidden"
 								 [hidden]="!isActiveStep(i)">
 							</div>
-							<df-form-control [control]="control" [formReadyOnly]="form.readOnly"
-											 [form]="formGroup"
-                       [showEmptyReadOnlyFields]="showEmptyReadOnlyFields"
-											 [i18n]="i18n"></df-form-control>
+							<df-form-control [control]="control" [formReadOnly]="form.readOnly"
+                               [form]="formGroup"
+                               [showEmptyReadOnlyFields]="showEmptyReadOnlyFields"
+                               [i18n]="i18n"></df-form-control>
 						</ng-container>
 					</div>
 				</div>

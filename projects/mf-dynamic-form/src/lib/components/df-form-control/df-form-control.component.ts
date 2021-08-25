@@ -13,7 +13,7 @@ import {DropdownOption} from '../../model/form-control-base';
 })
 export class DfFormControlComponent implements OnInit, OnDestroy {
   @Input() control: any;
-  @Input() formReadyOnly: boolean;
+  @Input() formReadOnly: boolean;
   @Input() showEmptyReadOnlyFields: boolean;
   @Input() form: FormGroup;
   @Input() i18n: I18n;
@@ -363,12 +363,13 @@ export class DfFormControlComponent implements OnInit, OnDestroy {
     console.info(`Requesting data for field ${this.control.key} with value ${value}`)
   }
 
-  get readyOnly() {
-    return this.formReadyOnly ? !this.control.notReadOnly : this.control.readyOnly;
+  get readOnly() {
+    return this.formReadOnly ? !this.control.notReadOnly : this.control.readOnly;
   }
 
   get generateDynamicComponentInputs() {
-    return {...this.control.inputs, formReadyOnly: this.formReadyOnly, formValue: this.form}
+    return {...this.control.inputs, formReadOnly: this.formReadOnly,
+      formValue: this.form}
   }
 
   private subscribeToFormChanges() {

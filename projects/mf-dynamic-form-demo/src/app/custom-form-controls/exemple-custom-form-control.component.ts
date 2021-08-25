@@ -5,13 +5,13 @@ import {DynamicFormControlComponent} from '../../../../mf-dynamic-form/src/lib/c
 @Component({
 	selector: 'app-units',
 	template: `
-		<div style="border: 1px dashed gray">
-      <small>READONLY: {{!!formReadyOnly}}</small>
-			<p>Units dynamic component , params: a = {{a}} , b = {{b}}</p>
-			<label>this is a custom input component<input type="text" (change)="updateInput($event)"/></label>
-			<button class="btn btn-primary" (click)="update($event)">save units</button>
-		</div>
-	`
+    <div style="border: 1px dashed gray">
+      <small>READONLY: {{!!formReadOnly}}</small>
+      <p>Units dynamic component , params: a = {{a}} , b = {{b}}</p>
+      <label>this is a custom input component<input type="text" (change)="updateInput($event)"/></label>
+      <button class="btn btn-primary" (click)="update($event)">save units</button>
+    </div>
+  `
 })
 export class ExempleCustomFormControlComponent extends DynamicFormControlComponent {
 

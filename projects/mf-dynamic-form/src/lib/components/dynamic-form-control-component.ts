@@ -8,7 +8,7 @@ export abstract class DynamicFormControlComponent {
 	@Input()
   formValue: FormGroup
   @Input()
-  formReadyOnly: boolean
+  formReadOnly: boolean
 
 	protected updateFormControlValue(value, options?) {
 		this.output.emit({value, options})
