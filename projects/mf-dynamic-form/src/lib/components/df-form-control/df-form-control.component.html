@@ -13,17 +13,20 @@
 
   <ng-container *ngIf="!readOnly ||
   (readOnly && (showEmptyReadOnlyFields || control.value))">
-    <div [formGroup]="form" class="d-flex align-items-baseline generic-inputs__style">
+    <div [formGroup]="form"
+          class="df-form-control-root"
+          [ngClass]="control.classes?.root">
 
       <label [class.hidden]="!control.visible"
              [class.required]="formControlIsRequired"
-             class="areaLibelle col-md-4 col-sm-12 col-xs-12"
+             class="df-form-control-label"
+             [ngClass]="control.classes?.label"
       >{{control.label}}:</label>
 
         <div [ngSwitch]="control.controlType"
              [class.hidden]="!control.visible"
-             class="col-md-8 col-sm-12 col-xs-12"
-             [ngClass]="control.class">
+             class="df-form-control-item"
+             [ngClass]="control.classes?.item">
 
           <input *ngSwitchCase="'textbox'"
                  [formControlName]="control.key"
@@ -33,7 +36,7 @@
                  [placeholder]="control.placeholder"
                  [type]="control.type"
                  [disabled]="!!isDisabled"
-                 class="form-control" oninput="(min === 0 && validity.badInput) && (  value='');">
+                 oninput="(min === 0 && validity.badInput) && (  value='');">
 
           <input *ngSwitchCase="'password'"
 
@@ -42,7 +45,7 @@
                  [name]="control.key"
                  [disabled]="!!isDisabled"
                  [placeholder]="control.placeholder"
-                 [type]="control.type" class="form-control">
+                 [type]="control.type">
 
           <input *ngSwitchCase="'date'"
                  [formControlName]="control.key"
@@ -52,14 +55,13 @@
                  [name]="control.key"
                  [disabled]="!!isDisabled"
                  [placeholder]="control.placeholder"
-                 type="datetime-local" class="form-control">
+                 type="datetime-local">
 
           <input (change)="onFileSelect($event)"
                  *ngSwitchCase="'file'"
                  [id]="control.key"
                  [name]="control.key"
                  [disabled]="!!isDisabled"
-                 class="form-control"
                  type="file">
 
           <textarea *ngSwitchCase="'textarea'"
@@ -67,13 +69,12 @@
                     [id]="control.key"
                     [name]="control.key"
                     [disabled]="!!isDisabled"
-                    [placeholder]="control.placeholder"
-                    class="form-control"></textarea>
+                    [placeholder]="control.placeholder"></textarea>
 
           <select *ngSwitchCase="'dropdown'"
                   [formControlName]="control.key"
                   [id]="control.key"
-                  [name]="control.key" class="form-control">
+                  [name]="control.key">
             <option *ngFor="let opt of control.options" [value]="opt.value">{{opt.label}}</option>
           </select>
 
@@ -104,7 +105,7 @@
           </div>
 
           <div *ngIf="isTouched"
-               class="col-md-12 invalid-form-field">
+               class="invalid-form-field">
             <ng-container *ngIf="!isValid">
     <span *ngIf="isRequired">
       {{i18n.errors.isRequired}}

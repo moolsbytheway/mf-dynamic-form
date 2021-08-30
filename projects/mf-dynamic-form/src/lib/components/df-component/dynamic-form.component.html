@@ -1,13 +1,12 @@
 <small *ngIf="!isFormReady">Chargement...</small>
-<div *ngIf="formGroup" [class.visibility-0]="!isFormReady">
+<div *ngIf="formGroup" class="mf-dynamic-form-root" [class.visibility-0]="!isFormReady">
 	<form [formGroup]="formGroup" class="mf-form">
 
 		<ng-container *ngFor="let step of steps; let i = index">
-		<div class="row" [hidden]="i != activeStep">
+		<div class="mf-dynamic-form-step" [hidden]="i != activeStep">
 			<h6 *ngIf="stepper && !suppressStepLabel"
-				[hidden]="!isActiveStep(i)"
-				class="col-md-12">{{step.label}}</h6>
-			<div class="form-root">
+				[hidden]="!isActiveStep(i)">{{step.label}}</h6>
+			<div>
 				<div class="content">
 					<div class="section" *ngFor="let section of step.sections">
 						<p class="title color-gray-dark">

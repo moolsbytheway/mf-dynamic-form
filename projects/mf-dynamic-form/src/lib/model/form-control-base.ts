@@ -3,7 +3,7 @@ import {TextBoxType} from './textbox-type';
 export class FormControlBase {
 	value: any;
 	key: string;
-	class: string;
+	classes: MfFormControlClasses;
 	label: string;
   disabled: boolean;
 	readOnly: boolean;
@@ -56,7 +56,7 @@ export class FormControlBase {
 		hidden?: boolean;
 		maxLength?: number;
 		positiveNumberOnly?: boolean;
-		class?: string;
+		classes?: MfFormControlClasses;
 		placeholder?: string;
 		inputs?: any;
 		component?: string;
@@ -81,7 +81,7 @@ export class FormControlBase {
 		this.hidden = !!options.hidden;
 		this.minLength = options.minLength;
 		this.positiveNumberOnly = options.positiveNumberOnly;
-		this.class = options.class;
+		this.classes = options.classes;
 		this.options$ = options.options$;
 		this.options = options.options || [];
 		this.export = options.export == undefined ? true : options.export;
@@ -105,3 +105,8 @@ export type MfFormStep = { label?: string, sections: MfFormSection[] };
 export type MfFormSection = { label?: string, controls: FormControlBase[] }
 export type DropdownOption = { value: any, label: string };
 export type PromiseOptionsParams = {callback: (any) => Promise<DropdownOption[]>, triggerField?: string};
+export type MfFormControlClasses = {
+	root?: string,
+	label?: string,
+	item?: string
+}
