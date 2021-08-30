@@ -110,7 +110,9 @@ export const PURCHASE_ORDER_FORM_DEFINITION: MfForm = {
             }),
             new RadioButtonFormControl({
               key: 'radioButton',
-              class: 'radio-inline',
+              classes :{
+                item: "radio-inline"
+              },
               label: 'Acceptes tu les termes et conditions ?',
               value: 'true',
               options: [
@@ -121,7 +123,9 @@ export const PURCHASE_ORDER_FORM_DEFINITION: MfForm = {
             new CheckboxFormControl({
               key: 'checkboxes',
               required: true,
-              class: 'col-xl-12',
+              classes :{
+                item: "col-xl-12"
+              },
               label: 'Selectionnez les choix applicables',
               value: ['2', '1'],
               options: [
