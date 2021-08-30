@@ -182,3 +182,6 @@
 
 ### v1.15.3
 - Fix typo readyOnly -> readOnly
+
+### v1.16.0
+- remove inline css
