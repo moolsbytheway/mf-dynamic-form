@@ -3,7 +3,7 @@ import {AbstractControl, FormArray, FormControl, FormGroup, Validators} from '@a
 import {Subscription} from 'rxjs';
 import {I18n} from '../../model/i18n';
 import {FormControlService} from '../../service/form-control.service';
-import {DropdownOption} from '../../model/form-control-base';
+import {DropdownOption, OPERATOR} from '../../model/form-control-base';
 
 @Component({
   selector: 'df-form-control',
@@ -182,12 +182,18 @@ export class DfFormControlComponent implements OnInit, OnDestroy {
       const isString = typeof dep == 'string';
       const fieldName = isString ? dep : dep['field'];
       const expectedValue = isString ? '' : dep['value'];
-      const shouldBeRequiredWhenValueIsNotEmpty = (value: string) => isString && value;
-      const shouldBeRequiredWhenValueIsEqualToExpectedValue =
-        (value: string) => {
-          return !isString && value == expectedValue;
-        };
 
+      const operator: OPERATOR = isString ? 'EQUALS' :
+        dep['op'] ? dep['op'] : 'EQUALS';
+
+      const shouldBeRequiredWhenValueIsEqualToExpectedValue = value => {
+        if (operator == 'EQUALS') {
+          return !isString && value == expectedValue;
+        }
+        return !isString && value != expectedValue;
+      };
+
+      const shouldBeRequiredWhenValueIsNotEmpty = (value: string) => isString && value;
 
       const currentValue = this.form.get(fieldName).value;
 
@@ -238,7 +244,14 @@ export class DfFormControlComponent implements OnInit, OnDestroy {
       const fieldName = dep['field'];
       const expectedValue = dep['value'];
 
-      const shouldBeDisableWhenValueIsEqualToExpectedValue = value => value == expectedValue;
+      const operator: OPERATOR = dep['op'] ? dep['op'] : 'EQUALS';
+      
+      const shouldBeDisableWhenValueIsEqualToExpectedValue = value => {
+          if (operator == 'EQUALS') {
+            return value == expectedValue;
+          }
+          return value != expectedValue;
+        };
       if (shouldBeDisableWhenValueIsEqualToExpectedValue(this.form.get(fieldName).value)) {
         this.form.get(this.control.key).disable();
         found = true;
@@ -270,14 +283,23 @@ export class DfFormControlComponent implements OnInit, OnDestroy {
         break;
       }
 
+
       const isString = typeof dep == 'string';
       const fieldName = isString ? dep : dep['field'];
       const expectedValue = isString ? '' : dep['value'];
+      const operator :OPERATOR =  isString ? 'EQUALS' :
+        dep['op'] ? dep["op"] : 'EQUALS';
+
+
+
+      const shouldBeVisibleWhenValueIsEqualToExpectedValue = value => {
+        if(operator == 'EQUALS') {
+         return  !isString && value == expectedValue;
+        }
+        return !isString && value != expectedValue;
+      }
 
       const shouldBeVisibleWhenValueIsNotEmpty = (value: string) => isString && value;
-
-      const shouldBeVisibleWhenValueIsEqualToExpectedValue = value => !isString && value == expectedValue;
-
 
       if (shouldBeVisibleWhenValueIsNotEmpty(this.form.get(fieldName).value) ||
         shouldBeVisibleWhenValueIsEqualToExpectedValue(this.form.get(fieldName).value)) {
