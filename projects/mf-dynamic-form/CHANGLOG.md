@@ -185,3 +185,6 @@
 
 ### v1.16.0
 - remove inline css
+
+### v1.17.0
+- Add operator to visibleWhen

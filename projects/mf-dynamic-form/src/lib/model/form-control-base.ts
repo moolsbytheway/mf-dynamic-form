@@ -18,9 +18,9 @@ export class FormControlBase {
 	export: boolean;
 	visible: boolean;
 	hidden: boolean;
-	requiredWhen: any[] | { field: string, value: any }[];
-	visibleWhen: any[] | { field: string, value: any }[];
-	disableWhen: { field: string, value: any }[];
+	requiredWhen: any[] | { field: string, value: any, op?: OPERATOR}[];
+	visibleWhen: any[] | { field: string, value: any , op?: OPERATOR}[];
+  disableWhen: { field: string, value: any, op?: OPERATOR }[];
 	minLength: number;
 	maxLength: number;
 	positiveNumberOnly: boolean;
@@ -44,9 +44,9 @@ export class FormControlBase {
     exportOnly?: boolean;
     readOnly?: boolean;
     notReadOnly?: boolean;
-		requiredWhen?: any[] | { field: string, value: any }[];
-		visibleWhen?: any[] | { field: string, value: any }[];
-		disableWhen?: { field: string, value: any }[];
+    requiredWhen?: any[] | { field: string, value: any, op?: OPERATOR }[];
+		visibleWhen?: any[] | { field: string, value: any, op?: OPERATOR }[];
+    disableWhen?: { field: string, value: any, op?: OPERATOR }[];
 		order?: number;
 		controlType?: string;
 		type?: TextBoxType;
@@ -100,6 +100,8 @@ export type MfForm = {
 	steps: MfFormStep[]
 	customControls?: any
 }
+
+export type OPERATOR = "EQUALS" | "NOTEQUALS";
 
 export type MfFormStep = { label?: string, sections: MfFormSection[] };
 export type MfFormSection = { label?: string, controls: FormControlBase[] }

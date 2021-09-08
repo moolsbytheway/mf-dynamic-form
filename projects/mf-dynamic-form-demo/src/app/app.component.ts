@@ -2,7 +2,7 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {PURCHASE_ORDER_FORM_DEFINITION} from './order-form-definition';
 import {MfForm} from 'mf-dynamic-form';
 import {DynamicFormComponent} from 'mf-dynamic-form';
-import {FormApi} from 'mf-dynamic-form/src/lib/service/form-api.service';
+import {FormApi} from 'mf-dynamic-form';
 
 @Component({
   selector: 'app-root',
