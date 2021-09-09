@@ -21,16 +21,17 @@ export class DfFormControlComponent implements OnInit, OnDestroy {
 
   customControlOutputs: any;
 
-  private updateCustomFormControl(value, options?: {emitEvent: boolean}) {
+  private updateCustomFormControl(value, options?: { emitEvent: boolean }) {
     this.form.controls[this.control.key].setValue(value);
     this.form.controls[this.control.key].markAsTouched();
     this.form.controls[this.control.key].updateValueAndValidity();
-    if(options?.emitEvent && this.control.onChanged) this.control.onChanged(value)
+    if (options?.emitEvent && this.control.onChanged) this.control.onChanged(value)
   }
 
   get isDisabled() {
     return this.form.controls[this.control.key].disabled;
   }
+
   get isValid() {
     return this.form.controls[this.control.key].valid;
   }
@@ -245,7 +246,7 @@ export class DfFormControlComponent implements OnInit, OnDestroy {
       const expectedValue = dep['value'];
 
       const operator: OPERATOR = dep['op'] ? dep['op'] : 'EQUALS';
-      
+
       const shouldBeDisableWhenValueIsEqualToExpectedValue = value => {
           if (operator == 'EQUALS') {
             return value == expectedValue;
@@ -333,16 +334,16 @@ export class DfFormControlComponent implements OnInit, OnDestroy {
 
   private subscribeToOptionsPromises() {
     const options$ = this.control.options$;
-    if(!options$ || this.control.controlType != "dropdown" ||
+    if (!options$ || this.control.controlType != "dropdown" ||
       typeof options$.callback != "function") return;
 
     const fieldName = options$['triggerField'];
 
-    if(!fieldName) {
+    if (!fieldName) {
       this.logPromiseFetch(null)
-      options$.callback(null).then((value: DropdownOption[]) => {
-        this.control.options = value
-        this.form.controls[this.control.key].setValue(value.length ? value[0].value : null);
+      options$.callback(null).then((options: DropdownOption[]) => {
+        this.control.options = options;
+        this.form.controls[this.control.key].setValue(this.getFieldValue(options));
         this.form.controls[this.control.key].updateValueAndValidity();
       })
 
@@ -354,29 +355,34 @@ export class DfFormControlComponent implements OnInit, OnDestroy {
     const promise: Promise<DropdownOption[]> = options$.callback(value);
 
     this.logPromiseFetch(value)
-    promise.then((value: DropdownOption[]) => {
-      this.control.options = value
-      this.form.controls[this.control.key].setValue(value.length ? value[0].value : null);
+    promise.then((options: DropdownOption[]) => {
+      this.control.options = options;
+      this.form.controls[this.control.key].setValue(this.getFieldValue(options));
       this.form.controls[this.control.key].updateValueAndValidity();
     })
 
-      this.subx.push(this.form.get(fieldName).valueChanges.subscribe(value => {
+    this.subx.push(this.form.get(fieldName).valueChanges.subscribe(value => {
 
-        const promise: Promise<DropdownOption[]> = options$.callback(value);
+      const promise: Promise<DropdownOption[]> = options$.callback(value);
 
-        this.logPromiseFetch(value)
-        promise.then((value: DropdownOption[]) => {
-          this.control.options = value
-          this.form.controls[this.control.key].setValue(value.length ? value[0].value : null);
-          this.form.controls[this.control.key].updateValueAndValidity();
-        })
+      this.logPromiseFetch(value)
+      promise.then((options: DropdownOption[]) => {
+        this.control.options = options;
+        this.form.controls[this.control.key].setValue(this.getFieldValue(options));
+        this.form.controls[this.control.key].updateValueAndValidity();
+      })
 
-      }));
+    }));
+  }
+
+  private getFieldValue(options: DropdownOption[]) {
+    const selectedOption = options.find(it => it.value == this.control.value)?.value;
+    return selectedOption ? selectedOption : options.length ? options[0].value : null;
   }
 
   private initCustomFormControlOutputs() {
     this.customControlOutputs = {
-      output: (obj: {value: any, options?: {emitEvent: boolean}}) =>
+      output: (obj: { value: any, options?: { emitEvent: boolean } }) =>
         this.updateCustomFormControl(obj.value, obj.options),
     };
   }
