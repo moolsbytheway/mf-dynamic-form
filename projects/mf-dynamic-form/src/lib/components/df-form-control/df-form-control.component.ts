@@ -366,9 +366,9 @@ export class DfFormControlComponent implements OnInit, OnDestroy {
       const promise: Promise<DropdownOption[]> = options$.callback(value);
 
       this.logPromiseFetch(value)
-      promise.then((option: DropdownOption[]) => {
-        this.control.options = option;
-        this.form.controls[this.control.key].setValue(this.getFieldValue(option));
+      promise.then((options: DropdownOption[]) => {
+        this.control.options = options;
+        this.form.controls[this.control.key].setValue(this.getFieldValue(options));
         this.form.controls[this.control.key].updateValueAndValidity();
       })
 

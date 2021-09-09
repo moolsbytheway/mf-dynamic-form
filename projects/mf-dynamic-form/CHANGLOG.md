@@ -188,3 +188,6 @@
 
 ### v1.17.0
 - Add operator to visibleWhen
+
+### v1.17.1
+- Bug fix: DropdownComponent always selecting first value instead of given value
