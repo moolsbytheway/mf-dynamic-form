@@ -191,3 +191,6 @@
 
 ### v1.17.1
 - Bug fix: DropdownComponent always selecting first value instead of given value
+
+### v1.18.0
+- Add Show All Steps feature 
