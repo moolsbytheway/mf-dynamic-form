@@ -50,6 +50,8 @@ export class DynamicFormComponent implements OnChanges, OnDestroy {
   @Output() onChange = new EventEmitter();
   @Output() formReady = new EventEmitter();
 
+  @Input() alwaysShowAllSteps: boolean = false;
+
   isActiveStep(index: number) {
     return index === this.activeStep;
   }
