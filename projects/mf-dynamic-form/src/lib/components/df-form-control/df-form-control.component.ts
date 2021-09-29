@@ -94,7 +94,7 @@ export class DfFormControlComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.initCustomFormControlOutputs();
     this.subscribeToRequirementDependecies();
-    this.subscribeToVisibilityDependencies();
+    this.subscribeToVisibilityDependencies(true);
     this.subscribeToDisabilityDependencies();
     this.subscribeToOptionsPromises();
     this.subscribeToFormChanges();
@@ -270,7 +270,7 @@ export class DfFormControlComponent implements OnInit, OnDestroy {
     }
   }
 
-  private subscribeToVisibilityDependencies() {
+  private subscribeToVisibilityDependencies(init: boolean) {
     const deps = this.control.visibleWhen;
     const hasDeps = deps && deps.length > 0;
     if (!hasDeps) {
@@ -283,7 +283,6 @@ export class DfFormControlComponent implements OnInit, OnDestroy {
       if (found) {
         break;
       }
-
 
       const isString = typeof dep == 'string';
       const fieldName = isString ? dep : dep['field'];
@@ -308,27 +307,14 @@ export class DfFormControlComponent implements OnInit, OnDestroy {
         found = true;
       } else {
         this.control.visible = false;
-        if (this.control.controlType == 'checkbox') {
-          this.onCheckChange({target: {value: null}});
-        } else {
-          this.form.get(this.control.key).setValue(null);
-        }
       }
+      this.control.export =this.control.visible;
 
-      this.subx.push(this.form.get(fieldName).valueChanges.subscribe(value => {
-        if (shouldBeVisibleWhenValueIsNotEmpty(value) ||
-          shouldBeVisibleWhenValueIsEqualToExpectedValue(value)) {
-          this.control.visible = true;
-          found = true;
-        } else {
-          this.control.visible = false;
-          if (this.control.controlType == 'checkbox') {
-            this.onCheckChange({target: {value: null}});
-          } else {
-            this.form.controls[this.control.key].setValue(null);
-          }
-        }
-      }));
+      if (!!init) {
+        this.subx.push(this.form.get(fieldName).valueChanges.subscribe(value => {
+          this.subscribeToVisibilityDependencies(false);
+        }));
+      }
     }
   }
 
