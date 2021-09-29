@@ -4,11 +4,14 @@
 
 		<ng-container *ngFor="let step of steps; let stepId = index">
 		<div class="mf-dynamic-form-step" [id]="stepId" [hidden]="alwaysShowAllSteps ? false : stepId != activeStep">
-      <i *ngIf="step.iconClass" class="step-title-icon" [ngClass]="step.iconClass" aria-hidden="true"></i>
-      <h6 *ngIf="stepper && !suppressStepLabel"
-          [hidden]="alwaysShowAllSteps ? false : !isActiveStep(stepId)">
-        {{step.label}}
-      </h6>
+      <div class="step-title">
+        <i *ngIf="step.iconClass"
+           [ngClass]="step.iconClass" class="step-title-icon" aria-hidden="true"></i>
+        <h6 *ngIf="stepper && !suppressStepLabel"
+            [hidden]="alwaysShowAllSteps ? false : !isActiveStep(stepId)">
+          {{step.label}}
+        </h6>
+      </div>
 			<div>
 				<div class="content">
 					<div class="section" *ngFor="let section of step.sections">

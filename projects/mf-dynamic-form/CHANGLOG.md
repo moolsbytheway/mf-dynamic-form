@@ -197,3 +197,6 @@
 
 ### v1.19.0
 - Add icon to step title
+
+### v1.19.1
+- FIX Alignment of  icon and title of step
