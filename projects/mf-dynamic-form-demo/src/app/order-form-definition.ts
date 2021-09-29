@@ -30,6 +30,7 @@ export const PURCHASE_ORDER_FORM_DEFINITION: MfForm = {
   steps: [
     {
       label: 'Informations de la commande',
+      iconClass: 'fa fa-truck',
       sections: [
         {
           label: 'Informations de la commande',

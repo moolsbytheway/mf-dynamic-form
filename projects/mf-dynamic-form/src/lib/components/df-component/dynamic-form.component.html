@@ -2,10 +2,13 @@
 <div *ngIf="formGroup" class="mf-dynamic-form-root" [class.visibility-0]="!isFormReady">
 	<form [formGroup]="formGroup" class="mf-form">
 
-		<ng-container *ngFor="let step of steps; let i = index">
-		<div class="mf-dynamic-form-step" [hidden]="alwaysShowAllSteps ? false : i != activeStep">
-			<h6 *ngIf="stepper && !suppressStepLabel"
-          [hidden]="alwaysShowAllSteps ? false : !isActiveStep(i)">{{step.label}}</h6>
+		<ng-container *ngFor="let step of steps; let stepId = index">
+		<div class="mf-dynamic-form-step" [id]="stepId" [hidden]="alwaysShowAllSteps ? false : stepId != activeStep">
+      <i *ngIf="step.iconClass" class="step-title-icon" [ngClass]="step.iconClass" aria-hidden="true"></i>
+      <h6 *ngIf="stepper && !suppressStepLabel"
+          [hidden]="alwaysShowAllSteps ? false : !isActiveStep(stepId)">
+        {{step.label}}
+      </h6>
 			<div>
 				<div class="content">
 					<div class="section" *ngFor="let section of step.sections">
@@ -14,7 +17,7 @@
 						</p>
 						<ng-container *ngFor="let control of section.controls">
 							<div *ngIf="!control.hidden"
-								 [hidden]="!isActiveStep(i)">
+								 [hidden]="!isActiveStep(stepId)">
 							</div>
 							<df-form-control [control]="control" [formReadOnly]="form.readOnly"
                                [form]="formGroup"
