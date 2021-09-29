@@ -75,6 +75,7 @@ export class AppComponent {
     steps: [
       {
         label: 'Informations de la commande',
+        iconClass: 'fa fa-truck',
         sections: [
           {
             label: 'Informations de la commande',

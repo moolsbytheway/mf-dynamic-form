@@ -103,7 +103,7 @@ export type MfForm = {
 
 export type OPERATOR = "EQUALS" | "NOTEQUALS";
 
-export type MfFormStep = { label?: string, sections: MfFormSection[] };
+export type MfFormStep = { label?: string, iconClass?: string, sections: MfFormSection[] };
 export type MfFormSection = { label?: string, controls: FormControlBase[] }
 export type DropdownOption = { value: any, label: string };
 export type PromiseOptionsParams = {callback: (any) => Promise<DropdownOption[]>, triggerField?: string};

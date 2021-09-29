@@ -194,3 +194,6 @@
 
 ### v1.18.0
 - Add Show All Steps feature 
+
+### v1.19.0
+- Add icon to step title
