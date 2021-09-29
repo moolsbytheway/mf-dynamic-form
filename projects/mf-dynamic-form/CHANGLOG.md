@@ -200,3 +200,6 @@
 
 ### v1.19.1
 - FIX Alignment of  icon and title of step
+
+### v1.19.2
+- FIX visibleWhen with many conditions
