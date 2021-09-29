@@ -26,3 +26,16 @@
     content: "visibility-0";
   }
 }
+
+.step-title {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-items: center;
+  align-content: stretch;
+
+  > i {
+    margin-right: 6px;
+  }
+}
