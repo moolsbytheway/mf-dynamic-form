@@ -3,8 +3,8 @@ import {AbstractControl, FormArray, FormControl, FormGroup, Validators} from '@a
 import {Subscription} from 'rxjs';
 import {I18n} from '../../model/i18n';
 import {FormControlService} from '../../service/form-control.service';
-import {DropdownOption, OPERATOR} from '../../model/form-control-base';
-import {compileExpression} from 'filtrex';
+import {DropdownOption} from '../../model/form-control-base';
+import {ConditionMatcher, ConditionMatcherContext, ConditionMatcherResult} from '../../condition-matchers/condition-matcher';
 
 @Component({
   selector: 'df-form-control',
@@ -26,7 +26,9 @@ export class DfFormControlComponent implements OnInit, OnDestroy {
     this.form.controls[this.control.key].setValue(value);
     this.form.controls[this.control.key].markAsTouched();
     this.form.controls[this.control.key].updateValueAndValidity();
-    if (options?.emitEvent && this.control.onChanged) this.control.onChanged(value)
+    if (options?.emitEvent && this.control.onChanged) {
+      this.control.onChanged(value);
+    }
   }
 
   get isDisabled() {
@@ -94,7 +96,7 @@ export class DfFormControlComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.initCustomFormControlOutputs();
-    this.subscribeToRequirementDependecies(true);
+    this.subscribeToRequirementDependencies(true);
     this.subscribeToVisibilityDependencies(true);
     this.subscribeToDisabilityDependencies(true);
     this.subscribeToOptionsPromises();
@@ -165,184 +167,93 @@ export class DfFormControlComponent implements OnInit, OnDestroy {
     }
   }
 
-  private subscribeToRequirementDependecies(init: boolean) {
+  private subscribeToDependecies(init: boolean, deps: ConditionMatcher[], matchedCallback: Function) {
+
     if (!this.form) {
       throw new Error('Couldn\'t subscribe to form input dependecies value change');
     }
-    const deps = this.control.requiredWhen;
+
     const hasDeps = deps && deps.length > 0;
 
     if (!hasDeps) {
       return;
     }
 
-    let found = false;
+    let matched = false;
     for (let i in deps) {
-      const dep = deps[i];
-      if (found) {
+      const dep = deps[i] as ConditionMatcher;
+      if (matched) {
         break;
       }
 
-      if (typeof dep === 'string') {
-        found = this.applyAdvancedConditionForRequirementDependecies(dep, init);
-      }
-      else {
-        const fieldName = dep['field'];
-        const expectedValue = dep['value'];
-        const operator: OPERATOR = dep['op'] ? dep['op'] : 'EQUALS';
+      const context = {
+        control: this.control,
+        formGroup: this.form
+      } as ConditionMatcherContext;
 
-        const shouldBeRequiredWhenValueIsEqualToExpectedValue = value => {
-          if (operator == 'EQUALS') {
-            return value == expectedValue;
-          }
-          return value != expectedValue;
-        };
+      const result = dep.match(context) as ConditionMatcherResult;
 
-        const currentValue = this.form.get(fieldName).value;
+      matchedCallback(result.matched);
 
-        const validators = FormControlService.getValidators(this.control);
-        if (shouldBeRequiredWhenValueIsEqualToExpectedValue(currentValue)) {
-          validators.push(Validators.required);
-          this.updateValidator(validators);
-          found = true;
-        } else {
-          const newValidators = validators.filter(it => it && it.name != 'required');
-          this.updateValidator(newValidators);
-        }
-
-        if (!!init) {
-          this.subx.push(this.form.get(fieldName).valueChanges.subscribe(currentValue => {
-            this.subscribeToRequirementDependecies(false);
+      if (!!init) {
+        result.fields.forEach(field => {
+          this.subx.push(this.form.get(field).valueChanges.subscribe(currentValue => {
+            this.subscribeToDependecies(false, deps, matchedCallback);
           }));
-        }
+        });
       }
     }
+  }
+
+  private subscribeToRequirementDependencies(init: boolean) {
+    const deps: ConditionMatcher[] = this.control.requiredWhen;
+    this.subscribeToDependecies(init, deps, (matched) => {
+      const validators = FormControlService.getValidators(this.control);
+      if (matched) {
+        validators.push(Validators.required);
+        this.updateValidator(validators);
+      } else {
+        const newValidators = validators.filter(it => it && it.name != 'required');
+        this.updateValidator(newValidators);
+      }
+    });
   }
 
   private subscribeToDisabilityDependencies(init: boolean) {
-    const deps = this.control.disableWhen;
-    const hasDeps = deps && deps.length > 0;
-
-    if (!hasDeps) {
-      return;
-    }
-
-    let found = false;
-    for (let i in deps) {
-      const dep = deps[i];
-      if (found) {
-        break;
+    const deps: ConditionMatcher[] = this.control.disableWhen;
+    this.subscribeToDependecies(init, deps, (matched) => {
+      if (matched) {
+        this.form.get(this.control.key).disable();
+      } else {
+        this.form.get(this.control.key).enable();
       }
-
-      if (typeof dep === 'string') {
-        found = this.applyAdvancedConditionForDisabilityDependencies(dep, init);
-      }
-      else {
-        const fieldName = dep['field'];
-        const expectedValue = dep['value'];
-
-        const operator: OPERATOR = dep['op'] ? dep['op'] : 'EQUALS';
-
-        const shouldBeDisableWhenValueIsEqualToExpectedValue = value => {
-          if (operator == 'EQUALS') {
-            return value == expectedValue;
-          }
-          return value != expectedValue;
-        };
-        if (shouldBeDisableWhenValueIsEqualToExpectedValue(this.form.get(fieldName).value)) {
-          this.form.get(this.control.key).disable();
-          found = true;
-        } else {
-          this.form.get(this.control.key).enable();
-        }
-
-        if (!!init) {
-          this.subx.push(this.form.get(fieldName).valueChanges.subscribe(value => {
-            this.subscribeToDisabilityDependencies(false);
-          }));
-        }
-      }
-    }
+    });
   }
 
   private subscribeToVisibilityDependencies(init: boolean) {
-    const deps = this.control.visibleWhen;
-    const hasDeps = deps && deps.length > 0;
-
-    if (!hasDeps) {
-      return;
-    }
-
-    let found = false;
-    for (let i in deps) {
-      const dep = deps[i];
-      if (found) {
-        break;
-      }
-
-      if (typeof dep === 'string') {
-        found = this.applyAdvancedConditionForVisibilityDependencies(dep, init);
-      }
-      else{
-        const fieldName = dep['field'];
-        const expectedValue = dep['value'];
-        const operator: OPERATOR = dep['op'] ? dep['op'] : 'EQUALS';
-
-        const shouldBeVisibleWhenValueIsEqualToExpectedValue = value => {
-          if (operator == 'EQUALS') {
-            return value == expectedValue;
-          }
-          return value != expectedValue;
-        };
-
-        if (shouldBeVisibleWhenValueIsEqualToExpectedValue(this.form.get(fieldName).value)) {
-          this.control.visible = true;
-          found = true;
-        } else {
-          this.control.visible = false;
-        }
-        this.control.export = this.control.visible;
-
-        if (!!init) {
-          this.subx.push(this.form.get(fieldName).valueChanges.subscribe(value => {
-            this.subscribeToVisibilityDependencies(false);
-          }));
-        }
-      }
-
-    }
-
-  }
-
-  applyAdvancedConditionForVisibilityDependencies(advancedCondition: string, init: boolean): boolean {
-    this.control.visible = this.isAdvancedConditionVerified(advancedCondition);
-    const found = this.control.visible;
-    this.control.export = this.control.visible;
-    let fieldNames = this.getFieldNames(advancedCondition);
-    if (!!init) {
-      for (let index in fieldNames) {
-        this.subx.push(this.form.get(fieldNames[index]).valueChanges.subscribe(value => {
-          this.subscribeToVisibilityDependencies(false);
-        }));
-      }
-    }
-    return found;
+    const deps: ConditionMatcher[] = this.control.visibleWhen;
+    this.subscribeToDependecies(init, deps, (matched) => {
+      this.control.visible = !!matched;
+      this.control.export = this.control.visible;
+    });
   }
 
   private subscribeToOptionsPromises() {
     const options$ = this.control.options$;
-    if (!options$ || this.control.controlType != "dropdown" ||
-      typeof options$.callback != "function") return;
+    if (!options$ || this.control.controlType != 'dropdown' ||
+      typeof options$.callback != 'function') {
+      return;
+    }
 
     const fieldName = options$['triggerField'];
 
     if (!fieldName) {
-      this.logPromiseFetch(null)
+      this.logPromiseFetch(null);
       options$.callback(null).then((options: DropdownOption[]) => {
         this.control.options = options;
         this.form.controls[this.control.key].setValue(this.getFieldValue(options));
         this.form.controls[this.control.key].updateValueAndValidity();
-      })
+      });
 
       return;
     }
@@ -351,23 +262,23 @@ export class DfFormControlComponent implements OnInit, OnDestroy {
 
     const promise: Promise<DropdownOption[]> = options$.callback(value);
 
-    this.logPromiseFetch(value)
+    this.logPromiseFetch(value);
     promise.then((options: DropdownOption[]) => {
       this.control.options = options;
       this.form.controls[this.control.key].setValue(this.getFieldValue(options));
       this.form.controls[this.control.key].updateValueAndValidity();
-    })
+    });
 
     this.subx.push(this.form.get(fieldName).valueChanges.subscribe(value => {
 
       const promise: Promise<DropdownOption[]> = options$.callback(value);
 
-      this.logPromiseFetch(value)
+      this.logPromiseFetch(value);
       promise.then((options: DropdownOption[]) => {
         this.control.options = options;
         this.form.controls[this.control.key].setValue(this.getFieldValue(options));
         this.form.controls[this.control.key].updateValueAndValidity();
-      })
+      });
 
     }));
   }
@@ -385,7 +296,7 @@ export class DfFormControlComponent implements OnInit, OnDestroy {
   }
 
   logPromiseFetch(value) {
-    console.info(`Requesting data for field ${this.control.key} with value ${value}`)
+    console.info(`Requesting data for field ${this.control.key} with value ${value}`);
   }
 
   get readOnly() {
@@ -393,19 +304,23 @@ export class DfFormControlComponent implements OnInit, OnDestroy {
   }
 
   get generateDynamicComponentInputs() {
-    return {...this.control.inputs, formReadOnly: this.formReadOnly,
-      formValue: this.form}
+    return {
+      ...this.control.inputs, formReadOnly: this.formReadOnly,
+      formValue: this.form
+    };
   }
 
   private subscribeToFormChanges() {
-    if(!this.control.onChanged || this.control.controlType == "dynamic") return;
+    if (!this.control.onChanged || this.control.controlType == 'dynamic') {
+      return;
+    }
     this.subx.push(this.form.get(this.control.key).valueChanges.subscribe(value => {
       this.control.onChanged(value, this.patchValue.bind(this));
     }));
   }
 
   private patchValue(field: string, value) {
-    if(!field || !this.form.controls[field]) {
+    if (!field || !this.form.controls[field]) {
       throw new Error('ValuePatchException: field ' + field + ' not found');
     }
 
@@ -414,73 +329,7 @@ export class DfFormControlComponent implements OnInit, OnDestroy {
     this.form.controls[field].updateValueAndValidity();
   }
 
-  private applyAdvancedConditionForRequirementDependecies(advancedCondition: string, init: boolean) {
-
-    let found = false;
-    const validators = FormControlService.getValidators(this.control);
-    if (this.isAdvancedConditionVerified(advancedCondition)) {
-      validators.push(Validators.required);
-      this.updateValidator(validators);
-      found = true;
-    } else {
-      const newValidators = validators.filter(it => it && it.name != 'required');
-      this.updateValidator(newValidators);
-    }
-    let fieldNames = this.getFieldNames(advancedCondition);
-
-    if (!!init) {
-      for (let index in fieldNames) {
-        this.subx.push(this.form.get(fieldNames[index]).valueChanges.subscribe(value => {
-          this.subscribeToRequirementDependecies(false);
-        }));
-      }
-    }
-
-    return found;
-  }
-
-
-  private applyAdvancedConditionForDisabilityDependencies(advancedCondition: string, init: boolean) {
-
-    let found = false;
-    if (this.isAdvancedConditionVerified(advancedCondition)) {
-      this.form.get(this.control.key).disable();
-      found = true;
-    } else {
-      this.form.get(this.control.key).enable();
-    }
-    let fieldNames = this.getFieldNames(advancedCondition);
-    if (!!init) {
-      for (let index in fieldNames) {
-        this.subx.push(this.form.get(fieldNames[index]).valueChanges.subscribe(value => {
-          this.subscribeToDisabilityDependencies(false);
-        }));
-      }
-    }
-    return found;
-  }
-
-  private getFieldsAsKeyValueMap(){
-    const regex: RegExp = /'(\w+)'/g;
-    let values = [];
-    for (let c in this.form.controls) {
-      values[c] = this.form.controls[c].value;
-    }
-    return values;
-  }
-
-  private getFieldNames(condition : string){
-    const regex: RegExp = /'(\w+)'/g;
-    return (condition.match(regex) || []).map(e => e.replace(regex, '$1'))
-  }
-
-  private isAdvancedConditionVerified(advancedCondition : string){
-    const fieldsAsKeyValueMap = this.getFieldsAsKeyValueMap();
-    let compiler = compileExpression(advancedCondition);
-    return compiler(fieldsAsKeyValueMap) === 1;
-  }
-
-  private updateValidator(validators){
+  private updateValidator(validators) {
     this.form.get(this.control.key).setValidators(validators);
     this.form.get(this.control.key).updateValueAndValidity();
   }

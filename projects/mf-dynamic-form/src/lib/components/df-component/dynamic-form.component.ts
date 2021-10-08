@@ -146,7 +146,7 @@ export class DynamicFormComponent implements OnChanges, OnDestroy {
     this.initCustomFormControls(f);
     this.stepper = f.steps.filter(it => !!it.label).length > 0;
     this.hasSections = f.steps.map(it => it.sections.filter(s => !!s.label).length)
-      .reduce((a, b) => a + b) > 0;
+      .reduce((a, b) => +a + +b) > 0;
     this.debugMode = f.debugMode;
     this.formControls = flattenDeep(f.steps.map(step => step.sections
       .map(it => it.controls)));
