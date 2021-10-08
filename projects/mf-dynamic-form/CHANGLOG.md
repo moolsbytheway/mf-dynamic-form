@@ -203,3 +203,6 @@
 
 ### v1.19.2
 - FIX visibleWhen with many conditions
+
+### v1.20.0
+- Add advanced conditions (the functionality that allows to display a field depending on the presence of another field has been removed)
