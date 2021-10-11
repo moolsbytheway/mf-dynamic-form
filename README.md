@@ -1,4 +1,4 @@
-## Dynamic form component
+## Dynamic form (Wrapper around Angular Reactive forms)
 
 ### NOTE: THIS IS STILL UNDER ACTIVE DEVELOPPEMENT
 
@@ -6,11 +6,10 @@
 
 ### Roadmap
 
-- add ios like switcher control
+- Drop dependency for ng-dnamic-component, support dynamic-components natively
 - re-design how the stepper is implemented
-- show an error message if some required inputs are missing if user clicks on save (enable save button by default)
 
-### Demo
+### Demo (v1)
 
 https://moolsbytheway.github.io/mf-dynamic-form
 
@@ -22,7 +21,7 @@ NPM package: https://www.npmjs.com/package/mf-dynamic-form
 npm install mf-dynamic-form
 ```
 
-#Version 2.x
+# Version 2.x
 
 ### Usage example
 
@@ -64,7 +63,8 @@ export class AppComponent {
       maxLength: 'La longueur maximal est de',
       emailInvalid: 'Email invalid',
       alphanumeric: 'Ce champs doit être Alphanumeric',
-      passwordMismatch: 'Les mots de passe ne sont pas identiques'}
+      passwordMismatch: 'Les mots de passe ne sont pas identiques'
+    }
   };
 
   form: MfForm = {
@@ -226,154 +226,11 @@ export class ExempleCustomFormControlComponent extends DynamicFormControlCompone
 }
 ```
 
-#Version 2.x
+### Additonal `visibleWhen`, `requiredWhen`, `disabledWhen` matchers to use with
 
-### Usage example
+- Key-value matcher https://github.com/moolsbytheway/mfx-key-value-matcher
+- Field presence matcher https://github.com/moolsbytheway/mfx-field-presence-matcher
+- Advanced condition expression matcher https://github.com/moolsbytheway/mfx-advanced-condition-matcher
 
-### TS
 
-```typescript
-@Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
-})
-export class AppComponent {
-  i18n = {
-    next: 'Suivant',
-    cancel: 'Annuler',
-    previous: 'Précedent',
-    save: 'Enregistrer',
-    errors: {
-      isRequired: 'Ce champs est obligatoire ',
-      minLength: 'La longueur minimal est de',
-      maxLength: 'La longueur maximal est de',
-      emailInvalid: 'Email invalid',
-      alphanumeric: 'Ce champs doit être Alphanumeric',
-      passwordMismatch: 'Les mots de passe ne sont pas identiques'}
-  };
 
-  form: MfForm = {
-    // @ts-ignore
-    customControls: {
-      unitsFormControl: ExempleCustomFormControlComponent
-    },
-    steps: [
-      {
-        label: 'Informations de la commande',
-        iconClass: 'fa fa-truck',
-        sections: [
-          {
-            label: 'Informations de la commande',
-            controls: [
-              new TextboxFormControl({
-                key: 'firstName',
-                label: 'Prénom',
-                value: 'Moulaye',
-                onChanged: (value, patchValue) => {
-                  console.log("new firstName: " + value)
-                  patchValue("calculatedValue", Math.random())
-                },
-                type: TextBoxType.TEXT,
-              }),
-              new TextboxFormControl({
-                key: 'calculatedValue',
-                label: 'calculatedValue',
-                onChanged: (value) => {
-                  console.log("new calculatedValue: " + value)
-                },
-              }),
-              new TextboxFormControl({
-                key: 'lastName',
-                label: 'Nom',
-                type: TextBoxType.TEXT
-              }),
-              new DropdownFormControl({
-                key: 'modeTransport',
-                label: 'Mode de transport',
-                options: [
-                  {label: 'Val1', value: 1},
-                  {label: 'Val2', value: 2},
-                ]
-              }),
-              new DropdownFormControl({
-                key: 'typeFluxWithTriggerField',
-                label: 'Type de flux with Trigger field',
-                options$: {
-                  triggerField: 'modeTransport',
-                  callback: fetchTypeFlux$
-                }
-              }),
-              new DropdownFormControl({
-                key: 'typeFluxWithoutTriggerField',
-                label: 'Type de flux without Trigger field',
-                options$: {
-                  callback: (value) => {
-                    return new Promise((resolve) => {
-                      resolve([
-                        {label: 'NO trigger Backend value 1', value: 11},
-                        {label: 'NO trigger Backend value 2', value: 22},
-                      ])
-                    })
-                  }
-                }
-              }),
-            ]
-          },
-        ]
-      }, {
-        label: 'Informations transport & logistiques',
-        sections: [
-          {
-            label: 'Informations transport & logistiques',
-            controls: [
-              new TextboxFormControl({
-                key: 'info',
-                label: 'Commande No',
-                type: TextBoxType.NUMBER,
-              }),
-            ]
-          },
-        ]
-      }, {
-        label: 'Références',
-        sections: [
-          {
-            label: 'Références',
-            controls: [
-              new TextboxFormControl({
-                key: 'sap',
-                label: 'SAP No',
-                type: TextBoxType.NUMBER,
-              }),
-            ]
-          },
-        ]
-      }, {
-        label: 'Articles',
-        sections: [
-          {
-            label: 'Articles',
-            controls: [
-              new DynamicFormControl({
-                key: 'units',
-                component: 'unitsFormControl',
-                inputs: {
-                  a: 1,
-                  b: 2
-                }
-              }),
-            ]
-          },
-        ]
-      }
-    ]
-  };
-
-  formData: any;
-
-  onSubmit(formData: any) {
-    this.formData = formData;
-  }
-}
-```

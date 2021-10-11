@@ -2,13 +2,15 @@ import {
   CheckboxFormControl,
   DropdownFormControl,
   DropdownOption,
-  DynamicFormControl, KeyValueConditionMatcher,
+  DynamicFormControl,
   MfForm,
   RadioButtonFormControl,
   TextboxFormControl,
   TextBoxType
 } from 'mf-dynamic-form';
 import {ExempleCustomFormControlComponent} from './custom-form-controls/exemple-custom-form-control.component';
+import FieldValueNotEmptyMatcher from 'mfx-field-presence-matcher';
+import KeyValueConditionMatcher from 'mfx-key-value-matcher';
 
 export const fetchTypeFlux$ = (value): Promise<DropdownOption[]> => {
   return new Promise((resolve) => {
@@ -49,16 +51,19 @@ export const PURCHASE_ORDER_FORM_DEFINITION: MfForm = {
             new TextboxFormControl({
               key: 'firstName',
               label: 'read only one',
-              value: 'Moulaye',
-
-              readOnly: true,
-              export: false,
               onChanged: (value, patchValue) => {
                 console.log("new firstName: " + value)
                 patchValue("calculatedValue", Math.random())
               },
               type: TextBoxType.TEXT,
             }),
+            new TextboxFormControl({
+              key: 'lastName',
+              label: 'Nom',
+              value: 'Ahmed',
+              visibleWhen: [new FieldValueNotEmptyMatcher("firstName")]
+            }),
+
             new TextboxFormControl({
               key: 'calculatedValue',
               label: 'read only two',
@@ -67,11 +72,6 @@ export const PURCHASE_ORDER_FORM_DEFINITION: MfForm = {
               onChanged: (value) => {
                 console.log("new calculatedValue: " + value)
               },
-            }),
-            new TextboxFormControl({
-              key: 'lastName',
-              label: 'Nom',
-              value: 'Ahmed',
             }),
             new DropdownFormControl({
               key: 'modeTransport',

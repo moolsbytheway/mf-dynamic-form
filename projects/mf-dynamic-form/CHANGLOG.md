@@ -209,3 +209,10 @@
   Built in matcher KeyValueConditionMatcher 
   Additional matcher exemple: https://github.com/moolsbytheway/mfx-advanced-condition-matcher 
 
+
+### v2.1.0
+- BREAKING CHANGE: Remove keyvalue condition matcher
+- External matchers: 
+  - Key-value matcher: https://github.com/moolsbytheway/mfx-key-value-matcher
+  - Field value presence matcher: https://github.com/moolsbytheway/mfx-field-presence-matcher
+  
