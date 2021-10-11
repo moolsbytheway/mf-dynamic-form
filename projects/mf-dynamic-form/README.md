@@ -22,7 +22,7 @@ NPM package: https://www.npmjs.com/package/mf-dynamic-form
 npm install mf-dynamic-form
 ```
 
-#Version 1.x
+#Version 2.x
 
 ### Usage example
 
@@ -145,7 +145,7 @@ export class AppComponent {
                 key: 'info',
                 label: 'Commande No',
                 type: TextBoxType.NUMBER,
-                visibleWhen: new KeyValueConditionMatcher('firstName', "Moulaye", "EQUALS"),
+                visibleWhen: [new KeyValueConditionMatcher('firstName', "Moulaye", "EQUALS")],
               }),
             ]
           },

@@ -204,8 +204,8 @@
 ### v1.19.2
 - FIX visibleWhen with many conditions
 
-### v1.20.0
-- Add advanced conditions (the functionality that allows to display a field depending on the presence of another field has been removed)
-
 ### v2.0.0
-- Add the logic of matcher and externalize advanced condition matcher to mfx-advanced-condition-matcher
+- Add the logic of matcher:
+  Built in matcher KeyValueConditionMatcher 
+  Additional matcher exemple: https://github.com/moolsbytheway/mfx-advanced-condition-matcher 
+

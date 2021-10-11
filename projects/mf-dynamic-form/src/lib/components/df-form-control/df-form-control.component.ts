@@ -193,7 +193,7 @@ export class DfFormControlComponent implements OnInit, OnDestroy {
 
       const result = dep.match(context) as ConditionMatcherResult;
 
-      const matched = result.matched
+      matched = result.matched
       matchedCallback(matched);
 
       if (!!init) {
