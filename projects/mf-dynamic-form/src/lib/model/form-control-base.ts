@@ -44,9 +44,9 @@ export class FormControlBase {
     exportOnly?: boolean;
     readOnly?: boolean;
     notReadOnly?: boolean;
-    requiredWhen?: ActionWhen[];
-		visibleWhen?: ActionWhen[];
-    disableWhen?: ActionWhen[];
+    requiredWhen?: any[] | { field: string, value: any, op?: OPERATOR }[];
+		visibleWhen?: any[] | { field: string, value: any, op?: OPERATOR }[];
+    disableWhen?: { field: string, value: any, op?: OPERATOR }[];
 		order?: number;
 		controlType?: string;
 		type?: TextBoxType;
@@ -112,4 +112,3 @@ export type MfFormControlClasses = {
 	label?: string,
 	item?: string
 }
-export type ActionWhen = string | { field: string, value: any, op?: OPERATOR} | any;
