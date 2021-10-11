@@ -2,7 +2,7 @@ import {
   CheckboxFormControl,
   DropdownFormControl,
   DropdownOption,
-  DynamicFormControl,
+  DynamicFormControl, KeyValueConditionMatcher,
   MfForm,
   RadioButtonFormControl,
   TextboxFormControl,
@@ -85,8 +85,8 @@ export const PURCHASE_ORDER_FORM_DEFINITION: MfForm = {
             new DropdownFormControl({
               key: 'typeFluxWithTriggerField',
               label: 'Type de flux with Trigger field',
-              visibleWhen: ['modeTransport'],
-              requiredWhen: ['modeTransport'],
+              visibleWhen: [new KeyValueConditionMatcher('modeTransport', "", "EQUALS")],
+              requiredWhen: [new KeyValueConditionMatcher('modeTransport', "", "EQUALS")],
               value: '11',
               options$: {
                 triggerField: 'modeTransport',
@@ -96,7 +96,7 @@ export const PURCHASE_ORDER_FORM_DEFINITION: MfForm = {
             new DropdownFormControl({
               key: 'typeFluxWithoutTriggerField',
               label: 'Type de flux without Trigger field',
-              visibleWhen: ['typeFluxWithTriggerField'],
+              visibleWhen: [new KeyValueConditionMatcher('typeFluxWithTriggerField', "", "EQUALS")],
               value: '21',
               options$: {
                 callback: (value) => {

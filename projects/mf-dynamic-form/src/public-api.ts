@@ -14,6 +14,7 @@ export * from './lib/model/password-form-control';
 export * from './lib/model/textarea-form-control';
 export * from './lib/model/textbox-type';
 export * from './lib/model/textbox-form-control';
+export * from './lib/condition-matchers/condition-matcher';
 export * from './lib/model/i18n';
 
 // Main component and module
