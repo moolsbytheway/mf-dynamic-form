@@ -206,3 +206,9 @@
 
 ### v1.19.3
 - FIX bug options selecting null instead of empty string
+
+### v1.20.0
+- added ng-dynamic-component as whitelist dependencies (automatic installation)
+
+### v1.20.1
+- added ng-dynamic-component as whitelist dependencies (automatic installation)
