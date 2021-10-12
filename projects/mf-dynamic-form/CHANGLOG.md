@@ -203,3 +203,6 @@
 
 ### v1.19.2
 - FIX visibleWhen with many conditions
+
+### v1.19.3
+- FIX bug options selecting null instead of empty string
