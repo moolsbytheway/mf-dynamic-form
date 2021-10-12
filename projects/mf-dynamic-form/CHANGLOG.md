@@ -204,6 +204,9 @@
 ### v1.19.2
 - FIX visibleWhen with many conditions
 
+### v1.19.3
+- FIX bug options selecting null instead of empty string
+
 ### v2.0.0
 - Add the logic of matcher:
   Built in matcher KeyValueConditionMatcher 
@@ -215,4 +218,7 @@
 - External matchers: 
   - Key-value matcher: https://github.com/moolsbytheway/mfx-key-value-matcher
   - Field value presence matcher: https://github.com/moolsbytheway/mfx-field-presence-matcher
-  
+
+
+### v2.1.1
+- FIX bug options selecting null instead of empty string

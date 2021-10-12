@@ -286,7 +286,7 @@ export class DfFormControlComponent implements OnInit, OnDestroy {
 
   private getFieldValue(options: DropdownOption[]) {
     const selectedOption = options.find(it => it.value == this.control.value)?.value;
-    return selectedOption ? selectedOption : options.length ? options[0].value : null;
+    return selectedOption ? selectedOption : options.length ? options[0].value : "";
   }
 
   private initCustomFormControlOutputs() {
