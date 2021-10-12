@@ -222,3 +222,6 @@
 
 ### v2.1.1
 - FIX bug options selecting null instead of empty string
+
+### v2.1.2
+- added ng-dynamic-component as whitelist dependencies (automatic installation)

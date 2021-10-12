@@ -3,5 +3,6 @@
   "dest": "../../dist/mf-dynamic-form",
   "lib": {
     "entryFile": "src/public-api.ts"
-  }
+  },
+  "whitelistedNonPeerDependencies": ["ng-dynamic-component"]
 }
