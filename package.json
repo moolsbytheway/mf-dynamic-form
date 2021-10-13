@@ -24,7 +24,7 @@
     "@angular/platform-browser": "~11.2.1",
     "@angular/platform-browser-dynamic": "~11.2.1",
     "@angular/router": "~11.2.1",
-    "mfx-advanced-condition-matcher": "1.0.0",
+    "mfx-advanced-condition-matcher": "^1.1.0",
     "mfx-field-presence-matcher": "2.0.0",
     "mfx-key-value-matcher": "1.0.0",
     "ng-dynamic-component": "^8.0.1",
