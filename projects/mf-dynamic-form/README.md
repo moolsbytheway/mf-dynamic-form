@@ -226,7 +226,7 @@ export class ExempleCustomFormControlComponent extends DynamicFormControlCompone
 }
 ```
 
-### Additonal `visibleWhen`, `requiredWhen`, `disabledWhen` matchers to use with
+### Additonal `visibleWhen`, `requiredWhen`, `disabledWhen`, `enableWhen` matchers to use with
 
 - Key-value matcher https://github.com/moolsbytheway/mfx-key-value-matcher
 - Field presence matcher https://github.com/moolsbytheway/mfx-field-presence-matcher
