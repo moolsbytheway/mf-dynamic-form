@@ -22,6 +22,7 @@ export class FormControlBase {
   requiredWhen: ConditionMatcher[];
   visibleWhen: ConditionMatcher[];
   disableWhen: ConditionMatcher[];
+  enableWhen: ConditionMatcher[];
   minLength: number;
   maxLength: number;
   positiveNumberOnly: boolean;
@@ -48,6 +49,7 @@ export class FormControlBase {
     requiredWhen?: ConditionMatcher[];
     visibleWhen?: ConditionMatcher[];
     disableWhen?: ConditionMatcher[];
+    enableWhen?: ConditionMatcher[];
     order?: number;
     controlType?: string;
     type?: TextBoxType;
@@ -71,6 +73,7 @@ export class FormControlBase {
     this.requiredWhen = options.requiredWhen || [];
     this.visibleWhen = options.visibleWhen || [];
     this.disableWhen = options.disableWhen || [];
+    this.enableWhen = options.enableWhen || [];
     this.order = options.order === undefined ? 1 : options.order;
     this.controlType = options.controlType || '';
     this.type = options.type || TextBoxType.TEXT;

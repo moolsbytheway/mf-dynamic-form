@@ -99,6 +99,7 @@ export class DfFormControlComponent implements OnInit, OnDestroy {
     this.subscribeToRequirementDependencies(true);
     this.subscribeToVisibilityDependencies(true);
     this.subscribeToDisabilityDependencies(true);
+    this.subscribeToEnableDependencies(true);
     this.subscribeToOptionsPromises();
     this.subscribeToFormChanges();
   }
@@ -227,6 +228,17 @@ export class DfFormControlComponent implements OnInit, OnDestroy {
         this.form.get(this.control.key).disable();
       } else {
         this.form.get(this.control.key).enable();
+      }
+    });
+  }
+
+  private subscribeToEnableDependencies(init: boolean) {
+    const deps: ConditionMatcher[] = this.control.enableWhen;
+    this.subscribeToDependecies(init, deps, (matched) => {
+      if (matched) {
+        this.form.get(this.control.key).enable();
+      } else {
+        this.form.get(this.control.key).disable();
       }
     });
   }

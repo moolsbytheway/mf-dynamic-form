@@ -225,3 +225,6 @@
 
 ### v2.1.2
 - added ng-dynamic-component as whitelist dependencies (automatic installation)
+
+### v2.2.0
+- add enableWhen

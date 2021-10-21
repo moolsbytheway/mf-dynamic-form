@@ -64,6 +64,10 @@ export class FormControlService {
 				group[control.key].disable();
 			}
 
+			if (!control.disabled && (control.enableWhen && control.enableWhen.length > 0)) {
+				group[control.key].enable();
+			}
+
 		});
 
 		const hasPasswordField = controls.findIndex(it => it.controlType == 'password') != -1;
