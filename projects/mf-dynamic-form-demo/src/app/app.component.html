@@ -17,3 +17,17 @@
   </pre>
 </div>
 
+<div>
+  <h1>External Form Group</h1>
+  <form [formGroup]="externalFormGroup">
+    <label for="first-name">First Name: </label>
+    <input id="first-name" type="text" formControlName="firstName">
+
+    <label for="last-name">Last Name: </label>
+    <input id="last-name" type="text" formControlName="lastName">
+  </form>
+
+
+  <p>Target Form Group: {{ externalFormGroup.value | json }}</p>
+</div>
+

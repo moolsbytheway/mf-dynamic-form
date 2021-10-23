@@ -8,6 +8,7 @@ export interface ConditionMatcher {
 export type ConditionMatcherResult = {
   matched: boolean;
   fields: string[]
+  targetFormGroup?: FormGroup;
 }
 export type ConditionMatcherContext = {
   control: FormControlBase; formGroup: FormGroup;

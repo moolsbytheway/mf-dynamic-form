@@ -1,8 +1,8 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, ViewChild} from '@angular/core';
 import {PURCHASE_ORDER_FORM_DEFINITION} from './order-form-definition';
-import {MfForm} from 'mf-dynamic-form';
-import {DynamicFormComponent} from 'mf-dynamic-form';
-import {FormApi} from 'mf-dynamic-form';
+import {DynamicFormComponent, FormApi, MfForm} from 'mf-dynamic-form';
+import {FormBuilder} from '@angular/forms';
+
 
 @Component({
   selector: 'app-root',
@@ -13,9 +13,18 @@ export class AppComponent  {
   @ViewChild(DynamicFormComponent)
   dynamicForm: DynamicFormComponent;
 
-  form: MfForm = PURCHASE_ORDER_FORM_DEFINITION;
+  externalFormGroup = this.fb.group({
+    firstName: [''],
+    lastName: ['']
+  });
+
+  form: MfForm = PURCHASE_ORDER_FORM_DEFINITION(this.externalFormGroup);
   api: FormApi;
   formData: any;
+
+
+
+  constructor(private fb: FormBuilder) { }
 
   onSubmit(formData: any) {
     console.log(formData)

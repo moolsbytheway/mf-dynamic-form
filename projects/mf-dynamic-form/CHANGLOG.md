@@ -228,3 +228,6 @@
 
 ### v2.2.0
 - add enableWhen
+
+### v2.3.0
+- Add targetFormGroup to ConditionMatcherResult
