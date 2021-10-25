@@ -195,11 +195,12 @@ export class DfFormControlComponent implements OnInit, OnDestroy {
       const result = dep.match(context) as ConditionMatcherResult;
 
       matched = result.matched
+      const targetFormGroup = result.targetFormGroup || this.form;
       matchedCallback(matched);
 
       if (!!init) {
         result.fields.forEach(field => {
-          this.subx.push(this.form.get(field).valueChanges.subscribe(currentValue => {
+          this.subx.push(targetFormGroup.get(field).valueChanges.subscribe(currentValue => {
             this.subscribeToDependecies(false, deps, matchedCallback);
           }));
         });
