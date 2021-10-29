@@ -7,11 +7,16 @@ export interface ConditionMatcher {
 
 export type ConditionMatcherResult = {
   matched: boolean;
-  fields: string[]
+  fields: string[] | FieldDef[];
   targetFormGroup?: FormGroup;
 }
 export type ConditionMatcherContext = {
   control: FormControlBase; formGroup: FormGroup;
+}
+
+export type FieldDef = {
+  field: string;
+  targetFormGroup: FormGroup;
 }
 
 
