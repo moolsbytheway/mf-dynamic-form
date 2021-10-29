@@ -231,3 +231,6 @@
 
 ### v2.3.0
 - Add targetFormGroup to ConditionMatcherResult
+
+### v2.3.1
+- FIX targetForm for advancedConditionalMatcher

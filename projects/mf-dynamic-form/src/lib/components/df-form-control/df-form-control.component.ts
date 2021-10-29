@@ -4,7 +4,8 @@ import {Subscription} from 'rxjs';
 import {I18n} from '../../model/i18n';
 import {FormControlService} from '../../service/form-control.service';
 import {DropdownOption} from '../../model/form-control-base';
-import {ConditionMatcher, ConditionMatcherContext, ConditionMatcherResult} from '../../condition-matchers/condition-matcher';
+import {ConditionMatcher, ConditionMatcherContext, ConditionMatcherResult, FieldDef} from '../../condition-matchers/condition-matcher';
+import {stringify} from '@angular/compiler/src/util';
 
 @Component({
   selector: 'df-form-control',
@@ -195,11 +196,15 @@ export class DfFormControlComponent implements OnInit, OnDestroy {
       const result = dep.match(context) as ConditionMatcherResult;
 
       matched = result.matched
-      const targetFormGroup = result.targetFormGroup || this.form;
       matchedCallback(matched);
 
       if (!!init) {
-        result.fields.forEach(field => {
+        const currentTargetFormGroup = result.targetFormGroup || this.form;
+        result.fields.forEach(fieldDef => {
+          const targetFormGroup = typeof fieldDef == 'string' ?
+            currentTargetFormGroup : fieldDef.targetFormGroup;
+          const field = typeof fieldDef == 'string' ? fieldDef : fieldDef.field;
+
           this.subx.push(targetFormGroup.get(field).valueChanges.subscribe(currentValue => {
             this.subscribeToDependecies(false, deps, matchedCallback);
           }));
