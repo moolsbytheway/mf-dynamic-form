@@ -23,6 +23,7 @@
 								 [hidden]="!isActiveStep(stepId)">
 							</div>
 							<df-form-control [control]="control" [formReadOnly]="form.readOnly"
+								[dynamicFormRoot]="this"
                                [form]="formGroup"
                                [showEmptyReadOnlyFields]="showEmptyReadOnlyFields"
                                [i18n]="i18n"></df-form-control>

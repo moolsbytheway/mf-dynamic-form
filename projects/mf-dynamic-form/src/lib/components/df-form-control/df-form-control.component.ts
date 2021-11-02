@@ -6,6 +6,7 @@ import {FormControlService} from '../../service/form-control.service';
 import {DropdownOption} from '../../model/form-control-base';
 import {ConditionMatcher, ConditionMatcherContext, ConditionMatcherResult, FieldDef} from '../../condition-matchers/condition-matcher';
 import {stringify} from '@angular/compiler/src/util';
+import { DynamicFormComponent } from '../df-component/dynamic-form.component';
 
 @Component({
   selector: 'df-form-control',
@@ -19,6 +20,7 @@ export class DfFormControlComponent implements OnInit, OnDestroy {
   @Input() showEmptyReadOnlyFields: boolean;
   @Input() form: FormGroup;
   @Input() i18n: I18n;
+  @Input() dynamicFormRoot: DynamicFormComponent; //TODO delete this and pass by FormAPI instead
   private subx: Subscription[] = [];
 
   customControlOutputs: any;
@@ -324,8 +326,10 @@ export class DfFormControlComponent implements OnInit, OnDestroy {
 
   get generateDynamicComponentInputs() {
     return {
-      ...this.control.inputs, formReadOnly: this.formReadOnly,
-      formValue: this.form
+      ...this.control.inputs,
+      formReadOnly: this.formReadOnly,
+      formValue: this.form,
+      dynamicFormRoot: this.dynamicFormRoot,
     };
   }
 
