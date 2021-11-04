@@ -234,3 +234,6 @@
 
 ### v2.3.1
 - FIX targetForm for advancedConditionalMatcher
+
+### v2.4.0
+- Pass DynamicFormComponent to DynamicFormControlComponent
