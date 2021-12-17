@@ -47,16 +47,11 @@
                  [placeholder]="control.placeholder"
                  [type]="control.type">
 
-          <input *ngSwitchCase="'date'"
-                 [formControlName]="control.key"
-                 [id]="control.key"
-                 [max]="control.maxDate ? control.maxDate : undefined"
-                 [min]="control.minDate ? control.minDate : undefined"
-                 [name]="control.key"
-                 [disabled]="!!isDisabled"
-                 [placeholder]="control.placeholder"
-                 type="datetime-local">
-
+            <df-date-form  *ngSwitchCase="'date'"
+              [control]="control"
+              [isDisabled]="!!isDisabled"
+              (change)="onChangeDate($event)"
+              ></df-date-form>
           <input (change)="onFileSelect($event)"
                  *ngSwitchCase="'file'"
                  [id]="control.key"

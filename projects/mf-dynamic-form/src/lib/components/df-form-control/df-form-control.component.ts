@@ -5,7 +5,6 @@ import {I18n} from '../../model/i18n';
 import {FormControlService} from '../../service/form-control.service';
 import {DropdownOption} from '../../model/form-control-base';
 import {ConditionMatcher, ConditionMatcherContext, ConditionMatcherResult, FieldDef} from '../../condition-matchers/condition-matcher';
-import {stringify} from '@angular/compiler/src/util';
 import { DynamicFormComponent } from '../df-component/dynamic-form.component';
 
 @Component({
@@ -160,6 +159,11 @@ export class DfFormControlComponent implements OnInit, OnDestroy {
     }
     if (formArray.controls.length > 0 && (!formArray.value || !formArray.value.length)) {
       formArray.setValue(null);
+    }
+  }
+  onChangeDate(date) {
+    if (date && !date["type"]) {
+      this.form.controls[this.control.key].setValue(date);
     }
   }
 

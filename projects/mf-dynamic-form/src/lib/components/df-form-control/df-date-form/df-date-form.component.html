@@ -1,0 +1,11 @@
+<input 
+  [formControlName]="control.key"
+  [id]="control.key"
+  [max]="control.maxDate ? control.maxDate : undefined"
+  [min]="control.minDate ? control.minDate : undefined"
+  [name]="control.key"
+  [disabled]="!!isDisabled"
+  [placeholder]="control.placeholder"
+  type="datetime-local"
+  (change)="onChangeDate($event)"
+  >

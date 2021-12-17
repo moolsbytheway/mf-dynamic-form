@@ -1,5 +1,6 @@
 import {
   CheckboxFormControl,
+  DateFormControl,
   DropdownFormControl,
   DropdownOption,
   DynamicFormControl,
@@ -9,9 +10,9 @@ import {
   TextBoxType
 } from 'mf-dynamic-form';
 import {ExempleCustomFormControlComponent} from './custom-form-controls/exemple-custom-form-control.component';
-import FieldValueNotEmptyMatcher from 'mfx-field-presence-matcher';
 import KeyValueConditionMatcher from 'mfx-key-value-matcher';
 import {FormGroup} from '@angular/forms';
+import { formatDate } from '@angular/common';
 
 export const fetchTypeFlux$ = (value): Promise<DropdownOption[]> => {
   return new Promise((resolve) => {
@@ -24,9 +25,8 @@ export const fetchTypeFlux$ = (value): Promise<DropdownOption[]> => {
     ]);
   });
 };
-
+const TimeZone_2h = "+02:00";
 export const PURCHASE_ORDER_FORM_DEFINITION  = (externalFormGroup: FormGroup): MfForm => {
-
   return {
     debugMode: true,
     customControls: {
@@ -40,17 +40,16 @@ export const PURCHASE_ORDER_FORM_DEFINITION  = (externalFormGroup: FormGroup): M
           {
             label: 'Informations de la commande',
             controls: [
-              new DynamicFormControl({
-                key: 'units',
-                required: false,
-                requiredWhen: [{field: 'radioButton', value: 'true'}],
-                visibleWhen: [{field: 'radioButton', value: 'true'}],
-                component: 'unitsFormControl',
-                inputs: {
-                  a: 1,
-                  b: 2
-                }
-              }),
+              new DateFormControl(
+                {
+                  key: 'birthDate',
+                  label: 'Date de naissance',
+                },
+                {
+                  minDate: formatDate(new Date(1900, 1, 1), 'yyyy-MM-dd', 'en'),
+                  maxDate: formatDate(new Date(), 'yyyy-MM-dd', 'en'),
+                  timeZone: TimeZone_2h
+                }),
               new TextboxFormControl({
                 key: 'firstName',
                 label: 'read only one',
@@ -64,7 +63,6 @@ export const PURCHASE_ORDER_FORM_DEFINITION  = (externalFormGroup: FormGroup): M
                 key: 'lastName',
                 label: 'Nom',
                 value: 'Ahmed',
-                visibleWhen: [new FieldValueNotEmptyMatcher("firstName")]
               }),
 
               new TextboxFormControl({
@@ -88,8 +86,6 @@ export const PURCHASE_ORDER_FORM_DEFINITION  = (externalFormGroup: FormGroup): M
               new DropdownFormControl({
                 key: 'typeFluxWithTriggerField',
                 label: 'Type de flux with Trigger field',
-                visibleWhen: [new KeyValueConditionMatcher('modeTransport', "", "EQUALS")],
-                requiredWhen: [new KeyValueConditionMatcher('modeTransport', "", "EQUALS")],
                 value: '11',
                 options$: {
                   triggerField: 'modeTransport',
