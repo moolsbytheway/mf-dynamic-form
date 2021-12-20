@@ -237,3 +237,5 @@
 
 ### v2.4.0
 - Pass DynamicFormComponent to DynamicFormControlComponent
+### v2.5.0
+- add the time zone in the date
