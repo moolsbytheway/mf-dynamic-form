@@ -6,6 +6,7 @@
 
 ### Roadmap
 
+- Documentation
 - Drop dependency for ng-dnamic-component, support dynamic-components natively
 - re-design how the stepper is implemented
 
