@@ -133,6 +133,17 @@ export class AppComponent {
                   }
                 }
               }),
+              new DateFormControl(
+              {
+                key: 'birthDate',
+                label: 'Date de naissance',
+                value: "2021-12-23T16:21+02:00",
+              },
+              {
+                minDate: formatDate(new Date(1900, 1, 1), 'yyyy-MM-dd', 'en'),
+                maxDate: formatDate(new Date(), 'yyyy-MM-dd', 'en'),
+                timeZone: "+01:00",
+              }),
             ]
           },
         ]

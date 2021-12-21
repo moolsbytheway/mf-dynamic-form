@@ -87,7 +87,11 @@ export class DynamicFormComponent implements OnChanges, OnDestroy {
     this.formControls.forEach(it => {
       if (it.exportOnly || (
         it.export && it.visible && !this.formGroup.controls[it.key].disabled)) {
-        form[it.key] = this.formGroup.controls[it.key].value;
+          let value = this.formGroup.controls[it.key].value;
+          if(it.controlType =="date" && it.timeZone){
+            value += it.timeZone;
+          }
+          form[it.key] = value;
       }
     });
     if (this.debugMode) {
@@ -162,6 +166,12 @@ export class DynamicFormComponent implements OnChanges, OnDestroy {
       this.formGroupSubscription.unsubscribe();
     }
     this.formGroupSubscription = this.formGroup.valueChanges.subscribe(value => {
+      this.formControls.forEach(control=>{
+        if(control.controlType== "date" && control.timeZone && value[control.key]){
+          value[control.key] += control.timeZone;
+        }
+      })
+
       this.onChange.emit(value);
     });
     this.steps = f.steps.map(it => ({...it}));

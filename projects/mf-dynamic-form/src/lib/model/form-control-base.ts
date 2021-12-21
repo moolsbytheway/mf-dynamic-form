@@ -33,6 +33,8 @@ export class FormControlBase {
   // The angular component provided by name in component field
   componentElement?: string;
   onChanged: Function;
+  timeZone: string;
+
 
   constructor(options: {
     value?: any;
