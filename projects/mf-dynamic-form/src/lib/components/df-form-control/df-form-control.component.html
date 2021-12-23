@@ -48,6 +48,7 @@
                  [type]="control.type">
 
             <df-date-form  *ngSwitchCase="'date'"
+              [form]="form"
               [control]="control"
               [isDisabled]="!!isDisabled"
               (change)="onChangeDate($event)"

@@ -1,10 +1,15 @@
+import { DatePipe } from '@angular/common';
 import {Injectable} from '@angular/core';
 import {FormArray, FormControl, FormGroup, Validators} from '@angular/forms';
 
 import {FormControlBase} from '../model/form-control-base';
+import { DateUtils } from '../utils/date-utils';
 
 @Injectable()
 export class FormControlService {
+	constructor(private datePipe: DatePipe){
+
+	}
 	public static getValidators(control: FormControlBase) {
 
 		const validators = [];
@@ -48,11 +53,17 @@ export class FormControlService {
 					});
 				}
 				group[control.key] = new FormArray(initialValue);
-			} else {
+			}else {
+				let value; 
+				if (control.controlType == 'date' && control.value) {
+					value = DateUtils.getDateInTimeZone(control.value,control.timeZone,this.datePipe) ;
+				}else{
+					value = control.value;
+				}
 				group[control.key] = validators.length > 0 ?
-					new FormControl(control.value || '',
+					new FormControl(value || '',
 						Validators.compose(validators))
-					: new FormControl(control.value || '');
+					: new FormControl(value || '');
 			}
 
 			if((!!readOnly && !control.notReadOnly) || !!control.readOnly) {

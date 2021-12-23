@@ -3,7 +3,6 @@ import {
   DateFormControl,
   DropdownFormControl,
   DropdownOption,
-  DynamicFormControl,
   MfForm,
   RadioButtonFormControl,
   TextboxFormControl,
@@ -25,7 +24,7 @@ export const fetchTypeFlux$ = (value): Promise<DropdownOption[]> => {
     ]);
   });
 };
-const TimeZone_2h = "+02:00";
+const TimeZone: string = "+01:00";
 export const PURCHASE_ORDER_FORM_DEFINITION  = (externalFormGroup: FormGroup): MfForm => {
   return {
     debugMode: true,
@@ -41,15 +40,38 @@ export const PURCHASE_ORDER_FORM_DEFINITION  = (externalFormGroup: FormGroup): M
             label: 'Informations de la commande',
             controls: [
               new DateFormControl(
-                {
-                  key: 'birthDate',
-                  label: 'Date de naissance',
-                },
-                {
-                  minDate: formatDate(new Date(1900, 1, 1), 'yyyy-MM-dd', 'en'),
-                  maxDate: formatDate(new Date(), 'yyyy-MM-dd', 'en'),
-                  timeZone: TimeZone_2h
-                }),
+              {
+                key: 'date1',
+                label: 'Date +02:00',
+                value: "2021-12-23T02:15+02:00",
+              },
+              {
+                minDate: formatDate(new Date(1900, 1, 1), 'yyyy-MM-dd', 'en'),
+                maxDate: formatDate(new Date(), 'yyyy-MM-dd', 'en'),
+                timeZone: TimeZone,
+              }),
+              new DateFormControl(
+              {
+                key: 'date2',
+                label: 'Date Utc',
+                value: "2021-12-23T00:15",
+              },
+              {
+                minDate: formatDate(new Date(1900, 1, 1), 'yyyy-MM-dd', 'en'),
+                maxDate: formatDate(new Date(), 'yyyy-MM-dd', 'en'),
+                timeZone: TimeZone,
+              }),
+              new DateFormControl(
+              {
+                key: 'date3',
+                label: 'Date -05:00',
+                value: "2021-12-22T19:15-05:00",
+              },
+              {
+                minDate: formatDate(new Date(1900, 1, 1), 'yyyy-MM-dd', 'en'),
+                maxDate: formatDate(new Date(), 'yyyy-MM-dd', 'en'),
+                timeZone: TimeZone,
+              }),
               new TextboxFormControl({
                 key: 'firstName',
                 label: 'read only one',

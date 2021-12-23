@@ -1,4 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output, ViewEncapsulation} from '@angular/core';
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'df-date-form',
@@ -7,23 +8,18 @@ import {Component, EventEmitter, Input, OnInit, Output, ViewEncapsulation} from 
   encapsulation: ViewEncapsulation.None
 })
 export class DfDateFormComponent implements OnInit {
+  @Input() form: FormGroup;
   @Input() control: any;
   @Input() isDisabled: boolean = false;
-  @Input() timeZone: string = "+00:00";
   @Output()
 	change: EventEmitter<string> = new EventEmitter<string>();
   ngOnInit(): void {
-    this.timeZone = this.control?.timeZone;
   }
 
   onChangeDate(date){
     if (date.target?.value) {
-      const dateIsoWithTz= this.addTimeZone(date.target?.value);
-      this.change.emit(dateIsoWithTz);
+      this.change.emit(date.target.value);
     }
-  }
-  addTimeZone(date){
-    return date + this.timeZone;
   }
 }
 
