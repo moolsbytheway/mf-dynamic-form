@@ -241,3 +241,8 @@
 - add the time zone in the date on submit or on change
 ### v2.5.1
 - fix time zone in the date
+
+### v2.6.0
+- Add exportDisabledFields in MfForm
+
+
