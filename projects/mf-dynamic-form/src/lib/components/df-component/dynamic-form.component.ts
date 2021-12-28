@@ -86,7 +86,7 @@ export class DynamicFormComponent implements OnChanges, OnDestroy {
     const form = {};
     this.formControls.forEach(it => {
       if (it.exportOnly || (
-        it.export && it.visible && !this.formGroup.controls[it.key].disabled)) {
+        it.export && it.visible && (!!this.form.exportDisabledFields || !this.formGroup.controls[it.key].disabled))) {
           let value = this.formGroup.controls[it.key].value;
           if(it.controlType =="date" && it.timeZone){
             value += it.timeZone;
