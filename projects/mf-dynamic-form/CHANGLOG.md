@@ -244,5 +244,6 @@
 
 ### v2.6.0
 - Add exportDisabledFields in MfForm
-
+### v2.6.1
+- fix date
 
