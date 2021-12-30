@@ -6,9 +6,19 @@ export class DateUtils{
     public static ISO_DATE_FORMAT: string = "yyyy-MM-dd'T'HH:mm";
     public static DEFAULT_TIMEZONE = "+00:00";
 
-    public static getDateInTimeZone(dateTime: string,timeZone: string,datePipe: DatePipe): string {
+    public static getDateInTimeZone(dateTime: string | Date,timeZone: string,datePipe: DatePipe): string {
       if (!dateTime) return "";
-      if(!DateUtils.isDateContainsTimeZone(dateTime)) dateTime += DateUtils.DEFAULT_TIMEZONE;
+
+      dateTime = dateTime instanceof Date ? dateTime.toISOString() : dateTime;
+
+      if(!DateUtils.isDateContainsTimeZone(dateTime)){
+        if(DateUtils.isDateContainsTimeZoneZ(dateTime)){
+          dateTime = dateTime.replace("Z",DateUtils.DEFAULT_TIMEZONE);
+        }else{
+          dateTime += DateUtils.DEFAULT_TIMEZONE;
+        }
+      }
+
       if(!timeZone) timeZone = DateUtils.DEFAULT_TIMEZONE;
       const gap = DateUtils.getGapInMin(timeZone);
       let result = this.getDateByTimeZone(dateTime,gap);
@@ -17,15 +27,18 @@ export class DateUtils{
     private static getDateByTimeZone(dateTime: string, gapWithGmt:number): Date{
       const referenceDate = new Date(dateTime);
       const offsetBtwLocalAndUtc = referenceDate.getTimezoneOffset() * DateUtils.HOUR_IN_MILLIS;
-      
+
       return new Date(referenceDate.getTime() +( DateUtils.HOUR_IN_MILLIS * gapWithGmt + offsetBtwLocalAndUtc ) / 60);
     }
-    
+
     private static isDateContainsTimeZone(dateTime: string): boolean{
       return dateTime?.charAt(dateTime.length-6)=="+" || dateTime?.charAt(dateTime.length-6)=="-";
     }
     private static getGapInMin(timeZone: string): number{
       const time = timeZone.split(":");
       return (Number(time[0]) * 60)  + Number(time[1]);;
+    }
+    private static isDateContainsTimeZoneZ(dateTime: string): boolean{
+      return dateTime?.includes("Z");
     }
 }
