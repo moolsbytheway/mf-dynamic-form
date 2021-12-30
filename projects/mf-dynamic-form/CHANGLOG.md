@@ -246,4 +246,6 @@
 - Add exportDisabledFields in MfForm
 ### v2.6.1
 - fix date
+### v2.6.2
+- fix date : onsubmit & onchange isodate  UTC
 

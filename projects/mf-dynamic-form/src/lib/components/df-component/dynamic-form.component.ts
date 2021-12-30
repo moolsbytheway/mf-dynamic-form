@@ -5,6 +5,7 @@ import {FormControlBase, MfForm, MfFormStep} from '../../model/form-control-base
 import {FormControlService} from '../../service/form-control.service';
 import {Subscription} from 'rxjs';
 import {FormApi} from '../../service/form-api.service';
+import { DateUtils } from '../../utils/date-utils';
 
 @Component({
   selector: 'mf-dynamic-form',
@@ -88,8 +89,8 @@ export class DynamicFormComponent implements OnChanges, OnDestroy {
       if (it.exportOnly || (
         it.export && it.visible && (!!this.form.exportDisabledFields || !this.formGroup.controls[it.key].disabled))) {
           let value = this.formGroup.controls[it.key].value;
-          if(it.controlType =="date" && it.timeZone){
-            value += it.timeZone;
+          if(it.controlType =="date" && it.timeZone && value){
+            value = DateUtils.getIsoDate(value+it.timeZone);
           }
           form[it.key] = value;
       }
@@ -99,7 +100,6 @@ export class DynamicFormComponent implements OnChanges, OnDestroy {
     }
     this.formSubmitted.emit(form);
   }
-
   /**
    * External API
    * @deprecated to be changed to private in v2
@@ -166,13 +166,15 @@ export class DynamicFormComponent implements OnChanges, OnDestroy {
       this.formGroupSubscription.unsubscribe();
     }
     this.formGroupSubscription = this.formGroup.valueChanges.subscribe(value => {
+      const objectCopy = {...value};
+      
       this.formControls.forEach(control=>{
         if(control.controlType== "date" && control.timeZone && value[control.key]){
-          value[control.key] += control.timeZone;
+          objectCopy[control.key] = DateUtils.getIsoDate(value[control.key]+control.timeZone);
+
         }
       })
-
-      this.onChange.emit(value);
+      this.onChange.emit(objectCopy);
     });
     this.steps = f.steps.map(it => ({...it}));
   }
