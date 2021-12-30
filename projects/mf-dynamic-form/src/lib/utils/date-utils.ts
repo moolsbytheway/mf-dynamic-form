@@ -41,4 +41,7 @@ export class DateUtils{
     private static isDateContainsTimeZoneZ(dateTime: string): boolean{
       return dateTime?.includes("Z");
     }
+    public static getIsoDate(date: string): string{
+      return new Date(date).toISOString().replace("Z","");
+    }
 }
