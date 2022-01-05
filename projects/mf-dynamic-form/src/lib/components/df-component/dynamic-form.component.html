@@ -3,7 +3,7 @@
 	<form [formGroup]="formGroup" class="mf-form">
 
 		<ng-container *ngFor="let step of steps; let stepId = index">
-		<div class="mf-dynamic-form-step" [id]="stepId" [hidden]="alwaysShowAllSteps ? false : stepId != activeStep">
+		<div class="mf-dynamic-form-step" [id]="stepId" [hidden]="alwaysShowAllSteps ? !stepHasAtLeastOneDisplayedSection(step) : stepId != activeStep">
       <div class="step-title">
         <i *ngIf="step.iconClass"
            [ngClass]="step.iconClass" class="step-title-icon" aria-hidden="true"></i>
@@ -14,7 +14,8 @@
       </div>
 			<div>
 				<div class="content">
-					<div class="section" *ngFor="let section of step.sections">
+					<div class="section" *ngFor="let section of step.sections"
+						[hidden]="!sectionHasAtLeastOneDisplayedControl(section)">
 						<p class="title color-gray-dark">
 							{{section.label}}
 						</p>
