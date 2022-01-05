@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Input, OnChanges, OnDestroy, Output, SimpleChanges, ViewEncapsulation} from '@angular/core';
 import {FormGroup} from '@angular/forms';
 
-import {FormControlBase, MfForm, MfFormStep} from '../../model/form-control-base';
+import {FormControlBase, MfForm, MfFormSection, MfFormStep} from '../../model/form-control-base';
 import {FormControlService} from '../../service/form-control.service';
 import {Subscription} from 'rxjs';
 import {FormApi} from '../../service/form-api.service';
@@ -273,6 +273,14 @@ export class DynamicFormComponent implements OnChanges, OnDestroy {
     if (this.formGroupSubscription) {
       this.formGroupSubscription.unsubscribe();
     }
+  }
+
+  sectionHasAtLeastOneDisplayedControl(section: MfFormSection): boolean {
+    return section.controls.some(c => c.visible);
+  }
+
+  stepHasAtLeastOneDisplayedSection(step: MfFormStep): boolean {
+    return step.sections.some(section => this.sectionHasAtLeastOneDisplayedControl(section));
   }
 }
 
