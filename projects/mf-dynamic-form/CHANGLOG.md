@@ -263,3 +263,6 @@
 
 ### v2.8.1
 - Fix field visibility issue 
+
+### v2.9.0
+- Hide empty sections and steps
