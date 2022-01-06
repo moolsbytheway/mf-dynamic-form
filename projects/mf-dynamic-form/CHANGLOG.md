@@ -266,3 +266,6 @@
 
 ### v2.9.0
 - Hide empty sections and steps
+
+### v2.9.1
+- fix : [] transformed to null on getFormRawValue 
