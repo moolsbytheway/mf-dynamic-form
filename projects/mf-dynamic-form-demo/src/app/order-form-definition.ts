@@ -2,7 +2,7 @@ import {
   CheckboxFormControl,
   DateFormControl,
   DropdownFormControl,
-  DropdownOption,
+  DropdownOption, DynamicFormControl,
   MfForm,
   RadioButtonFormControl,
   TextboxFormControl,
@@ -39,6 +39,14 @@ export const PURCHASE_ORDER_FORM_DEFINITION  = (externalFormGroup: FormGroup): M
           {
             label: 'Informations de la commande',
             controls: [
+              new DynamicFormControl({
+                key: 'units',
+                component: 'unitsFormControl',
+                inputs: {
+                  a: 1,
+                  b: 2
+                }
+              }),
               new DateFormControl(
               {
                 key: 'date1',

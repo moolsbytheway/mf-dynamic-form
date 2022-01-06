@@ -99,7 +99,7 @@ export class DynamicFormComponent implements OnChanges, OnDestroy {
           if(it.controlType =="date" && it.timeZone && value){
             value = DateUtils.getIsoDate(value+it.timeZone);
           }
-          form[it.key] = value;
+          form[it.key] = value == "" ? null : value;
       }
     });
     if (this.debugMode) {
@@ -177,12 +177,12 @@ export class DynamicFormComponent implements OnChanges, OnDestroy {
     }
     this.formGroupSubscription = this.formGroup.valueChanges.subscribe(value => {
       const objectCopy = {...value};
-      
+
       this.formControls.forEach(control=>{
         if(control.controlType== "date" && control.timeZone && value[control.key]){
           objectCopy[control.key] = DateUtils.getIsoDate(value[control.key]+control.timeZone);
-
         }
+        if(objectCopy[control.key] == "") objectCopy[control.key] = null;
       })
       this.onChange.emit(objectCopy);
     });

@@ -256,3 +256,7 @@
 ### v2.7.0
 - Breaking changes: exportDisabledFields is now an input for the component and has value "true" by default
 - add option exportHiddenFields with value "true" by default
+
+### v2.8.0
+- added method "getFormRawValue" in dynamic-form-control
+- Fix: empty fields are set to null by default when exporting (onSubmit, onChange)
