@@ -38,6 +38,11 @@ export class DynamicFormComponent implements OnChanges, OnDestroy {
 
   @Input() form: MfForm;
 
+  @Input()
+  exportHiddenFields: boolean = true
+  @Input()
+  exportDisabledFields: boolean = true
+
   @Input() showEmptyReadOnlyFields: boolean;
   @Input() controlsClass: string;
   @Input() previousButtonClass: string;
@@ -86,8 +91,10 @@ export class DynamicFormComponent implements OnChanges, OnDestroy {
     }
     const form = {};
     this.formControls.forEach(it => {
-      if (it.exportOnly || (
-        it.export && it.visible && (!!this.form.exportDisabledFields || !this.formGroup.controls[it.key].disabled))) {
+
+      const visibleCondition = !!this.exportHiddenFields || it.visible;
+      const disableCondition = !!this.exportDisabledFields || !this.formGroup.controls[it.key].disabled;
+      if (it.exportOnly || (it.export && visibleCondition && disableCondition)) {
           let value = this.formGroup.controls[it.key].value;
           if(it.controlType =="date" && it.timeZone && value){
             value = DateUtils.getIsoDate(value+it.timeZone);
@@ -142,7 +149,10 @@ export class DynamicFormComponent implements OnChanges, OnDestroy {
    * @deprecated to be changed to private in v2
    */
   public printDebugDataToConsole() {
+    console.log("[Reactive form controls]");
     console.log(this.formGroup.controls);
+    console.log("[Dynamic form value]");
+    console.log(this.formGroup.value);
   }
 
   private init(f: MfForm) {

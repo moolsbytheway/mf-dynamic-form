@@ -101,10 +101,9 @@ export class FormControlBase {
 
 
 export type MfForm = {
-  debugMode?: boolean,
-  readOnly?: boolean,
-  exportDisabledFields?: boolean,
-  steps: MfFormStep[]
+  debugMode?: boolean;
+  readOnly?: boolean;
+  steps: MfFormStep[];
   customControls?: any
 }
 

@@ -237,15 +237,22 @@
 
 ### v2.4.0
 - Pass DynamicFormComponent to DynamicFormControlComponent
+- 
 ### v2.5.0
 - add the time zone in the date on submit or on change
+- 
 ### v2.5.1
 - fix time zone in the date
 
 ### v2.6.0
 - Add exportDisabledFields in MfForm
+- 
 ### v2.6.1
 - fix date
+- 
 ### v2.6.2
 - fix date : onsubmit & onchange isodate  UTC
 
+### v2.7.0
+- Breaking changes: exportDisabledFields is now an input for the component and has value "true" by default
+- add option exportHiddenFields with value "true" by default
