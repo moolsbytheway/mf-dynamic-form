@@ -259,7 +259,6 @@ export class DfFormControlComponent implements OnInit, OnDestroy {
     const deps: ConditionMatcher[] = this.control.visibleWhen;
     this.subscribeToDependecies(init, deps, (matched) => {
       this.control.visible = !!matched;
-      this.control.export = this.control.visible;
     });
   }
 
