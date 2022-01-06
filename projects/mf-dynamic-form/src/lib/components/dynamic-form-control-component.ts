@@ -33,7 +33,7 @@ export abstract class DynamicFormControlComponent {
         if (it.controlType == 'date' && it.timeZone && value) {
           value = DateUtils.getIsoDate(value + it.timeZone);
         }
-        form[it.key] = value == "" ? null : value;
+        form[it.key] = value === "" ? null : value;
       }
     });
     return form;
