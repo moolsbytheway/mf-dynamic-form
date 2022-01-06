@@ -260,3 +260,6 @@
 ### v2.8.0
 - added method "getFormRawValue" in dynamic-form-control
 - Fix: empty fields are set to null by default when exporting (onSubmit, onChange)
+
+### v2.8.1
+- Fix field visibility issue 
