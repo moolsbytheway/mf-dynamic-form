@@ -269,3 +269,5 @@
 
 ### v2.9.1
 - fix : [] transformed to null on getFormRawValue 
+### v2.9.2
+- Fix timezone gap when we have a négatif timezone

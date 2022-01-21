@@ -36,7 +36,11 @@ export class DateUtils{
     }
     private static getGapInMin(timeZone: string): number{
       const time = timeZone.split(":");
-      return (Number(time[0]) * 60)  + Number(time[1]);;
+      const hoursToMinutes = Number(time[0]) * 60;
+      const minutes = Number(time[1]);
+
+      const negatifTimezoneGap = hoursToMinutes < 0;
+      return hoursToMinutes + minutes  * (negatifTimezoneGap  ? -1 : 1);
     }
     private static isDateContainsTimeZoneZ(dateTime: string): boolean{
       return dateTime?.includes("Z");
