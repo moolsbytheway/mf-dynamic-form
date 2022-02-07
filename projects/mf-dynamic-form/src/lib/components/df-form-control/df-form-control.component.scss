@@ -1,37 +1,36 @@
 .invalid-form-field {
-	font-size: 11px;
-	color: #a92c04;
+  font-size: 11px;
+  color: #a92c04;
 
-	span {
-		display: block;
-	}
+  span {
+    display: block;
+  }
 }
 
 
 .label {
-	font-size: 12px;
-	color: #808080;
+  font-size: 12px;
+  color: #808080;
 }
 
 input[type=file] {
-	padding: 3px;
+  padding: 3px;
 }
 
 
 textarea {
-	height: 70px;
+  height: 70px;
 }
 
 .required {
-	&:after {
-		content: "*";
-		color: #a92c04;
-		font-size: 10px;
-	}
+  &:after {
+    content: "*";
+    color: #a92c04;
+    font-size: 10px;
+  }
 
 }
 
 .hidden {
-	display: none;
+  display: none;
 }
-
