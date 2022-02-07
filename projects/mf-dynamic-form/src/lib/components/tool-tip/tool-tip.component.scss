@@ -1,0 +1,40 @@
+
+.tooltip-wrapper {
+  position: relative;
+  display: inline-block;
+
+  & > i {
+    font-style: normal;
+    cursor: pointer;
+    position: relative;
+    z-index: 100;
+    &:hover {
+      opacity: 0.9;
+    }
+  }
+  &:hover > .tooltip {
+    display: block;
+  }
+
+
+  .tooltip {
+    display: none;
+    position: absolute;
+    top: -190px;
+    padding: 5px;
+    border-radius: 2px;
+
+    .tooltip-content {
+      border: 1px dashed black;
+      background: white;
+      position: relative;
+      width: 400px;
+      height: 200px;
+      overflow: auto;
+      bottom: 13px;
+      left: -4px;
+      z-index: 101;
+    }
+  }
+
+}

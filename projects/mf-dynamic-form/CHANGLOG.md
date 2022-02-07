@@ -271,3 +271,6 @@
 - fix : [] transformed to null on getFormRawValue 
 ### v2.9.2
 - Fix timezone gap when we have a négatif timezone
+
+### v2.10.0
+- Add Help text icon for form control input

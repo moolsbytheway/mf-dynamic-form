@@ -21,8 +21,7 @@
              [class.required]="formControlIsRequired"
              class="df-form-control-label"
              [ngClass]="control.classes?.label"
-      >{{control.label}}:</label>
-
+      >{{control.label}} <app-tool-tip [helpText]="control.labelToolTip"></app-tool-tip> </label>
         <div [ngSwitch]="control.controlType"
              [class.hidden]="!control.visible"
              class="df-form-control-item"

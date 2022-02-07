@@ -52,6 +52,7 @@ export const PURCHASE_ORDER_FORM_DEFINITION  = (externalFormGroup: FormGroup): M
                 key: 'date1',
                 label: 'Date +02:00',
                 value: "2021-12-23T02:15+02:00",
+                labelToolTip: 'test',
               },
               {
                 minDate: formatDate(new Date(1900, 1, 1), 'yyyy-MM-dd', 'en'),
@@ -63,6 +64,7 @@ export const PURCHASE_ORDER_FORM_DEFINITION  = (externalFormGroup: FormGroup): M
                 key: 'date2',
                 label: 'Date Utc',
                 value: "2021-12-23T00:15",
+                labelToolTip: 'test',
               },
               {
                 minDate: formatDate(new Date(1900, 1, 1), 'yyyy-MM-dd', 'en'),
@@ -88,11 +90,13 @@ export const PURCHASE_ORDER_FORM_DEFINITION  = (externalFormGroup: FormGroup): M
                   patchValue("calculatedValue", Math.random())
                 },
                 type: TextBoxType.TEXT,
+                labelToolTip: 'test',
               }),
               new TextboxFormControl({
                 key: 'lastName',
                 label: 'Nom',
                 value: 'Ahmed',
+                labelToolTip: 'test',
               }),
 
               new TextboxFormControl({
@@ -111,7 +115,8 @@ export const PURCHASE_ORDER_FORM_DEFINITION  = (externalFormGroup: FormGroup): M
                 options: [
                   {label: 'Val1', value: 1},
                   {label: 'Val2', value: 2},
-                ]
+                ],
+                labelToolTip: '<a href=\'https://www.linkpicture.com/view.php?img=LPic62013a7d484c2918017905\'><img src=\'https://www.linkpicture.com/q/Capture22_2.png\' type=\'image\'></a>',
               }),
               new DropdownFormControl({
                 key: 'typeFluxWithTriggerField',
@@ -120,7 +125,7 @@ export const PURCHASE_ORDER_FORM_DEFINITION  = (externalFormGroup: FormGroup): M
                 options$: {
                   triggerField: 'modeTransport',
                   callback: fetchTypeFlux$
-                }
+                },
               }),
               new TextboxFormControl({
                 key: 'targetFormGroup',

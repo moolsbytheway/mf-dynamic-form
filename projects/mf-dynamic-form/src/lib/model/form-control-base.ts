@@ -34,6 +34,7 @@ export class FormControlBase {
   componentElement?: string;
   onChanged: Function;
   timeZone: string;
+  labelToolTip: string;
 
 
   constructor(options: {
@@ -43,6 +44,7 @@ export class FormControlBase {
     disabled?: boolean;
     visible?: boolean;
     label?: string;
+    labelToolTip?: string;
     alphanumeric?: boolean;
     required?: boolean;
     exportOnly?: boolean;
@@ -70,6 +72,7 @@ export class FormControlBase {
     this.value = options.value;
     this.key = options.key || '';
     this.label = options.label || '';
+    this.labelToolTip = options.labelToolTip || '';
     this.exportOnly = !!options.exportOnly;
     this.required = options.required == undefined ? true : !!options.required;
     this.requiredWhen = options.requiredWhen || [];
